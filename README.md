@@ -1,2 +1,3 @@
-# assets
-Commonly Used Assets
+# Assets
+
+Commonly Used Game Jam Assets
