@@ -17,23 +17,23 @@ namespace pdxpartyparrot.Core.Editor.Project
 
 #region Core Assets
         private const string GitHubBaseUrl = "https://raw.githubusercontent.com/pdxparrot/assets/master";
-        private const string GitHubAssetsBaseUrl = $"{GitHubBaseUrl}/Assets";
+        private const string GitHubAssetsBaseUrl = GitHubBaseUrl + "/Assets";
 
 #region Art
         private const string DefaultIconFileName = "pdxparrot.png";
-        private const string DefaultIconPath = $"Assets/Art/Core/{DefaultIconFileName}";
-        private const string DefaultIconUrl = $"{GitHubAssetsBaseUrl}/Assets/Art/{DefaultIconFileName}";
+        private const string DefaultIconPath = "Assets/Art/Core/" + DefaultIconFileName;
+        private const string DefaultIconUrl = GitHubAssetsBaseUrl + "/Assets/Art/" + DefaultIconFileName;
 
         private const string ProgressSpriteFileName = "progress.png";
-        private const string ProgressSpriteUrl = $"{GitHubBaseUrl}/Assets/Art/{ProgressSpriteFileName}";
+        private const string ProgressSpriteUrl = GitHubBaseUrl + "/Assets/Art/" + ProgressSpriteFileName;
 #endregion
 
 #region Audio
         private const string ButtonClickFileName = "button-click.mp3";
-        private const string ButtonClickUrl = $"{GitHubBaseUrl}/Assets/Audio/UI/{ButtonClickFileName}";
+        private const string ButtonClickUrl = GitHubBaseUrl + "/Assets/Audio/UI/" + ButtonClickFileName;
 
         private const string ButtonHoverFileName = "button-hover.mp3";
-        private const string ButtonHoverUrl = $"{GitHubBaseUrl}/Assets/Audio/UI/{ButtonHoverFileName}";
+        private const string ButtonHoverUrl = GitHubBaseUrl + "/Assets/Audio/UI/" + ButtonHoverFileName;
 #endregion
 
 #endregion
@@ -222,7 +222,7 @@ namespace pdxpartyparrot.Core.Editor.Project
         private static void InitializeEditorSettingsV1()
         {
             // visible meta files
-            EditorSettings.externalVersionControl = "Visible Meta Files";
+            VersionControlSettings.mode = "Visible Meta Files";
 
             // force text asset serialization
             EditorSettings.serializationMode = SerializationMode.ForceText;

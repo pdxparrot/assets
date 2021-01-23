@@ -1,5 +1,6 @@
 # Assets
 
+Minimum Unity Version: **2020.2.2**
 Last Sync: **1/23/2021** from **ggj2020**
 
 * Commonly Used Game Jam Assets.

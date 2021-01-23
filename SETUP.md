@@ -6,6 +6,7 @@
   * https://www.youtube.com/watch?v=qsU4nM0L_n0
     * https://learn.unity.com/project/3d-game-kit
     * https://learn.unity.com/project/2d-game-kit
+* Fix assets.csproj to enable OmniSharp on this project
 * Show a progress bar when initializing a project
 * Add a button to the project settings window to run initialization
 * Use the settings manager package

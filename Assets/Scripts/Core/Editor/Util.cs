@@ -34,7 +34,7 @@ namespace pdxpartyparrot.Core.Editor
             AssetDatabase.CreateAsset(obj, path);
         }
 
-        public static void DownloadAssetToFile(string url, string path)
+        public static bool DownloadAssetToFile(string url, string path)
         {
             Debug.Log($"Downloading asset from {url} to {path}...");
 
@@ -44,9 +44,9 @@ namespace pdxpartyparrot.Core.Editor
                 Thread.Sleep(500);
             }
 
-            if(www.isNetworkError || www.isHttpError) {
-                Debug.Log($"Failed to download asset from {url}: {www.error}");
-                return;
+            if(www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
+                Debug.LogError($"Failed to download asset from {url}: {www.error}");
+                return false;
             }
 
             FileInfo fileInfo = new FileInfo(path);
@@ -62,11 +62,14 @@ namespace pdxpartyparrot.Core.Editor
             File.WriteAllBytes(path, www.downloadHandler.data);
 
             AssetDatabase.ImportAsset(path);
+
+            return true;
         }
 
         public static void DownloadTextureToFile(string url, string path, TextureImporterType type)
         {
-            DownloadAssetToFile(url, path);
+            if(!DownloadAssetToFile(url, path))
+                return;
 
             TextureImporter textureImporter = (TextureImporter)AssetImporter.GetAtPath(path);
             textureImporter.textureType = type;
@@ -75,7 +78,8 @@ namespace pdxpartyparrot.Core.Editor
 
         public static void DownloadMusicToFile(string url, string path)
         {
-            DownloadAssetToFile(url, path);
+            if(!DownloadAssetToFile(url, path))
+                return;
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
             audioImporter.preloadAudioData = true;
@@ -92,7 +96,8 @@ namespace pdxpartyparrot.Core.Editor
 
         public static void DownloadStingerToFile(string url, string path)
         {
-            DownloadAssetToFile(url, path);
+            if(!DownloadAssetToFile(url, path))
+                return;
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
             audioImporter.preloadAudioData = true;
@@ -109,7 +114,8 @@ namespace pdxpartyparrot.Core.Editor
 
         public static void DownloadSFXToFile(string url, string path)
         {
-            DownloadAssetToFile(url, path);
+            if(!DownloadAssetToFile(url, path))
+                return;
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
             audioImporter.preloadAudioData = true;
