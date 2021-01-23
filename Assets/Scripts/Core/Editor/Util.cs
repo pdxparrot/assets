@@ -11,6 +11,7 @@ using UnityEngine.Networking;
 namespace pdxpartyparrot.Core.Editor
 {
     // TODO: some of this should move to Core.Util.EditorUtils so game code can use it in editor mode
+
     public static class Util
     {
         public const string ProjectSettingsAssetPath = "ProjectSettings/ProjectSettings.asset";
@@ -27,7 +28,7 @@ namespace pdxpartyparrot.Core.Editor
 
         // creates the given asset
         // removes the asset first if it already exists
-        public static void CreateAsset(UnityEngine.Object obj, string path)
+        public static void CreateAsset(Object obj, string path)
         {
             if(File.Exists(path)) {
                 File.Delete(path);
@@ -68,20 +69,22 @@ namespace pdxpartyparrot.Core.Editor
             return true;
         }
 
-        public static void DownloadTextureToFile(string url, string path, TextureImporterType type)
+        public static bool DownloadTextureToFile(string url, string path, TextureImporterType type)
         {
             if(!DownloadAssetToFile(url, path))
-                return;
+                return false;
 
             TextureImporter textureImporter = (TextureImporter)AssetImporter.GetAtPath(path);
             textureImporter.textureType = type;
             textureImporter.SaveAndReimport();
+
+            return true;
         }
 
-        public static void DownloadMusicToFile(string url, string path)
+        public static bool DownloadMusicToFile(string url, string path)
         {
             if(!DownloadAssetToFile(url, path))
-                return;
+                return false;
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
             audioImporter.preloadAudioData = true;
@@ -94,12 +97,14 @@ namespace pdxpartyparrot.Core.Editor
             audioImporter.defaultSampleSettings = sampleSettings;
 
             audioImporter.SaveAndReimport();
+
+            return true;
         }
 
-        public static void DownloadStingerToFile(string url, string path)
+        public static bool DownloadStingerToFile(string url, string path)
         {
             if(!DownloadAssetToFile(url, path))
-                return;
+                return false;
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
             audioImporter.preloadAudioData = true;
@@ -112,12 +117,14 @@ namespace pdxpartyparrot.Core.Editor
             audioImporter.defaultSampleSettings = sampleSettings;
 
             audioImporter.SaveAndReimport();
+
+            return true;
         }
 
-        public static void DownloadSFXToFile(string url, string path)
+        public static bool DownloadSFXToFile(string url, string path)
         {
             if(!DownloadAssetToFile(url, path))
-                return;
+                return false;
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
             audioImporter.preloadAudioData = true;
@@ -130,6 +137,8 @@ namespace pdxpartyparrot.Core.Editor
             audioImporter.defaultSampleSettings = sampleSettings;
 
             audioImporter.SaveAndReimport();
+
+            return true;
         }
 
         #endregion

@@ -2,6 +2,7 @@
 using System.Text;
 
 using UnityEditor;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.Project
@@ -15,37 +16,46 @@ namespace pdxpartyparrot.Core.Editor.Project
 
         private const string CscFileName = "Assets/csc.rsp";
 
-#region Core Assets
+        #region Core Assets
+
         private const string GitHubBaseUrl = "https://raw.githubusercontent.com/pdxparrot/assets/master";
         private const string GitHubAssetsBaseUrl = GitHubBaseUrl + "/Assets";
 
-#region Art
+        #region Art
+
         private const string DefaultIconFileName = "pdxparrot.png";
         private const string DefaultIconPath = "Assets/Art/Core/" + DefaultIconFileName;
-        private const string DefaultIconUrl = GitHubAssetsBaseUrl + "/Assets/Art/" + DefaultIconFileName;
+        private const string DefaultIconUrl = GitHubAssetsBaseUrl + "/Art/Core/" + DefaultIconFileName;
 
         private const string ProgressSpriteFileName = "progress.png";
-        private const string ProgressSpriteUrl = GitHubBaseUrl + "/Assets/Art/" + ProgressSpriteFileName;
-#endregion
+        private const string ProgressSpriteUrl = GitHubAssetsBaseUrl + "/Art/Core/" + ProgressSpriteFileName;
 
-#region Audio
+        #endregion
+
+        #region Audio
+
         private const string ButtonClickFileName = "button-click.mp3";
-        private const string ButtonClickUrl = GitHubBaseUrl + "/Assets/Audio/UI/" + ButtonClickFileName;
+        private const string ButtonClickUrl = GitHubAssetsBaseUrl + "/Audio/UI/" + ButtonClickFileName;
 
         private const string ButtonHoverFileName = "button-hover.mp3";
-        private const string ButtonHoverUrl = GitHubBaseUrl + "/Assets/Audio/UI/" + ButtonHoverFileName;
-#endregion
+        private const string ButtonHoverUrl = GitHubAssetsBaseUrl + "/Audio/UI/" + ButtonHoverFileName;
 
-#endregion
+        #endregion
+
+        #endregion
 
         static Project()
         {
-            InitializeProject();
+            EditorApplication.delayCall += InitializeProject;
         }
 
         private static void InitializeProject()
         {
+            EditorApplication.delayCall -= InitializeProject;
+
             ProjectManifest manifest = new ProjectManifest();
+
+            // TODO: use a try / catch here instead of pre-checking for the file
             if(File.Exists(ProjectManifest.FileName)) {
                 manifest.Read();
             } else {
@@ -83,7 +93,8 @@ namespace pdxpartyparrot.Core.Editor.Project
 
             InitializeFileSystem(version);
 
-            DownloadAssets(version);
+            if(!DownloadAssets(version))
+                return false;
 
             InitializeCompilerOptions(version);
 
@@ -98,7 +109,8 @@ namespace pdxpartyparrot.Core.Editor.Project
             return true;
         }
 
-#region File System
+        #region File System
+
         private static void InitializeFileSystemV1()
         {
             // art content
@@ -115,50 +127,77 @@ namespace pdxpartyparrot.Core.Editor.Project
                 InitializeFileSystemV1();
             }
         }
-#endregion
 
-#region Asset Downloads
-        private static void DownloadAssets(int version)
+        #endregion
+
+        #region Asset Downloads
+
+        private static bool DownloadAssets(int version)
         {
-            DownloadArt(version);
-            DownloadAudio(version);
+
+            if(!DownloadArt(version))
+                return false;
+
+            if(!DownloadAudio(version))
+                return false;
+
+            return true;
         }
 
-#region Art
-        private static void DownloadArtV1()
-        {
-            Util.DownloadTextureToFile(DefaultIconUrl, DefaultIconPath, TextureImporterType.Sprite);
+        #region Art
 
-            Util.DownloadTextureToFile(ProgressSpriteUrl, $"Assets/Art/Core/{ProgressSpriteFileName}", TextureImporterType.Sprite);
+        private static bool DownloadArtV1()
+        {
+            if(!Util.DownloadTextureToFile(DefaultIconUrl, DefaultIconPath, TextureImporterType.Sprite))
+                return false;
+
+            if(!Util.DownloadTextureToFile(ProgressSpriteUrl, $"Assets/Art/Core/{ProgressSpriteFileName}", TextureImporterType.Sprite))
+                return false;
+
+            return true;
         }
 
-        private static void DownloadArt(int version)
-        {
-            if(version < 1) {
-                DownloadArtV1();
-            }
-        }
-#endregion
-
-#region Audio
-        private static void DownloadAudioV1()
-        {
-            Util.DownloadSFXToFile(ButtonClickUrl, $"Assets/Audio/UI/{ButtonClickFileName}");
-
-            Util.DownloadSFXToFile(ButtonHoverUrl, $"Assets/Audio/UI/{ButtonHoverFileName}");
-        }
-
-        private static void DownloadAudio(int version)
+        private static bool DownloadArt(int version)
         {
             if(version < 1) {
-                DownloadAudioV1();
+                if(!DownloadArtV1())
+                    return false;
             }
+
+            return true;
         }
-#endregion
 
-#endregion
+        #endregion
 
-#region Compiler Options
+        #region Audio
+
+        private static bool DownloadAudioV1()
+        {
+            if(!Util.DownloadSFXToFile(ButtonClickUrl, $"Assets/Audio/UI/{ButtonClickFileName}"))
+                return false;
+
+            if(!Util.DownloadSFXToFile(ButtonHoverUrl, $"Assets/Audio/UI/{ButtonHoverFileName}"))
+                return false;
+
+            return true;
+        }
+
+        private static bool DownloadAudio(int version)
+        {
+            if(version < 1) {
+                if(!DownloadAudioV1())
+                    return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Compiler Options
+
         private static void InitializeCompilerOptionsV1(StringBuilder builder)
         {
             // disable warning Field 'field' is never assigned to, and will always have its default value 'value'
@@ -175,9 +214,11 @@ namespace pdxpartyparrot.Core.Editor.Project
 
             File.WriteAllText(CscFileName, builder.ToString());
         }
-#endregion
 
-#region Packages
+        #endregion
+
+        #region Packages
+
         private static void InitializePackagesV1()
         {
             Util.AddPackage("com.unity.addressables");
@@ -208,9 +249,11 @@ namespace pdxpartyparrot.Core.Editor.Project
                 InitializePackagesV1();
             }
         }
-#endregion
 
-#region Project Settings
+        #endregion
+
+        #region Project Settings
+
         private static void InitializeProjectSettings(int version)
         {
             InitializeEditorSettings(version);
@@ -218,11 +261,16 @@ namespace pdxpartyparrot.Core.Editor.Project
             InitializePlayerSettings(version);
         }
 
-#region Editor Settings
+        #region Editor Settings
+
         private static void InitializeEditorSettingsV1()
         {
             // visible meta files
+#if UNITY_2020_1_OR_NEWER
             VersionControlSettings.mode = "Visible Meta Files";
+#else
+            EditorSettings.externalVersionControl = "Visible Meta Files";
+#endif
 
             // force text asset serialization
             EditorSettings.serializationMode = SerializationMode.ForceText;
@@ -239,17 +287,19 @@ namespace pdxpartyparrot.Core.Editor.Project
 
         private static void InitializeEditorSettings(int version)
         {
-            if(version < 1)  {
+            if(version < 1) {
                 InitializeEditorSettingsV1();
             }
         }
-#endregion
 
-#region Player Settings
+        #endregion
+
+        #region Player Settings
+
         private static void SetDefaultIcon()
         {
             Texture2D defaultIcon = AssetDatabase.LoadAssetAtPath(DefaultIconPath, typeof(Texture2D)) as Texture2D;
-            PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown, new []{defaultIcon});
+            PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown, new[] { defaultIcon });
         }
 
         private static void EnableExclusiveInputSystem()
@@ -324,33 +374,34 @@ namespace pdxpartyparrot.Core.Editor.Project
                 InitializePlayerSettingsV1();
             }
         }
-#endregion
 
-#endregion
+        #endregion
 
-#region Asset Creation
+        #endregion
+
+        #region Asset Creation
+
         private static void InitializeAssets(int version)
         {
             InitializePhysicsMaterials(version);
         }
 
-#region Physics
+        #region Physics
+
         private static void InitializePhysicsMaterialsV1()
         {
             Util.CreateAssetFolder("Assets/Data", "Physics");
             Util.CreateAssetFolder("Assets/Data/Physics", "Materials");
 
             // 2D frictionless material
-            PhysicsMaterial2D frictionless2D = new PhysicsMaterial2D
-            {
+            PhysicsMaterial2D frictionless2D = new PhysicsMaterial2D {
                 friction = 0.0f,
                 bounciness = 0.1f,
             };
             Util.CreateAsset(frictionless2D, "Assets/Data/Physics/Materials/frictionless.physicMaterial");
 
             // 3D frictionless material
-            PhysicMaterial frictionless3D = new PhysicMaterial
-            {
+            PhysicMaterial frictionless3D = new PhysicMaterial {
                 staticFriction = 0.0f,
                 dynamicFriction = 0.0f,
                 bounciness = 0.1f,
@@ -366,8 +417,9 @@ namespace pdxpartyparrot.Core.Editor.Project
                 InitializePhysicsMaterialsV1();
             }
         }
-#endregion
 
-#endregion
+        #endregion
+
+        #endregion
     }
 }
