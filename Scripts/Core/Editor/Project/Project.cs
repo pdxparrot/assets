@@ -149,12 +149,21 @@ namespace pdxpartyparrot.Core.Editor.Project
 #region Packages
         private static void InitializePackagesV1()
         {
+            Util.AddPackage("com.unity.addressables");
+            Util.AddPackage("com.unity.assetbundlebrowser");
             Util.AddPackage("com.unity.cinemachine");
+            Util.AddPackage("com.unity.editorcoroutines");
             Util.AddPackage("com.unity.inputsystem");
+            Util.AddPackage("com.unity.mathematics");
+            Util.AddPackage("com.unity.multiplayer-hlapi");
             Util.AddPackage("com.unity.postprocessing");
             Util.AddPackage("com.unity.probuilder");
             Util.AddPackage("com.unity.progrids");
+            Util.AddPackage("com.unity.quicksearch");
             Util.AddPackage("com.unity.render-pipelines.core");
+            Util.AddPackage("com.unity.scriptablebuildpipeline");
+            Util.AddPackage("com.unity.searcher");
+            Util.AddPackage("com.unity.settings-manager");
             Util.AddPackage("com.unity.shadergraph");
             Util.AddPackage("com.unity.textmeshpro");
             Util.AddPackage("com.unity.timeline");

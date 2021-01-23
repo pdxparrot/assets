@@ -8,23 +8,23 @@
     * https://learn.unity.com/project/2d-game-kit
 * Show a progress bar when initializing a project
 * Add a button to the project settings window to run initialization
-* Missing a few packages we should be adding
-  * Asset Bundle Browser
-  * Android Logcat
-  * HD/Lightweight Render Pipeline (optional - whichever best fits the project)
-  * Burst/Entities/DOTs stuff (if using ECS)
-* Add Keijiro Kino
-  * **TODO:** This currently isn't possible until 2019.3 is out (the installation process has completely changed)
-  * Add "jp.keijiro.kino.post-processing": "https://github.com/keijiro/kino.git#upm" to package manifest.json dependencies
-    * This has changed to a scoped registry? will have to investigate how to actually do this
+* Use the settings manager package
+* Use addressables
+* Add feature selection for things like 2D vs 3D, XR, Mobile, ECS, etc
+  * This would add and remove the required package bundles as necessary
+* Add features for ENABLE_VR and ENABLE_GVR and ENABLE_SERVER_SPECTATOR and USE_NAVMESH
 * Need to create InputSystem settings asset
 * Need to import TextMesh Pro Essentials
-* Use Mirror for networking
-* Add features for ENABLE_VR and ENABLE_GVR and ENABLE_SERVER_SPECTATOR and USE_NAVMESH
+* Use Mirror for networking unless Unity's high level update comes out first
 * Create Data/Animation/empty.controller Animation Controller in project setup
 * Create Data/Audio/main.mixer Mixer in project setup
 * Add button-click.mp3 and button-hover.mp3 to the common GitHub and download them to Data/Audio/UI
 * Create the EventSystem prefab at project setup ?
+
+# Engine Update
+
+* **TODO:** Copy the last game jam's core code back to the common GitHub repo
+  * **TODO:** Would all of this make more sense as forks of a common engine base repo?
 
 # Project Creation
 
@@ -34,29 +34,39 @@
 * Copy LICENSE from common GitHub repo
   * https://raw.githubusercontent.com/pdxparrot/assets/master/LICENSE
 * Create README.md
-* git init
+* git init and commit
 * Close the project and do not save it
 
 # Pre-Setup
 
-* Copy Engine Assets/Scripts/Core/Editor/Window/, Assets/Scripts/Core/Editor/Project/, Assets/Scripts/Core/Editor/Util.cs, and Assets/Scripts/Core/Editor/ScriptingDefineSymbols.cs
+* Copy engine setup from common GitHub repo
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/Project/
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/Window/
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/Util.cs
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/ScriptingDefineSymbols.cs
   * **TODO:** simplify this
-  * Remove .meta files
-* Copy Engine Assets/Editor contents
-  * Remove .meta files
+* Copy engine editor resources from common GitHubu repo
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Editor
+  * **TODO:** simplify this
 * Open and close the project once for the build process to setup
   * **TODO:** this shouldn't be necessary...
 * Open the new Unity Project and the project should automatically initialize
   * Say No to enabling the new Input System backend (initializing will set this up instead)
-* Copy the rest of the Assets/Scripts/Core contents
-  * Remove .meta files
+* Add Keijiro Kino
+  * https://github.com/keijiro/Kino
+    * Add registry to scopedRegistries in Packages/manifest.json
+    * Add "jp.keijiro.kino.post-processing": "2.1.15" to dependencies in Packages/manifest.json
+* Copy the rest of the core engine scripts
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Core
+  * **TODO:** simplify this
 * Create ASMDEFs
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
-    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro **TODO:** Kino.Postprocessing (whenever we can bring that back)
+    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
     * Reference com.unity.multiplayer-hlapi.Runtime if using networking
   * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
     * References: com.pdxpartyparrot.Core.asmdef, Unity.TextMeshPro
+  * **TODO:** simplify this
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
 
