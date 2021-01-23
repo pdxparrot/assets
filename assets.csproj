@@ -1,8 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+<Project ToolsVersion="4.0">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
   </PropertyGroup>
-
+  <ItemGroup>
+     <Compile Include="Assets\**\*.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
