@@ -16,12 +16,26 @@ namespace pdxpartyparrot.Core.Editor.Project
         private const string CscFileName = "Assets/csc.rsp";
 
 #region Core Assets
+        private const string GitHubBaseUrl = "https://raw.githubusercontent.com/pdxparrot/assets/master";
+        private const string GitHubAssetsBaseUrl = $"{GitHubBaseUrl}/Assets";
+
+#region Art
         private const string DefaultIconFileName = "pdxparrot.png";
-        private const string DefaultIconPath = "Assets/Art/Core/" + DefaultIconFileName;
-        private const string DefaultIconUrl = "https://raw.githubusercontent.com/pdxparrot/assets/master/Art/" + DefaultIconFileName;
+        private const string DefaultIconPath = $"Assets/Art/Core/{DefaultIconFileName}";
+        private const string DefaultIconUrl = $"{GitHubAssetsBaseUrl}/Assets/Art/{DefaultIconFileName}";
 
         private const string ProgressSpriteFileName = "progress.png";
-        private const string ProgressSpriteUrl = "https://raw.githubusercontent.com/pdxparrot/assets/master/Art/" + ProgressSpriteFileName;
+        private const string ProgressSpriteUrl = $"{GitHubBaseUrl}/Assets/Art/{ProgressSpriteFileName}";
+#endregion
+
+#region Audio
+        private const string ButtonClickFileName = "button-click.mp3";
+        private const string ButtonClickUrl = $"{GitHubBaseUrl}/Assets/Audio/UI/{ButtonClickFileName}";
+
+        private const string ButtonHoverFileName = "button-hover.mp3";
+        private const string ButtonHoverUrl = $"{GitHubBaseUrl}/Assets/Audio/UI/{ButtonHoverFileName}";
+#endregion
+
 #endregion
 
         static Project()
@@ -107,6 +121,7 @@ namespace pdxpartyparrot.Core.Editor.Project
         private static void DownloadAssets(int version)
         {
             DownloadArt(version);
+            DownloadAudio(version);
         }
 
 #region Art
@@ -121,6 +136,22 @@ namespace pdxpartyparrot.Core.Editor.Project
         {
             if(version < 1) {
                 DownloadArtV1();
+            }
+        }
+#endregion
+
+#region Audio
+        private static void DownloadAudioV1()
+        {
+            Util.DownloadSFXToFile(ButtonClickUrl, $"Assets/Audio/UI/{ButtonClickFileName}");
+
+            Util.DownloadSFXToFile(ButtonHoverUrl, $"Assets/Audio/UI/{ButtonHoverFileName}");
+        }
+
+        private static void DownloadAudio(int version)
+        {
+            if(version < 1) {
+                DownloadAudioV1();
             }
         }
 #endregion

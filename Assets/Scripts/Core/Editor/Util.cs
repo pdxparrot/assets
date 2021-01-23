@@ -43,7 +43,7 @@ namespace pdxpartyparrot.Core.Editor
             while(!asyncOp.isDone) {
                 Thread.Sleep(500);
             }
-     
+
             if(www.isNetworkError || www.isHttpError) {
                 Debug.Log($"Failed to download asset from {url}: {www.error}");
                 return;
@@ -71,6 +71,57 @@ namespace pdxpartyparrot.Core.Editor
             TextureImporter textureImporter = (TextureImporter)AssetImporter.GetAtPath(path);
             textureImporter.textureType = type;
             textureImporter.SaveAndReimport();
+        }
+
+        public static void DownloadMusicToFile(string url, string path)
+        {
+            DownloadAssetToFile(url, path);
+
+            AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
+            audioImporter.preloadAudioData = true;
+            audioImporter.loadInBackground = false;
+
+            AudioImporterSampleSettings sampleSettings = audioImporter.defaultSampleSettings;
+            sampleSettings.compressionFormat = AudioCompressionFormat.Vorbis;
+            sampleSettings.loadType = AudioClipLoadType.Streaming;
+            sampleSettings.quality = 1.0f;
+            audioImporter.defaultSampleSettings = sampleSettings;
+
+            audioImporter.SaveAndReimport();
+        }
+
+        public static void DownloadStingerToFile(string url, string path)
+        {
+            DownloadAssetToFile(url, path);
+
+            AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
+            audioImporter.preloadAudioData = true;
+            audioImporter.loadInBackground = false;
+
+            AudioImporterSampleSettings sampleSettings = audioImporter.defaultSampleSettings;
+            sampleSettings.compressionFormat = AudioCompressionFormat.Vorbis;
+            sampleSettings.loadType = AudioClipLoadType.DecompressOnLoad;
+            sampleSettings.quality = 1.0f;
+            audioImporter.defaultSampleSettings = sampleSettings;
+
+            audioImporter.SaveAndReimport();
+        }
+
+        public static void DownloadSFXToFile(string url, string path)
+        {
+            DownloadAssetToFile(url, path);
+
+            AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
+            audioImporter.preloadAudioData = true;
+            audioImporter.loadInBackground = false;
+
+            AudioImporterSampleSettings sampleSettings = audioImporter.defaultSampleSettings;
+            sampleSettings.compressionFormat = AudioCompressionFormat.PCM;
+            sampleSettings.loadType = AudioClipLoadType.DecompressOnLoad;
+            sampleSettings.quality = 1.0f;
+            audioImporter.defaultSampleSettings = sampleSettings;
+
+            audioImporter.SaveAndReimport();
         }
 #endregion
 

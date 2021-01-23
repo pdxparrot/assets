@@ -18,12 +18,11 @@
 * Use Mirror for networking unless Unity's high level update comes out first
 * Create Data/Animation/empty.controller Animation Controller in project setup
 * Create Data/Audio/main.mixer Mixer in project setup
-* Add button-click.mp3 and button-hover.mp3 to the common GitHub and download them to Data/Audio/UI
 * Create the EventSystem prefab at project setup ?
 
 # Engine Update
 
-* **TODO:** Copy the last game jam's core code back to the common GitHub repo
+* **TODO:** Copy the last game jam's engine code back to the common GitHub repo
   * **TODO:** Would all of this make more sense as forks of a common engine base repo?
 
 # Project Creation
@@ -40,13 +39,13 @@
 # Pre-Setup
 
 * Copy engine setup from common GitHub repo
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/Project/
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/Window/
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/Util.cs
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Scripts/Core/Editor/ScriptingDefineSymbols.cs
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Project/
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Window/
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Util.cs
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/ScriptingDefineSymbols.cs
   * **TODO:** simplify this
 * Copy engine editor resources from common GitHubu repo
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Editor
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Editor
   * **TODO:** simplify this
 * Open and close the project once for the build process to setup
   * **TODO:** this shouldn't be necessary...
@@ -57,7 +56,8 @@
     * Add registry to scopedRegistries in Packages/manifest.json
     * Add "jp.keijiro.kino.post-processing": "2.1.15" to dependencies in Packages/manifest.json
 * Copy the rest of the core engine scripts
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Core
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Game
   * **TODO:** simplify this
 * Create ASMDEFs
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
