@@ -4,6 +4,7 @@ using System.Threading;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,7 +15,8 @@ namespace pdxpartyparrot.Core.Editor
     {
         public const string ProjectSettingsAssetPath = "ProjectSettings/ProjectSettings.asset";
 
-#region Assets
+        #region Assets
+
         // creates the asset folder only if it doesn't already exist
         public static void CreateAssetFolder(string parentFolder, string newFolderName)
         {
@@ -39,7 +41,7 @@ namespace pdxpartyparrot.Core.Editor
             Debug.Log($"Downloading asset from {url} to {path}...");
 
             UnityWebRequest www = UnityWebRequest.Get(url);
-            AsyncOperation asyncOp =  www.SendWebRequest();
+            AsyncOperation asyncOp = www.SendWebRequest();
             while(!asyncOp.isDone) {
                 Thread.Sleep(500);
             }
@@ -129,9 +131,11 @@ namespace pdxpartyparrot.Core.Editor
 
             audioImporter.SaveAndReimport();
         }
-#endregion
 
-#region Packages
+        #endregion
+
+        #region Packages
+
         public static void AddPackage(string identifier)
         {
             Debug.Log($"Adding package {identifier}...");
@@ -161,7 +165,8 @@ namespace pdxpartyparrot.Core.Editor
                 return;
             }
         }
-#endregion
+
+        #endregion
 
         // TODO: this should move to the core filesystem utils
         public static void CreateEmptyFile(string path)
