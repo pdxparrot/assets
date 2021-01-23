@@ -1,8 +1,9 @@
 # Assets
 
-Commonly Used Game Jam Assets. Core engine scripts.
+Last Sync: **1/23/2021** from **ggj2020**
 
-Last Sync: ggj2020 1/23/2021
+* Commonly Used Game Jam Assets.
+* Core engine scripts.
 
 ## Scene Tester
 
