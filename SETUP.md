@@ -33,6 +33,8 @@
   * https://raw.githubusercontent.com/pdxparrot/assets/master/.gitignore
 * Copy LICENSE from common GitHub repo
   * https://raw.githubusercontent.com/pdxparrot/assets/master/LICENSE
+* Copy .editorconfig from common GitHub repo
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/.editorconfig
 * Create README.md
 * git init and commit
 * Close the project and do not save it
