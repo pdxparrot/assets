@@ -150,8 +150,9 @@
 
 ## Game Scripts
 
-* Copy Game Scripts
-  * Remove .meta files
+* Copy engine game scripts
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Game
+  * **TODO:** simplify this
 * Create the Assembly Definitions
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro
@@ -159,7 +160,7 @@
     * Uncheck Auto Referenced
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
     * Editor platform only
-    * References: com.pdxpartyparrot.Game.asmdef
+    * References: com.pdxpartyparrot.core.asmdef, com.pdxpartyparrot.Core.Editor.asmdef, com.pdxpartyparrot.Game.asmdef
     * Uncheck Auto Referenced
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
