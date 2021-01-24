@@ -233,6 +233,7 @@ namespace pdxpartyparrot.Core.Editor.Project
             Util.AddPackage("com.unity.progrids");
             Util.AddPackage("com.unity.quicksearch");
             Util.AddPackage("com.unity.render-pipelines.core");
+            Util.AddPackage("com.unity.render-pipelines.universal");
             Util.AddPackage("com.unity.scriptablebuildpipeline");
             Util.AddPackage("com.unity.searcher");
             Util.AddPackage("com.unity.settings-manager");
