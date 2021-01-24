@@ -302,7 +302,8 @@ namespace pdxpartyparrot.Core.Editor.Project
             PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown, new[] { defaultIcon });
         }
 
-        private static void EnableExclusiveInputSystem()
+        // TODO: this doesn't work anymore
+        /*private static void EnableExclusiveInputSystem()
         {
             // no nice interface for this :(
 
@@ -321,7 +322,7 @@ namespace pdxpartyparrot.Core.Editor.Project
             disableOldInputManagerSupport.boolValue = true;
 
             projectSettings.ApplyModifiedProperties();
-        }
+        }*/
 
         // TODO: break this down into platform specific methods
         private static void InitializePlayerSettingsV1()
@@ -359,7 +360,7 @@ namespace pdxpartyparrot.Core.Editor.Project
             PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, Il2CppCompilerConfiguration.Release);
             PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Release);
 
-            EnableExclusiveInputSystem();
+            //EnableExclusiveInputSystem();
 
             // "Oreo" min Android SDK
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;

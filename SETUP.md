@@ -37,7 +37,8 @@
 * Copy .editorconfig from common GitHub repo
   * https://raw.githubusercontent.com/pdxparrot/assets/master/.editorconfig
 * Create README.md
-* git init and commit
+* Delete the Assets/Scenes directory and its .meta file
+* git init, commit, and push
 * Close the project and do not save it
 
 # Pre-Setup
@@ -54,7 +55,9 @@
 * Open and close the project once for the build process to setup
   * **TODO:** this shouldn't be necessary...
 * Open the new Unity Project and the project should automatically initialize
-  * Say No to enabling the new Input System backend (initializing will set this up instead)
+  * This process can take a while and currently is not very responsive
+  * ~~Say **No** to enabling the new Input System backend (initializing will set this up instead)~~
+    * Say **Yes** here (the initialization step doesn't work anymore)
 * Add Keijiro Kino
   * https://github.com/keijiro/Kino
     * Add registry to scopedRegistries in Packages/manifest.json
