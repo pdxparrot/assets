@@ -7,7 +7,8 @@ namespace pdxpartyparrot.Game.Interactables
     {
         private Collider _trigger;
 
-#region Unity Life Cycle
+        #region Unity Life Cycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -25,6 +26,7 @@ namespace pdxpartyparrot.Game.Interactables
         {
             RemoveInteractable(other.gameObject);
         }
-#endregion
+
+        #endregion
     }
 }

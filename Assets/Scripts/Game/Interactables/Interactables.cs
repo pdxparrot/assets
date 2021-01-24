@@ -14,21 +14,25 @@ namespace pdxpartyparrot.Game.Interactables
 {
     public abstract class Interactables : MonoBehaviour, IEnumerable<IInteractable>
     {
-#region Events
+        #region Events
+
         public event EventHandler<InteractableEventArgs> InteractableAddedEvent;
         public event EventHandler<InteractableEventArgs> InteractableRemovedEvent;
-#endregion
+
+        #endregion
 
         private readonly Dictionary<Type, HashSet<IInteractable>> _interactables = new Dictionary<Type, HashSet<IInteractable>>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             // hacky attempt at making sure we don't turn
             // an actor's non-trigger collider into a trigger
             Assert.IsNull(GetComponent<Actor>(), "Interactables modify their associated collider to be a trigger and should not be attached directly to an actor");
         }
-#endregion
+
+        #endregion
 
         // NOTE: this doesn't check to see if the interactable actually collides with us
         public bool AddInteractable(IInteractable interactable)
@@ -55,18 +59,18 @@ namespace pdxpartyparrot.Game.Interactables
             return interactables.Remove(interactable);
         }
 
-        public IReadOnlyCollection<IInteractable> GetInteractables<T>() where T: IInteractable
+        public IReadOnlyCollection<IInteractable> GetInteractables<T>() where T : IInteractable
         {
             return _interactables.GetOrAdd(typeof(T));
         }
 
         [CanBeNull]
-        public T GetRandomInteractable<T>() where T: class, IInteractable
+        public T GetRandomInteractable<T>() where T : class, IInteractable
         {
-            return  GetInteractables<T>().GetRandomEntry() as T;
+            return GetInteractables<T>().GetRandomEntry() as T;
         }
 
-        public void GetInteractables<T>(ICollection<T> interactables) where T: class, IInteractable
+        public void GetInteractables<T>(ICollection<T> interactables) where T : class, IInteractable
         {
             IReadOnlyCollection<IInteractable> n = GetInteractables<T>();
             foreach(IInteractable interactable in n) {
@@ -90,13 +94,13 @@ namespace pdxpartyparrot.Game.Interactables
             return GetEnumerator();
         }
 
-        public bool HasInteractables<T>() where T: IInteractable
+        public bool HasInteractables<T>() where T : IInteractable
         {
             var interactables = _interactables.GetOrDefault(typeof(T));
             return null != interactables && interactables.Count > 0;
         }
 
-        public bool HasInteractable<T>(T interactable) where T: IInteractable
+        public bool HasInteractable<T>(T interactable) where T : IInteractable
         {
             var interactables = _interactables.GetOrDefault(typeof(T));
             if(null == interactables) {
@@ -109,7 +113,7 @@ namespace pdxpartyparrot.Game.Interactables
         {
             IInteractable interactable = other.GetComponent<IInteractable>();
             if(AddInteractable(interactable)) {
-                InteractableAddedEvent?.Invoke(this, new InteractableEventArgs{
+                InteractableAddedEvent?.Invoke(this, new InteractableEventArgs {
                     Interactable = interactable
                 });
             }
@@ -119,7 +123,7 @@ namespace pdxpartyparrot.Game.Interactables
         {
             IInteractable interactable = other.GetComponent<IInteractable>();
             if(RemoveInteractable(interactable)) {
-                InteractableRemovedEvent?.Invoke(this, new InteractableEventArgs{
+                InteractableRemovedEvent?.Invoke(this, new InteractableEventArgs {
                     Interactable = interactable
                 });
             }

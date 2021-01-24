@@ -46,7 +46,8 @@ namespace pdxpartyparrot.Game.Network
         [CanBeNull]
         private ServerSpectatorViewer _viewer;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             //FollowTarget = GetComponent<FollowCameraTarget3D>();
@@ -74,7 +75,8 @@ namespace pdxpartyparrot.Game.Network
             Quaternion rotation = null != _viewer ? Quaternion.AngleAxis(_viewer.transform.localEulerAngles.y, Vector3.up) : transform.rotation;
             transform.position = Vector3.Lerp(transform.position, transform.position + (rotation * _lastControllerMove), dt * 20.0f);
         }
-#endregion
+
+        #endregion
 
         private bool IsInputAllowed(InputAction.CallbackContext ctx)
         {
@@ -87,7 +89,8 @@ namespace pdxpartyparrot.Game.Network
             return true;
         }
 
-#region IServerSpectatorActions
+        #region IServerSpectatorActions
+
         public void OnMoveForward(InputAction.CallbackContext context)
         {
             if(!IsInputAllowed(context)) {
@@ -164,7 +167,8 @@ namespace pdxpartyparrot.Game.Network
                 _lastControllerLook = new Vector3(axes.x, axes.y, 0.0f);
             }
         }
-#endregion
+
+        #endregion
     }
 }
 #endif

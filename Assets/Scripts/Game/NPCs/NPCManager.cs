@@ -21,9 +21,10 @@ namespace pdxpartyparrot.Game.NPCs
         int StuckCheckMaxPasses { get; }
     }
 
-    public abstract class NPCManager<T> : SingletonBehavior<T>, INPCManager where T: NPCManager<T>
+    public abstract class NPCManager<T> : SingletonBehavior<T>, INPCManager where T : NPCManager<T>
     {
-#region Debug
+        #region Debug
+
         [SerializeField]
         private bool _npcsImmune;
 
@@ -33,11 +34,13 @@ namespace pdxpartyparrot.Game.NPCs
         private bool _debugNPCBehavior;
 
         public bool DebugBehavior => _debugNPCBehavior;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Stuck Check
+        #region Stuck Check
+
         [Header("Stuck Check")]
 
         [SerializeField]
@@ -50,7 +53,8 @@ namespace pdxpartyparrot.Game.NPCs
         private int _stuckCheckMaxPasses = 2;
 
         public int StuckCheckMaxPasses => _stuckCheckMaxPasses;
-#endregion
+
+        #endregion
 
         private readonly HashSet<INPC> _npcs = new HashSet<INPC>();
 
@@ -58,7 +62,8 @@ namespace pdxpartyparrot.Game.NPCs
 
         private DebugMenuNode _debugMenuNode;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             InitDebugMenu();
@@ -76,7 +81,8 @@ namespace pdxpartyparrot.Game.NPCs
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public void RegisterNPC(INPC npc)
         {
@@ -93,9 +99,9 @@ namespace pdxpartyparrot.Game.NPCs
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Game.NPCManager");
             _debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("NPCs", GUI.skin.box);
-                    foreach(INPC npc in _npcs) {
-                        GUILayout.Label($"{npc.Id} {npc.Movement.Position}");
-                    }
+                foreach(INPC npc in _npcs) {
+                    GUILayout.Label($"{npc.Id} {npc.Movement.Position}");
+                }
                 GUILayout.EndVertical();
 
                 _npcsImmune = GUILayout.Toggle(_npcsImmune, "NPCs Immune");

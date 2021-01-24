@@ -25,7 +25,8 @@ namespace pdxpartyparrot.Game.Characters
 
         public bool IsComponentControlling { get; set; }
 
-#region Physics
+        #region Physics
+
         [SerializeField]
         [ReadOnly]
         private Vector3 _bankForce;
@@ -35,9 +36,11 @@ namespace pdxpartyparrot.Game.Characters
         public float Speed => CharacterBehavior.CanMove ? 0.0f : (PartyParrotManager.Instance.IsPaused ? PauseState.Velocity.magnitude : Velocity.magnitude);
 
         public float Altitude => Position.y;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             Assert.IsNotNull(_data);
@@ -67,7 +70,8 @@ namespace pdxpartyparrot.Game.Characters
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Position, Position + _bankForce);
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {
@@ -121,7 +125,8 @@ namespace pdxpartyparrot.Game.Characters
             Velocity = velocity;
         }
 
-#region Input Handling
+        #region Input Handling
+
 #if UNITY_EDITOR
         private void CheckForDebug()
         {
@@ -131,7 +136,8 @@ namespace pdxpartyparrot.Game.Characters
             }
         }
 #endif
-#endregion
+
+        #endregion
 
         public void Turn(Vector2 direction, float dt)
         {

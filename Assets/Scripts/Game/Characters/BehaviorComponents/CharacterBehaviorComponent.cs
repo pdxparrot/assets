@@ -10,8 +10,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
     public abstract class CharacterBehaviorComponent : MonoBehaviour
     {
-// TODO: if subclasses could register for specific action types (and we keep a dictionary ActionType => Listener)
-// then that would work out a lot faster and cleaner than how this is currently done
+        // TODO: if subclasses could register for specific action types (and we keep a dictionary ActionType => Listener)
+        // then that would work out a lot faster and cleaner than how this is currently done
 
         [Serializable]
         public class ReorderableList : ReorderableList<CharacterBehaviorComponent>
@@ -21,13 +21,16 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [CanBeNull]
         protected CharacterBehavior Behavior { get; private set; }
 
-#region Actions
+        #region Actions
+
         public abstract class CharacterBehaviorAction
         {
         }
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
         }
@@ -35,7 +38,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         protected virtual void OnDestroy()
         {
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize(CharacterBehavior behavior)
         {

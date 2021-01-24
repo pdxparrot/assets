@@ -44,7 +44,7 @@ namespace pdxpartyparrot.Game.State
         [ReadOnly]
         private ConnectType _connectType = ConnectType.Local;
 
-        public void Initialize(ConnectType connectType, GameState gameStatePrefab, Action<GameState> gameStateInit=null)
+        public void Initialize(ConnectType connectType, GameState gameStatePrefab, Action<GameState> gameStateInit = null)
         {
             _connectType = connectType;
             _gameStatePrefab = gameStatePrefab;
@@ -56,8 +56,7 @@ namespace pdxpartyparrot.Game.State
 #if USE_NETWORKING
             Core.Network.NetworkManager.Instance.DiscoverStop();
 
-            switch(_connectType)
-            {
+            switch(_connectType) {
             case ConnectType.Local:
                 Core.Network.NetworkManager.Instance.StopHost();
                 break;
@@ -89,8 +88,7 @@ namespace pdxpartyparrot.Game.State
         {
             base.DoEnter();
 
-            switch(_connectType)
-            {
+            switch(_connectType) {
             case ConnectType.Local:
                 StartSinglePlayer();
                 break;
@@ -183,7 +181,8 @@ namespace pdxpartyparrot.Game.State
 #endif
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void ServerConnectEventHandler(object sender, EventArgs args)
         {
 #if USE_NETWORKING
@@ -235,6 +234,7 @@ namespace pdxpartyparrot.Game.State
             }
         }
 #endif
-#endregion
+
+        #endregion
     }
 }

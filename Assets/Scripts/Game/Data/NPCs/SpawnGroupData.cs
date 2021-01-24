@@ -29,7 +29,7 @@ namespace pdxpartyparrot.Game.Data.NPCs
         [SerializeField]
         [Tooltip("The spawnpoint tag")]
         private string _tag;
-   
+
         public string Tag => _tag;
 
         [Space(10)]

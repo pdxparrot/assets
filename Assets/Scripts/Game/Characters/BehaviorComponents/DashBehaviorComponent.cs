@@ -16,12 +16,14 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
     // without invoking the cooldown (action parameter)
     public class DashBehaviorComponent : CharacterBehaviorComponent
     {
-#region Actions
+        #region Actions
+
         public class DashAction : CharacterBehaviorAction
         {
             public static DashAction Default = new DashAction();
         }
-#endregion
+
+        #endregion
 
         [SerializeField]
         private DashBehaviorComponentData _data;
@@ -32,13 +34,15 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             set => _data = value;
         }
 
-#region Effects
+        #region Effects
+
         [Header("Effects")]
 
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _dashEffect;
-#endregion
+
+        #endregion
 
         [SerializeReference]
         [ReadOnly]
@@ -58,7 +62,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [ReadOnly]
         private bool _wasUseGravity;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -82,7 +87,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public override bool OnPhysicsUpdate(float dt)
         {
@@ -139,7 +145,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             Behavior.CharacterMovement.IsComponentControlling = false;
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         protected virtual void DashStopEventHandler(object sender, EventArgs args)
         {
             StopDashing();
@@ -149,6 +156,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         {
             StopDashing();
         }
-#endregion
+
+        #endregion
     }
 }

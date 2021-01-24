@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="JumpBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/JumpBehaviorComponent Data")]
+    [CreateAssetMenu(fileName = "JumpBehaviorComponentData", menuName = "pdxpartyparrot/Game/Data/Behavior Components/JumpBehaviorComponent Data")]
     [Serializable]
     public class JumpBehaviorComponentData : CharacterBehaviorComponentData
     {

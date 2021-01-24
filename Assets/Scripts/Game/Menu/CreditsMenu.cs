@@ -11,7 +11,8 @@ namespace pdxpartyparrot.Game.Menu
         [SerializeField]
         private TextMeshProUGUI _creditsText;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -19,6 +20,7 @@ namespace pdxpartyparrot.Game.Menu
             _creditsText.richText = true;
             _creditsText.text = GameStateManager.Instance.GameManager.CreditsData.ToString();
         }
-#endregion
+
+        #endregion
     }
 }

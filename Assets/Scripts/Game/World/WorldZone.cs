@@ -27,7 +27,8 @@ namespace pdxpartyparrot.Game.World
 
         private readonly Dictionary<GameObject, ParticleSystem> _zoneParticleSystems = new Dictionary<GameObject, ParticleSystem>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
@@ -50,9 +51,10 @@ namespace pdxpartyparrot.Game.World
                 Gizmos.DrawCube(bounds.center, bounds.size);
             }
         }
-#endregion
 
-        public void Enter(GameObject obj, Transform parent=null)
+        #endregion
+
+        public void Enter(GameObject obj, Transform parent = null)
         {
             if(_zoneParticleSystems.ContainsKey(obj)) {
                 Debug.LogWarning($"Duplicate zone {name} particle systems for {obj.name}");

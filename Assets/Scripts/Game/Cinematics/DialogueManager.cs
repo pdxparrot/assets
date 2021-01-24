@@ -14,7 +14,8 @@ namespace pdxpartyparrot.Game.Cinematics
 
         private readonly Dictionary<string, Dialogue> _dialoguePrefabs = new Dictionary<string, Dialogue>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             /*foreach(Dialogue dialoguePrefab in _data.DialoguePrefabs) {
@@ -24,6 +25,7 @@ namespace pdxpartyparrot.Game.Cinematics
                 _dialoguePrefabs[dialoguePrefab.Id] = dialoguePrefab;
             }*/
         }
-#endregion
+
+        #endregion
     }
 }

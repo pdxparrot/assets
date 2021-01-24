@@ -28,7 +28,8 @@ namespace pdxpartyparrot.Game.Menu
             set => _initialSelection = value;
         }
 
-#region Effects
+        #region Effects
+
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _enableEffect;
@@ -36,9 +37,11 @@ namespace pdxpartyparrot.Game.Menu
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _disableEffect;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             if(null != _initialSelection) {
@@ -77,9 +80,9 @@ namespace pdxpartyparrot.Game.Menu
 
         protected virtual void Update()
         {
-            if(null == _initialSelection) {	
-                return;	
-            }	
+            if(null == _initialSelection) {
+                return;
+            }
 
             if(null == InputManager.Instance.EventSystem.EventSystem.currentSelectedGameObject ||
                 (!InputManager.Instance.EventSystem.EventSystem.currentSelectedGameObject.activeInHierarchy && _initialSelection.gameObject.activeInHierarchy)) {
@@ -87,7 +90,8 @@ namespace pdxpartyparrot.Game.Menu
                 _initialSelection.Highlight();
             }
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize()
         {
@@ -103,7 +107,8 @@ namespace pdxpartyparrot.Game.Menu
             _initialSelection.Highlight();
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         // this is for buttons
         public virtual void OnBack()
         {
@@ -124,6 +129,7 @@ namespace pdxpartyparrot.Game.Menu
         public virtual void OnMove(InputAction.CallbackContext context)
         {
         }
-#endregion
+
+        #endregion
     }
 }

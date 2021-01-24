@@ -7,7 +7,8 @@ namespace pdxpartyparrot.Game.Data.Characters
     [Serializable]
     public abstract class NPCBehaviorData : CharacterBehaviorData
     {
-#region Physics
+        #region Physics
+
         [Header("NPC Physics")]
 
         [SerializeField]
@@ -30,6 +31,7 @@ namespace pdxpartyparrot.Game.Data.Characters
         private float _stoppingDistance = 0.1f;
 
         public float StoppingDistance => _stoppingDistance;
-#endregion
+
+        #endregion
     }
 }

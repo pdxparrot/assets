@@ -14,7 +14,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 {
     public sealed class ClimbingPlayerBehaviorComponent : PlayerBehaviorComponent
     {
-#region Actions
+        #region Actions
+
         public class GrabAction : CharacterBehaviorAction
         {
             public static GrabAction Default = new GrabAction();
@@ -24,7 +25,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         {
             public static ReleaseAction Default = new ReleaseAction();
         }
-#endregion
+
+        #endregion
 
         [SerializeField]
         private ClimbingBehaviorComponentData _data;
@@ -42,12 +44,12 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         public bool IsClimbing => _climbMode != ClimbMode.None;
 
-// TODO: the number of constant raycasts could probably be reduced even more
-// TODO: we probably also don't need to hold onto the hit results, just update and handle them one at a time
+        // TODO: the number of constant raycasts could probably be reduced even more
+        // TODO: we probably also don't need to hold onto the hit results, just update and handle them one at a time
 
         [Space(10)]
 
-#region Hands
+        #region Hands
         [Header("Hands")]
 
         [SerializeField]
@@ -103,14 +105,15 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         private bool CanGrabRight => null != _rightHandHitResult;
 
         private bool CanHangRight => null != _rightHandHangHitResult;
-#endregion
+        #endregion
 
         [SerializeField]
         private Transform _hangTransform;
 
         [Space(10)]
 
-#region Head
+        #region Head
+
         [Header("Head")]
 
         [SerializeField]
@@ -125,11 +128,13 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         [SerializeField]
         [ReadOnly]
         private bool _didClimbUpRaycast;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Chest
+        #region Chest
+
         [Header("Chest")]
 
         [SerializeField]
@@ -140,7 +145,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         [SerializeField]
         [ReadOnly]
         private bool _didChestRaycast;
-#endregion
+
+        #endregion
 
         private bool CanClimbUp => IsClimbing && (null == _headHitResult && null != _chestHitResult);
 
@@ -150,7 +156,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         [Space(10)]
 
-#region Debug
+        #region Debug
+
         [Header("Debug")]
 
         [SerializeField]
@@ -158,9 +165,11 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         private bool _breakOnFall;
 
         private DebugMenuNode _debugMenuNode;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -202,7 +211,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 return;
             }
 
-// TODO: encapsulate the math here so we a) don't duplicate it in the raycast methods and b) guarantee we always match the math done in the raycast methods
+            // TODO: encapsulate the math here so we a) don't duplicate it in the raycast methods and b) guarantee we always match the math done in the raycast methods
 
             // left hand
             if(_didLeftHandRaycast) {
@@ -265,7 +274,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 Gizmos.DrawLine(_chestTransform.position, _chestTransform.position + transform.forward * _data.ChestRayLength);
             }
         }
-#endregion
+
+        #endregion
 
         public override bool OnAnimationUpdate(float dt)
         {
@@ -273,8 +283,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 return false;
             }
 
-            switch(_climbMode)
-            {
+            switch(_climbMode) {
             case ClimbMode.Climbing:
             case ClimbMode.Hanging:
                 break;
@@ -294,8 +303,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 return false;
             }
 
-            switch(_climbMode)
-            {
+            switch(_climbMode) {
             case ClimbMode.Climbing:
                 Vector3 velocity = Behavior.Owner.Movement.Rotation * (PlayerBehavior.MoveDirection * _data.ClimbSpeed);
                 if(_groundChecker.DidGroundCheckCollide && velocity.y < 0.0f) {
@@ -443,7 +451,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
             _didChestRaycast = false;
         }
 
-#region Hand Raycasts
+        #region Hand Raycasts
+
         private void UpdateHandRaycasts()
         {
             UpdateLeftHandRaycasts();
@@ -500,9 +509,11 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 }
             }
         }
-#endregion
 
-#region Head Raycasts
+        #endregion
+
+        #region Head Raycasts
+
         private void UpdateHeadRaycasts()
         {
             if(!IsClimbing) {
@@ -520,9 +531,11 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 }
             }
         }
-#endregion
 
-#region Chest Raycasts
+        #endregion
+
+        #region Chest Raycasts
+
         private void UpdateChestRaycasts()
         {
             if(!IsClimbing) {
@@ -540,7 +553,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 }
             }
         }
-#endregion
+
+        #endregion
 
         private void HandleRaycasts()
         {
@@ -560,8 +574,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
                 return;
             }
 
-            switch(_climbMode)
-            {
+            switch(_climbMode) {
             case ClimbMode.None:
                 break;
             case ClimbMode.Climbing:
@@ -609,8 +622,9 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
             }
         }
 
-#region Auto-Rotate/Climb
-// TODO: encapsulate the common code from these
+        #region Auto-Rotate/Climb
+
+        // TODO: encapsulate the common code from these
 
         private bool CheckWrapLeft()
         {
@@ -785,7 +799,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
             return true;
         }
-#endregion
+
+        #endregion
 
         private Vector3 GetSurfaceAttachmentPosition(RaycastHit hit, Vector3 offset)
         {

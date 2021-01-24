@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="LongJumpBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/LongJumpBehaviorComponent Data")]
+    [CreateAssetMenu(fileName = "LongJumpBehaviorComponentData", menuName = "pdxpartyparrot/Game/Data/Behavior Components/LongJumpBehaviorComponent Data")]
     [Serializable]
     public class LongJumpBehaviorComponentData : CharacterBehaviorComponentData
     {

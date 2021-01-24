@@ -27,12 +27,14 @@ namespace pdxpartyparrot.Game.UI
 
         public char CurrentCharacter => Characters[_currentCharacterIdx];
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _underscore.SetActive(false);
         }
-#endregion
+
+        #endregion
 
         public void Select(bool selected)
         {

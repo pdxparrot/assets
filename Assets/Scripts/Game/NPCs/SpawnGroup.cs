@@ -24,7 +24,7 @@ namespace pdxpartyparrot.Game.NPCs
 
         private GameObject _poolContainer;
 
-        private readonly  WaveSpawner _owner;
+        private readonly WaveSpawner _owner;
 
         private readonly SpawnWave _wave;
 
@@ -88,7 +88,7 @@ namespace pdxpartyparrot.Game.NPCs
             Debug.Log($"Spawning {amount} NPCs...");
 
             int spawned = 0;
-            for(int i=0; i<amount; ++i) {
+            for(int i = 0; i < amount; ++i) {
                 SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(_spawnGroupData.Tag);
                 if(null == spawnPoint) {
                     //Debug.LogWarning($"No spawnpoints for {_spawnGroupData.Tag}!");
@@ -124,11 +124,13 @@ namespace pdxpartyparrot.Game.NPCs
             _wave.OnWaveSpawned(spawned);
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void SpawnTimerTimesUpEventHandler(object sender, EventArgs args)
         {
             Spawn();
         }
-#endregion
+
+        #endregion
     }
 }

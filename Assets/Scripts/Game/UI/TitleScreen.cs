@@ -29,7 +29,8 @@ namespace pdxpartyparrot.Game.UI
         // if it's started after this point
         private bool _started;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             // TODO: this should be up to the load effect to setup
@@ -71,7 +72,8 @@ namespace pdxpartyparrot.Game.UI
                 InputManager.Instance.EventSystem.UIModule.submit.action.performed -= OnSubmit;
             }
         }
-#endregion
+
+        #endregion
 
         public void FinishLoading()
         {
@@ -84,7 +86,8 @@ namespace pdxpartyparrot.Game.UI
             }
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void OnSubmit(InputAction.CallbackContext context)
         {
             FinishLoading();
@@ -94,6 +97,7 @@ namespace pdxpartyparrot.Game.UI
         {
             FinishLoading();
         }
-#endregion
+
+        #endregion
     }
 }

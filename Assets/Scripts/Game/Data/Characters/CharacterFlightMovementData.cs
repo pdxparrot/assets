@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters
 {
-    [CreateAssetMenu(fileName="CharacterFlightMovementData", menuName="pdxpartyparrot/Game/Data/CharacterFlightMovement Data")]
+    [CreateAssetMenu(fileName = "CharacterFlightMovementData", menuName = "pdxpartyparrot/Game/Data/CharacterFlightMovement Data")]
     [Serializable]
     public class CharacterFlightMovementData : ScriptableObject
     {
@@ -15,7 +15,8 @@ namespace pdxpartyparrot.Game.Data.Characters
 
         [Space(10)]
 
-#region Animations
+        #region Animations
+
         [Header("Animations")]
 
         [SerializeField]
@@ -32,9 +33,11 @@ namespace pdxpartyparrot.Game.Data.Characters
         private string _fallingParam = "Falling";
 
         public string FallingParam => _fallingParam;
-#endregion
 
-#region Movement
+        #endregion
+
+        #region Movement
+
         [Header("Movement")]
 
         [SerializeField]
@@ -66,6 +69,7 @@ namespace pdxpartyparrot.Game.Data.Characters
         private float _terminalVelocity = 10.0f;
 
         public float TerminalVelocity => _terminalVelocity;
-#endregion
+
+        #endregion
     }
 }

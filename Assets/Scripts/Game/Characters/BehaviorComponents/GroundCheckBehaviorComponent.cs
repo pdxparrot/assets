@@ -15,10 +15,12 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
     public class GroundCheckBehaviorComponent : CharacterBehaviorComponent
     {
-#region Events
+        #region Events
+
         public event EventHandler<EventArgs> GroundedEvent;
         public event EventHandler<EventArgs> SlopeLimitEvent;
-#endregion
+
+        #endregion
 
         [SerializeField]
         private GroundCheckBehaviorComponentData _data;
@@ -57,7 +59,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private Coroutine _raycastCoroutine;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void OnEnable()
         {
             StartRoutine();
@@ -83,7 +86,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             Gizmos.color = _didGroundCheckCollide ? Color.red : Color.yellow;
             Gizmos.DrawWireSphere(GroundCheckCenter + (_data.GroundCheckLength * Vector3.down), GroundCheckRadius);
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(CharacterBehavior behavior)
         {
@@ -176,7 +180,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
             // figure out the slope of whatever we hit
             _groundCheckNormal = Vector3.zero;
-            for(int i=0; i<hitCount; ++i) {
+            for(int i = 0; i < hitCount; ++i) {
                 _groundCheckNormal += _groundCheckHits[i].normal;
                 minDistance = Mathf.Min(minDistance, _groundCheckHits[i].distance);
             }

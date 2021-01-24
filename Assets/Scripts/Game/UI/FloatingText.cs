@@ -37,7 +37,8 @@ namespace pdxpartyparrot.Game.UI
 
         private PooledObject _pooledObject;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _transform = GetComponent<Transform>();
@@ -50,7 +51,8 @@ namespace pdxpartyparrot.Game.UI
 
             Float(dt);
         }
-#endregion
+
+        #endregion
 
         public void Show(Vector3 position)
         {

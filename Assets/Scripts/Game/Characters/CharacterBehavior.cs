@@ -51,7 +51,8 @@ namespace pdxpartyparrot.Game.Characters
 
         [Space(10)]
 
-#region Physics
+        #region Physics
+
         [Header("Character Physics")]
 
         [SerializeField]
@@ -77,11 +78,13 @@ namespace pdxpartyparrot.Game.Characters
         public bool IsFalling => Owner.Movement.UseGravity && (!IsGrounded && !IsSliding && Owner.Movement.Velocity.y < 0.0f);
 
         public virtual float MoveSpeed => CharacterBehaviorData.MoveSpeed;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Effects
+        #region Effects
+
         [Header("Character Effects")]
 
         [SerializeField]
@@ -97,7 +100,8 @@ namespace pdxpartyparrot.Game.Characters
 
         [CanBeNull]
         protected virtual EffectTrigger MovingEffectTrigger => _movingEffectTrigger;
-#endregion
+
+        #endregion
 
         public override bool CanMove => !CharacterMovement.IsComponentControlling && CanMoveNoComponents;
 
@@ -114,16 +118,19 @@ namespace pdxpartyparrot.Game.Characters
             }
         }
 
-#region Action Buffer
+        #region Action Buffer
+
         [CanBeNull]
         private CircularBuffer<ActionBufferEntry> _actionBuffer;
 
         public CharacterBehaviorComponent.CharacterBehaviorAction NextAction => null == _actionBuffer || _actionBuffer.Count < 1 ? null : _actionBuffer.Head.Action;
-#endregion
+
+        #endregion
 
         private DebugMenuNode _debugMenuNode;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void OnDestroy()
         {
             DestroyDebugMenu();
@@ -139,7 +146,8 @@ namespace pdxpartyparrot.Game.Characters
                 Animator.SetBool(CharacterBehaviorData.FallingParam, IsFalling);
             }
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {
@@ -156,9 +164,10 @@ namespace pdxpartyparrot.Game.Characters
             InitDebugMenu();
         }
 
-#region Components
+        #region Components
+
         [CanBeNull]
-        public T GetBehaviorComponent<T>() where T: CharacterBehaviorComponent
+        public T GetBehaviorComponent<T>() where T : CharacterBehaviorComponent
         {
             foreach(var component in _components.Items) {
                 T tc = component as T;
@@ -169,7 +178,7 @@ namespace pdxpartyparrot.Game.Characters
             return null;
         }
 
-        public void GetBehaviorComponents<T>(ICollection<T> components) where T: CharacterBehaviorComponent
+        public void GetBehaviorComponents<T>(ICollection<T> components) where T : CharacterBehaviorComponent
         {
             components.Clear();
             foreach(var component in _components.Items) {
@@ -188,9 +197,11 @@ namespace pdxpartyparrot.Game.Characters
                 }
             }
         }
-#endregion
 
-#region Action Buffer
+        #endregion
+
+        #region Action Buffer
+
         public void BufferAction(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             _actionBuffer?.Add(new ActionBufferEntry(action));
@@ -205,9 +216,11 @@ namespace pdxpartyparrot.Game.Characters
         {
             _actionBuffer?.Clear();
         }
-#endregion
 
-#region Actions
+        #endregion
+
+        #region Actions
+
         public virtual void ActionStarted(CharacterBehaviorComponent.CharacterBehaviorAction action)
         {
             RunOnComponents(c => c.OnStarted(action));
@@ -222,7 +235,8 @@ namespace pdxpartyparrot.Game.Characters
         {
             RunOnComponents(c => c.OnCancelled(action));
         }
-#endregion
+
+        #endregion
 
         protected override void AnimationUpdate(float dt)
         {
@@ -261,7 +275,8 @@ namespace pdxpartyparrot.Game.Characters
             }
         }
 
-#region Events
+        #region Events
+
         public virtual void OnIdle()
         {
             TriggerMoveEffect();
@@ -289,18 +304,20 @@ namespace pdxpartyparrot.Game.Characters
 
             return false;
         }
-#endregion
 
-#region Debug Menu
+        #endregion
+
+        #region Debug Menu
+
         private void InitDebugMenu()
         {
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.CharacterBehavior {Owner.Id}");
             _debugMenuNode.RenderContentsAction = () => {
                 if(null != _actionBuffer) {
                     GUILayout.BeginVertical("Action Buffer", GUI.skin.box);
-                        foreach(var action in _actionBuffer) {
-                            GUILayout.Label(action.ToString());
-                        }
+                    foreach(var action in _actionBuffer) {
+                        GUILayout.Label(action.ToString());
+                    }
                     GUILayout.EndVertical();
                 }
             };
@@ -313,6 +330,7 @@ namespace pdxpartyparrot.Game.Characters
             }
             _debugMenuNode = null;
         }
-#endregion
+
+        #endregion
     }
 }

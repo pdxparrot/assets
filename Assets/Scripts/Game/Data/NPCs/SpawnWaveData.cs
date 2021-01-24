@@ -24,7 +24,8 @@ namespace pdxpartyparrot.Game.Data.NPCs
 
         public IReadOnlyCollection<SpawnGroupData> SpawnGroups => _spawnGroups.Items;
 
-#region Effects
+        #region Effects
+
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _waveStartEffectTriggerPrefab;
@@ -38,6 +39,7 @@ namespace pdxpartyparrot.Game.Data.NPCs
 
         [CanBeNull]
         public EffectTrigger WaveEndEffectTriggerPrefab => _waveEndEffectTriggerPrefab;
-#endregion
+
+        #endregion
     }
 }

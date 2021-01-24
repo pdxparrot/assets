@@ -90,7 +90,8 @@ namespace pdxpartyparrot.Game.State
             yield return new LoadStatus(1.0f, "Main game state shutdown!");
         }
 
-#region Initialize
+        #region Initialize
+
         private IEnumerator<LoadStatus> InitializeRoutine()
         {
             yield return new LoadStatus(0.0f, "Initializing main game state...");
@@ -151,7 +152,7 @@ namespace pdxpartyparrot.Game.State
                     Debug.Log($"Spawning a player for each controller ({count})...");
                 }
 
-                for(short i=0; i<count; ++i) {
+                for(short i = 0; i < count; ++i) {
                     Core.Network.NetworkManager.Instance.AddLocalPlayer(i);
                 }
             } else {
@@ -167,9 +168,11 @@ namespace pdxpartyparrot.Game.State
 
             return true;
         }
-#endregion
 
-#region Shutdown
+        #endregion
+
+        #region Shutdown
+
         private IEnumerator<LoadStatus> ShutdownRoutine()
         {
             yield return new LoadStatus(0.0f, "Shutting down main game state...");
@@ -220,7 +223,8 @@ namespace pdxpartyparrot.Game.State
 
             _playerControllers.Clear();
         }
-#endregion
+
+        #endregion
 
         // this is only used when not "gamepads are players"
         public bool AddPlayerController(short playerControllerId)
@@ -238,7 +242,8 @@ namespace pdxpartyparrot.Game.State
             return true;
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void ServerDisconnectEventHandler(object sender, EventArgs args)
         {
             Debug.LogError("TODO: server disconnect");
@@ -248,6 +253,7 @@ namespace pdxpartyparrot.Game.State
         {
             Debug.LogError("TODO: client disconnect");
         }
-#endregion
+
+        #endregion
     }
 }

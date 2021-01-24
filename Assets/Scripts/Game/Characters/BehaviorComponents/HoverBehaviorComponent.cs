@@ -10,12 +10,14 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
     [RequireComponent(typeof(JumpBehaviorComponent))]
     public class HoverBehaviorComponent : CharacterBehaviorComponent
     {
-#region Actions
+        #region Actions
+
         public class HoverAction : CharacterBehaviorAction
         {
             public static HoverAction Default = new HoverAction();
         }
-#endregion
+
+        #endregion
 
         [SerializeField]
         private HoverBehaviorComponentData _data;
@@ -48,7 +50,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         public bool IsHovering => _isHovering;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -103,7 +106,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 StopHovering();
             }
         }
-#endregion
+
+        #endregion
 
         public override bool OnPhysicsUpdate(float dt)
         {

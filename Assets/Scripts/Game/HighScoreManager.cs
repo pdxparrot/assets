@@ -56,8 +56,7 @@ namespace pdxpartyparrot.Game
         {
             get
             {
-                switch(SortOrder)
-                {
+                switch(SortOrder) {
                 case HighScoreSortOrder.Ascending:
                     return _highScores.Reverse();
                 case HighScoreSortOrder.Descending:
@@ -69,17 +68,18 @@ namespace pdxpartyparrot.Game
 
         private readonly HashSet<string> _extras = new HashSet<string>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             InitDebugMenu();
         }
-#endregion
+
+        #endregion
 
         public void AddHighScore(string playerName, int score)
         {
-            AddHighScore(new HighScoreEntry
-            {
+            AddHighScore(new HighScoreEntry {
                 playerName = playerName,
                 playerCount = 1,
                 score = score
@@ -88,8 +88,7 @@ namespace pdxpartyparrot.Game
 
         public void AddHighScore(string playerName, int score, int playerCount)
         {
-            AddHighScore(new HighScoreEntry
-            {
+            AddHighScore(new HighScoreEntry {
                 playerName = playerName,
                 playerCount = playerCount,
                 score = score
@@ -98,8 +97,7 @@ namespace pdxpartyparrot.Game
 
         public void AddHighScore(string playerName, int score, Dictionary<string, object> extra)
         {
-            HighScoreEntry entry = new HighScoreEntry
-            {
+            HighScoreEntry entry = new HighScoreEntry {
                 playerName = playerName,
                 playerCount = 1,
                 score = score,
@@ -115,8 +113,7 @@ namespace pdxpartyparrot.Game
 
         public void AddHighScore(string playerName, int score, int playerCount, Dictionary<string, object> extra)
         {
-            HighScoreEntry entry = new HighScoreEntry
-            {
+            HighScoreEntry entry = new HighScoreEntry {
                 playerName = playerName,
                 playerCount = playerCount,
                 score = score,
@@ -132,8 +129,7 @@ namespace pdxpartyparrot.Game
 
         public void AddHighScore(int playerCount, int score)
         {
-            AddHighScore(new HighScoreEntry
-            {
+            AddHighScore(new HighScoreEntry {
                 playerName = string.Empty,
                 playerCount = playerCount,
                 score = score,
@@ -142,8 +138,7 @@ namespace pdxpartyparrot.Game
 
         public void AddHighScore(int playerCount, int score, Dictionary<string, object> extra)
         {
-            HighScoreEntry entry = new HighScoreEntry
-            {
+            HighScoreEntry entry = new HighScoreEntry {
                 playerName = string.Empty,
                 playerCount = playerCount,
                 score = score,
@@ -166,7 +161,7 @@ namespace pdxpartyparrot.Game
 
         public void HighScoresText(Dictionary<string, StringBuilder> columns)
         {
-            int i=1;
+            int i = 1;
             foreach(HighScoreEntry highScore in _highScores) {
                 StringBuilder rank = columns.GetOrAdd("rank");
                 rank.AppendLine($"{i}");
@@ -194,29 +189,29 @@ namespace pdxpartyparrot.Game
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Game.HighScoreManager");
             debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("High Scores", GUI.skin.box);
-                    StringBuilder builder = new StringBuilder("Rank\tName\tScore\tPlayers");
+                StringBuilder builder = new StringBuilder("Rank\tName\tScore\tPlayers");
+                foreach(string extra in _extras) {
+                    builder.Append($"\t{extra}");
+                }
+                GUILayout.Label(builder.ToString());
+
+                int i = 1;
+                foreach(HighScoreEntry highScore in HighScores) {
+                    builder.Clear();
+
+                    builder.Append($"{i}\t");
+                    builder.Append($"{highScore.playerName}\t");
+                    builder.Append($"{highScore.score}\t");
+                    builder.Append($"{highScore.playerCount}");
+
                     foreach(string extra in _extras) {
-                        builder.Append($"\t{extra}");
+                        builder.Append($"\t{highScore.extra.GetOrDefault(extra)}");
                     }
+
                     GUILayout.Label(builder.ToString());
 
-                    int i=1;
-                    foreach(HighScoreEntry highScore in HighScores) {
-                        builder.Clear();
-
-                        builder.Append($"{i}\t");
-                        builder.Append($"{highScore.playerName}\t");
-                        builder.Append($"{highScore.score}\t");
-                        builder.Append($"{highScore.playerCount}");
-
-                        foreach(string extra in _extras) {
-                            builder.Append($"\t{highScore.extra.GetOrDefault(extra)}");
-                        }
-
-                        GUILayout.Label(builder.ToString());
-
-                        i++;
-                    }
+                    i++;
+                }
                 GUILayout.EndVertical();
             };
         }

@@ -15,14 +15,16 @@ namespace pdxpartyparrot.Game
 {
     public interface IGameManager
     {
-#region Events
+        #region Events
+
         event EventHandler<EventArgs> GameStartServerEvent;
         event EventHandler<EventArgs> GameStartClientEvent;
 
         event EventHandler<EventArgs> GameReadyEvent;
         event EventHandler<EventArgs> GameUnReadyEvent;
         event EventHandler<EventArgs> GameOverEvent;
-#endregion
+
+        #endregion
 
         GameData GameData { get; }
 
@@ -51,16 +53,18 @@ namespace pdxpartyparrot.Game
         void TransitionScene(string nextScene, Action onComplete);
     }
 
-    public abstract class GameManager<T> : SingletonBehavior<T>, IGameManager where T: GameManager<T>
+    public abstract class GameManager<T> : SingletonBehavior<T>, IGameManager where T : GameManager<T>
     {
-#region Events
+        #region Events
+
         public event EventHandler<EventArgs> GameStartServerEvent;
         public event EventHandler<EventArgs> GameStartClientEvent;
 
         public event EventHandler<EventArgs> GameReadyEvent;
         public event EventHandler<EventArgs> GameUnReadyEvent;
         public event EventHandler<EventArgs> GameOverEvent;
-#endregion
+
+        #endregion
 
         [SerializeField]
         private GameData _gameData;
@@ -114,7 +118,8 @@ namespace pdxpartyparrot.Game
             set => _transitionToHighScores = value;
         }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             GameStateManager.Instance.RegisterGameManager(this);
@@ -128,7 +133,8 @@ namespace pdxpartyparrot.Game
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize()
         {
@@ -151,7 +157,8 @@ namespace pdxpartyparrot.Game
             }
         }
 
-#region Level Helper
+        #region Level Helper
+
         public void RegisterLevelHelper(LevelHelper levelHelper)
         {
             Assert.IsNull(_levelHelper);
@@ -163,7 +170,8 @@ namespace pdxpartyparrot.Game
             Assert.IsTrue(levelHelper == _levelHelper);
             _levelHelper = null;
         }
-#endregion
+
+        #endregion
 
         protected virtual void InitializeObjectPools()
         {

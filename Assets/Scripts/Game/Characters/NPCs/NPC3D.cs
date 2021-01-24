@@ -21,18 +21,23 @@ namespace pdxpartyparrot.Game.Characters.NPCs
     {
         public GameObject GameObject => gameObject;
 
-#region Network
-        public override bool IsLocalActor => false;
-#endregion
+        #region Network
 
-#region Behavior
+        public override bool IsLocalActor => false;
+
+        #endregion
+
+        #region Behavior
+
         [CanBeNull]
         public NPCBehavior NPCBehavior => (NPCBehavior)Behavior;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Pathing
+        #region Pathing
+
         [SerializeField]
         [ReadOnly]
         private bool _pathPending;
@@ -52,7 +57,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public bool HasPath => _agent.hasPath;
 
         public Vector3 NextPosition => _agent.nextPosition;
-#endregion
+
+        #endregion
 
         [CanBeNull]
         private PooledObject _pooledObject;
@@ -71,7 +77,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         [ReadOnly]
         private int _stuckCheckCount;
 
-#region Debug
+        #region Debug
+
         [SerializeField]
         [CanBeNull]
         private Transform _debugTextTarget;
@@ -83,9 +90,11 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #if UNITY_EDITOR
         private LineRenderer _debugPathRenderer;
 #endif
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -128,7 +137,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 Stop(false, false);
             }
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(Guid id)
         {
@@ -149,7 +159,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             _agentStuckCheck = StartCoroutine(AgentStuckCheck());
         }
 
-#region Pathing
+        #region Pathing
+
         public bool UpdatePath(Vector3 target)
         {
             if(!_agent.SetDestination(target)) {
@@ -182,12 +193,13 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             }
 
             _debugPathRenderer.positionCount = _agent.path.corners.Length;
-            for(int i=0; i<_agent.path.corners.Length; ++i) {
+            for(int i = 0; i < _agent.path.corners.Length; ++i) {
                 _debugPathRenderer.SetPosition(i, _agent.path.corners[i]);
             }
         }
 #endif
-#endregion
+
+        #endregion
 
         public void Stop(bool resetPath, bool idle)
         {
@@ -247,7 +259,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             }
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void RecycleEventHandler(object sender, EventArgs args)
         {
             StopCoroutine(_agentStuckCheck);
@@ -255,9 +268,11 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             OnDeSpawn();
         }
-#endregion
 
-#region Debug
+        #endregion
+
+        #region Debug
+
         public void DisplayDebugText(string text, Color color)
         {
             Debug.Log($"[NPC {Id}]: {text}");
@@ -265,6 +280,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 _debugTextQueue.QueueFloatingText(text, color, () => null == _debugTextTarget ? transform.position : _debugTextTarget.position);
             }
         }
-#endregion
+
+        #endregion
     }
 }

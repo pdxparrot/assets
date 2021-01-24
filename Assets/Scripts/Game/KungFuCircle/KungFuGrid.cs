@@ -37,7 +37,8 @@ namespace pdxpartyparrot.Game.KungFuCircle
         [ReadOnly]
         private float _radiansBetweenSlots;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _slotsTaken = new int[_maxGridSlots];
@@ -52,7 +53,8 @@ namespace pdxpartyparrot.Game.KungFuCircle
                 currentRadians += _radiansBetweenSlots;
             }
         }
-#endregion
+
+        #endregion
 
         public Vector3 GetAttackSlotLocation(int i)
         {

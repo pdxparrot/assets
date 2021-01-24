@@ -21,7 +21,8 @@ namespace pdxpartyparrot.Game.Effects
             set => _particleSystemParent = value;
         }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void OnDestroy()
         {
             foreach(WorldZone zone in _zones) {
@@ -51,6 +52,7 @@ namespace pdxpartyparrot.Game.Effects
             zone.Exit(gameObject);
             _zones.Remove(zone);
         }
-#endregion
+
+        #endregion
     }
 }

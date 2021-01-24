@@ -45,12 +45,14 @@ namespace pdxpartyparrot.Game.State
         [CanBeNull]
         private EffectTrigger _exitEffect;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             _currentSceneName = _initialSceneName;
         }
-#endregion
+
+        #endregion
 
         public IEnumerator<float> LoadSceneRoutine()
         {

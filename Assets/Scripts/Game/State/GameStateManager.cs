@@ -28,7 +28,8 @@ namespace pdxpartyparrot.Game.State
 {
     public sealed class GameStateManager : SingletonBehavior<GameStateManager>
     {
-#region Game State Prefabs
+        #region Game State Prefabs
+
         [Header("Game States")]
 
         [SerializeField]
@@ -55,34 +56,40 @@ namespace pdxpartyparrot.Game.State
         public SubGameState CurrentSubState => _currentSubGameState;
 
         private readonly Stack<SubGameState> _subStateStack = new Stack<SubGameState>();
-#endregion
+
+        #endregion
 
 #if ENABLE_SERVER_SPECTATOR
         [Space(10)]
 
-#region Server Spectator
+        #region Server Spectator
+
         [Header("Server Spectator")]
 
         [SerializeField]
         private ServerSpectator _serverSpectatorPrefab;
 
-        public  ServerSpectator ServerSpectatorPrefab => _serverSpectatorPrefab;
+        public ServerSpectator ServerSpectatorPrefab => _serverSpectatorPrefab;
 
         [SerializeField]
         private ServerSpectatorViewer _serverSpectatorViewerPrefab;
 
         public ServerSpectatorViewer ServerSpectatorViewerPrefab => _serverSpectatorViewerPrefab;
-#endregion
+
+        #endregion
 #endif
 
-#region Network
+        #region Network
+
         [CanBeNull]
         public NetworkClient NetworkClient { get; set; }
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Managers
+        #region Managers
+
         [Header("Registered Managers")]
 
         [SerializeField]
@@ -116,12 +123,14 @@ namespace pdxpartyparrot.Game.State
 
         [CanBeNull]
         public INPCManager NPCManager => _npcManager;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         private void Awake()
         {
-// TODO: allocate and disable *all* game states
+            // TODO: allocate and disable *all* game states
 
             InitDebugMenu();
         }
@@ -135,7 +144,7 @@ namespace pdxpartyparrot.Game.State
                 yield return null;
             }*/
 
-// TODO: destroy all game states
+            // TODO: destroy all game states
 
             base.OnDestroy();
         }
@@ -150,9 +159,11 @@ namespace pdxpartyparrot.Game.State
                 _currentGameState.OnUpdate(dt);
             }
         }
-#endregion
 
-#region Register Game Managers
+        #endregion
+
+        #region Register Game Managers
+
         public void RegisterGameManager(IGameManager gameManager)
         {
             Assert.IsNull(_gameManager);
@@ -196,7 +207,8 @@ namespace pdxpartyparrot.Game.State
         {
             _npcManager = null;
         }
-#endregion
+
+        #endregion
 
         public void ShutdownNetwork()
         {
@@ -207,19 +219,20 @@ namespace pdxpartyparrot.Game.State
             NetworkClient = null;
         }
 
-#region State Management
-        public void TransitionToInitialStateAsync(Action<GameState> initializeState=null, Action onStateLoaded=null)
+        #region State Management
+
+        public void TransitionToInitialStateAsync(Action<GameState> initializeState = null, Action onStateLoaded = null)
         {
             Debug.Log("Transition to initial state (main menu)...");
             TransitionStateAsync(_mainMenuStatePrefab, initializeState, onStateLoaded);
         }
 
-        public void TransitionStateAsync<TV>(TV gameStatePrefab, Action<TV> initializeState=null, Action onStateLoaded=null) where TV: GameState
+        public void TransitionStateAsync<TV>(TV gameStatePrefab, Action<TV> initializeState = null, Action onStateLoaded = null) where TV : GameState
         {
             StartCoroutine(TransitionStateRoutine(gameStatePrefab, initializeState, onStateLoaded));
         }
 
-        private IEnumerator TransitionStateRoutine<TV>(TV gameStatePrefab, Action<TV> initializeState=null, Action onStateLoaded=null) where TV: GameState
+        private IEnumerator TransitionStateRoutine<TV>(TV gameStatePrefab, Action<TV> initializeState = null, Action onStateLoaded = null) where TV : GameState
         {
             PartyParrotManager.Instance.LoadingManager.ShowLoadingScreen(true);
 
@@ -307,7 +320,7 @@ namespace pdxpartyparrot.Game.State
             Destroy(gameState.gameObject);
         }
 
-        public void PushSubState<TV>(TV gameStatePrefab, Action<TV> initializeState=null) where TV: SubGameState
+        public void PushSubState<TV>(TV gameStatePrefab, Action<TV> initializeState = null) where TV : SubGameState
         {
             if(null != _currentSubGameState) {
                 _currentSubGameState.OnPause();
@@ -349,10 +362,12 @@ namespace pdxpartyparrot.Game.State
                 _currentGameState.OnResume();
             }
         }
-#endregion
 
-#region Start Game
-        public void StartLocal(MainGameState mainGameStatePrefab, Action<GameState> gameStateInit=null)
+        #endregion
+
+        #region Start Game
+
+        public void StartLocal(MainGameState mainGameStatePrefab, Action<GameState> gameStateInit = null)
         {
             PushSubState(_networkConnectStatePrefab, state => {
                 state.Initialize(NetworkConnectState.ConnectType.Local, mainGameStatePrefab, gameStateInit);
@@ -360,21 +375,22 @@ namespace pdxpartyparrot.Game.State
         }
 
 #if USE_NETWORKING
-        public void StartHost(MainGameState mainGameStatePrefab, Action<GameState> gameStateInit=null)
+        public void StartHost(MainGameState mainGameStatePrefab, Action<GameState> gameStateInit = null)
         {
             PushSubState(_networkConnectStatePrefab, state => {
                 state.Initialize(NetworkConnectState.ConnectType.Server, mainGameStatePrefab, gameStateInit);
             });
         }
 
-        public void StartJoin(MainGameState mainGameStatePrefab, Action<GameState> gameStateInit=null)
+        public void StartJoin(MainGameState mainGameStatePrefab, Action<GameState> gameStateInit = null)
         {
             PushSubState(_networkConnectStatePrefab, state => {
                 state.Initialize(NetworkConnectState.ConnectType.Client, mainGameStatePrefab, gameStateInit);
             });
         }
 #endif
-#endregion
+
+        #endregion
 
         private void InitDebugMenu()
         {
@@ -391,31 +407,31 @@ namespace pdxpartyparrot.Game.State
 #if USE_NETWORKING
                 if(null != NetworkClient) {
                     GUILayout.BeginVertical("Client Stats", GUI.skin.box);
-                        GUILayout.Label($"Ping: {NetworkClient.GetRTT()}ms");
+                    GUILayout.Label($"Ping: {NetworkClient.GetRTT()}ms");
 
-                        NetworkClient.GetStatsIn(out int numMsgs, out int numBytes);
-                        GUILayout.Label($"Messages received: {numMsgs}");
-                        GUILayout.Label($"Bytes received: {numBytes}");
+                    NetworkClient.GetStatsIn(out int numMsgs, out int numBytes);
+                    GUILayout.Label($"Messages received: {numMsgs}");
+                    GUILayout.Label($"Bytes received: {numBytes}");
 
-                        NetworkClient.GetStatsOut(out numMsgs, out int numBufferedMsgs, out numBytes, out int lastBufferedPerSecond);
-                        GUILayout.Label($"Messages sent: {numMsgs}");
-                        GUILayout.Label($"Messages buffered: {numBufferedMsgs}");
-                        GUILayout.Label($"Bytes sent: {numBytes}");
-                        GUILayout.Label($"Messages buffered per second: {lastBufferedPerSecond}");
+                    NetworkClient.GetStatsOut(out numMsgs, out int numBufferedMsgs, out numBytes, out int lastBufferedPerSecond);
+                    GUILayout.Label($"Messages sent: {numMsgs}");
+                    GUILayout.Label($"Messages buffered: {numBufferedMsgs}");
+                    GUILayout.Label($"Bytes sent: {numBytes}");
+                    GUILayout.Label($"Messages buffered per second: {lastBufferedPerSecond}");
                     GUILayout.EndVertical();
                 }
 
                 if(Core.Network.NetworkManager.Instance.IsServerActive()) {
                     GUILayout.BeginVertical("Server Stats", GUI.skin.box);
-                        NetworkServer.GetStatsIn(out int numMsgs, out int numBytes);
-                        GUILayout.Label($"Messages received: {numMsgs}");
-                        GUILayout.Label($"Bytes received: {numBytes}");
+                    NetworkServer.GetStatsIn(out int numMsgs, out int numBytes);
+                    GUILayout.Label($"Messages received: {numMsgs}");
+                    GUILayout.Label($"Bytes received: {numBytes}");
 
-                        NetworkServer.GetStatsOut(out numMsgs, out int numBufferedMsgs, out numBytes, out int lastBufferedPerSecond);
-                        GUILayout.Label($"Messages sent: {numMsgs}");
-                        GUILayout.Label($"Messages buffered: {numBufferedMsgs}");
-                        GUILayout.Label($"Bytes sent: {numBytes}");
-                        GUILayout.Label($"Messages buffered per second: {lastBufferedPerSecond}");
+                    NetworkServer.GetStatsOut(out numMsgs, out int numBufferedMsgs, out numBytes, out int lastBufferedPerSecond);
+                    GUILayout.Label($"Messages sent: {numMsgs}");
+                    GUILayout.Label($"Messages buffered: {numBufferedMsgs}");
+                    GUILayout.Label($"Bytes sent: {numBytes}");
+                    GUILayout.Label($"Messages buffered per second: {lastBufferedPerSecond}");
                     GUILayout.EndVertical();
                 }
 #endif
@@ -424,20 +440,20 @@ namespace pdxpartyparrot.Game.State
             DebugMenuNode testSceneDebugMenuNode = DebugMenuManager.Instance.AddNode(() => "Game.GameStateManager.TestScenes");
             testSceneDebugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Test Scenes", GUI.skin.box);
-                    foreach(string sceneName in _sceneTesterStatePrefab.TestScenes) {
-                        if(GUIUtils.LayoutButton($"Load Test Scene '{sceneName}'")) {
-                            Debug.Log($"Loading test scene '{sceneName}'...");
-                            TransitionToInitialStateAsync(null, () => {
-                                PushSubState(_networkConnectStatePrefab, connectState => {
-                                        connectState.Initialize(NetworkConnectState.ConnectType.Local, _sceneTesterStatePrefab, state => {
-                                            SceneTester sceneTester = (SceneTester)state;
-                                            sceneTester.SetScene(sceneName);
-                                        });
-                                    });
+                foreach(string sceneName in _sceneTesterStatePrefab.TestScenes) {
+                    if(GUIUtils.LayoutButton($"Load Test Scene '{sceneName}'")) {
+                        Debug.Log($"Loading test scene '{sceneName}'...");
+                        TransitionToInitialStateAsync(null, () => {
+                            PushSubState(_networkConnectStatePrefab, connectState => {
+                                connectState.Initialize(NetworkConnectState.ConnectType.Local, _sceneTesterStatePrefab, state => {
+                                    SceneTester sceneTester = (SceneTester)state;
+                                    sceneTester.SetScene(sceneName);
+                                });
                             });
-                            break;
-                        }
+                        });
+                        break;
                     }
+                }
                 GUILayout.EndVertical();
             };
         }

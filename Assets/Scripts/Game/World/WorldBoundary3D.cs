@@ -5,7 +5,8 @@ namespace pdxpartyparrot.Game.World
     [RequireComponent(typeof(Collider))]
     public class WorldBoundary3D : WorldBoundary
     {
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void OnCollisionEnter(Collision collision)
         {
             HandleCollision(collision.gameObject);
@@ -15,6 +16,7 @@ namespace pdxpartyparrot.Game.World
         {
             HandleCollision(other.gameObject);
         }
-#endregion
+
+        #endregion
     }
 }

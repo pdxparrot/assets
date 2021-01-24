@@ -11,7 +11,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
     {
         private GroundCheckBehaviorComponent _groundChecker;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -19,14 +20,17 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
             _groundChecker = GetComponent<GroundCheckBehaviorComponent>();
             _groundChecker.SlopeLimitEvent += SlopeLimitEventHandler;
         }
-#endregion
 
-#region Event Handlers
+        #endregion
+
+        #region Event Handlers
+
         private void SlopeLimitEventHandler(object sender, EventArgs args)
         {
             // prevent moving up slopes we can't move up
             PlayerBehavior.SetMoveDirection(new Vector3(PlayerBehavior.MoveDirection.x, 0.0f, 0.0f));
         }
-#endregion
+
+        #endregion
     }
 }

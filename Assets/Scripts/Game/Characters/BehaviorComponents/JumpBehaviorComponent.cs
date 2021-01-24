@@ -9,12 +9,14 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 {
     public class JumpBehaviorComponent : CharacterBehaviorComponent
     {
-#region Actions
+        #region Actions
+
         public class JumpAction : CharacterBehaviorAction
         {
             public static JumpAction Default = new JumpAction();
         }
-#endregion
+
+        #endregion
 
         [SerializeField]
         private JumpBehaviorComponentData _data;
@@ -27,15 +29,18 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         [Space(10)]
 
-#region Effects
+        #region Effects
+
         [Header("Effects")]
 
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _jumpEffect;
-#endregion
 
-#region Actions
+        #endregion
+
+        #region Actions
+
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
             if(!(action is JumpAction)) {
@@ -53,6 +58,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
             return true;
         }
-#endregion
+
+        #endregion
     }
 }

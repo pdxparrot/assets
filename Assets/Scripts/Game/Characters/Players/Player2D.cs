@@ -20,7 +20,8 @@ namespace pdxpartyparrot.Game.Characters.Players
     {
         public GameObject GameObject => gameObject;
 
-#region Network
+        #region Network
+
         public override bool IsLocalActor => NetworkPlayer.isLocalPlayer;
 
         // need this to hand off to the NetworkManager before instantiating
@@ -28,9 +29,11 @@ namespace pdxpartyparrot.Game.Characters.Players
         private Game.Players.NetworkPlayer _networkPlayer;
 
         public Game.Players.NetworkPlayer NetworkPlayer => _networkPlayer;
-#endregion
 
-#region Input / Behavior
+        #endregion
+
+        #region Input / Behavior
+
         [SerializeField]
         private PlayerInputHandler _inputHandler;
 
@@ -38,9 +41,11 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         [CanBeNull]
         public PlayerBehavior PlayerBehavior => (PlayerBehavior)Behavior;
-#endregion
 
-#region Viewer
+        #endregion
+
+        #region Viewer
+
         [CanBeNull]
         public IPlayerViewer PlayerViewer { get; protected set; }
 
@@ -48,11 +53,13 @@ namespace pdxpartyparrot.Game.Characters.Players
         public Viewer Viewer
         {
             get => null == PlayerViewer ? null : PlayerViewer.Viewer;
-            set {}
+            set { }
         }
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected override void OnDestroy()
         {
             if(null != Viewer && ViewerManager.HasInstance) {
@@ -62,7 +69,8 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(Guid id)
         {
@@ -101,7 +109,8 @@ namespace pdxpartyparrot.Game.Characters.Players
             base.SetFacing(direction);
         }
 
-#region Spawn
+        #region Spawn
+
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
             Debug.Log($"Spawning player (controller={NetworkPlayer.playerControllerId}, isLocalPlayer={IsLocalActor})");
@@ -127,6 +136,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             return true;
         }
-#endregion
+
+        #endregion
     }
 }

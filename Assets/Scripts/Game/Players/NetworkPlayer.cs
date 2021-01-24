@@ -29,14 +29,16 @@ namespace pdxpartyparrot.Game.Players
 
         public short ControllerId => _controllerId;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
 
             Assert.IsTrue(Actor is IPlayer);
         }
-#endregion
+
+        #endregion
 
         public void Initialize(short controllerId)
         {
@@ -59,9 +61,10 @@ namespace pdxpartyparrot.Game.Players
 #endif
         }
 
-// TODO: we could make better use of NetworkBehaviour callbacks in here (and in other NetworkBehaviour types)
+        // TODO: we could make better use of NetworkBehaviour callbacks in here (and in other NetworkBehaviour types)
 
-#region Callbacks
+        #region Callbacks
+
 #if USE_NETWORKING
         [ClientRpc]
 #endif
@@ -72,6 +75,7 @@ namespace pdxpartyparrot.Game.Players
             Actor.Initialize(Guid.Parse(id));
             Actor.Behavior.Initialize(GameStateManager.Instance.PlayerManager.PlayerBehaviorData);
         }
-#endregion
+
+        #endregion
     }
 }

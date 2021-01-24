@@ -17,13 +17,15 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         [Space(10)]
 
-#region Effects
+        #region Effects
+
         [Header("Effects")]
 
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _longJumpEffect;
-#endregion
+
+        #endregion
 
         [SerializeField]
         [ReadOnly]
@@ -39,7 +41,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [ReadOnly]
         private bool _didLongJump;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Update()
         {
             if(PartyParrotManager.Instance.IsPaused) {
@@ -69,9 +72,11 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 _heldSeconds = 0;
             }
         }
-#endregion
 
-#region Actions
+        #endregion
+
+        #region Actions
+
         public override bool OnStarted(CharacterBehaviorAction action)
         {
             if(!(action is JumpBehaviorComponent.JumpAction)) {
@@ -100,6 +105,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
             return _didLongJump;
         }
-#endregion
+
+        #endregion
     }
 }

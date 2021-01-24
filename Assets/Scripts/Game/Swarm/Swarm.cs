@@ -34,7 +34,7 @@ namespace pdxpartyparrot.Game.Swarm
         public int Remove(int amount)
         {
             int removed = 0;
-            for(int i=0; i<_swarmables.Count && removed < amount; ++i) {
+            for(int i = 0; i < _swarmables.Count && removed < amount; ++i) {
                 ISwarmable swarmable = _swarmables[i];
                 swarmable.RemoveFromSwarm();
 

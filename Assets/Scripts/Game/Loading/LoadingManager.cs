@@ -8,11 +8,12 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Loading
 {
-    public abstract class LoadingManager<T> : Core.Loading.LoadingManager<LoadingManager<T>> where T: LoadingManager<T>
+    public abstract class LoadingManager<T> : Core.Loading.LoadingManager<LoadingManager<T>> where T : LoadingManager<T>
     {
         [Space(10)]
 
-#region Manager Prefabs
+        #region Manager Prefabs
+
         [Header("Game Manager Prefabs")]
 
         [SerializeField]
@@ -23,7 +24,8 @@ namespace pdxpartyparrot.Game.Loading
 
         [SerializeField]
         private CinematicsManager _cinematicsManagerPrefab;
-#endregion
+
+        #endregion
 
         protected override void CreateManagers()
         {

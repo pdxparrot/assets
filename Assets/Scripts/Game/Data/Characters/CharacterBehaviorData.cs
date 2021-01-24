@@ -9,7 +9,8 @@ namespace pdxpartyparrot.Game.Data.Characters
     [Serializable]
     public abstract class CharacterBehaviorData : ActorBehaviorComponentData
     {
-#region Physics
+        #region Physics
+
         [Header("Character Physics")]
 
         [SerializeField]
@@ -47,11 +48,13 @@ namespace pdxpartyparrot.Game.Data.Characters
         private bool _allowAirControl = true;
 
         public bool AllowAirControl => _allowAirControl;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Animations
+        #region Animations
+
         [Header("Character Animations")]
 
         [SerializeField]
@@ -68,9 +71,11 @@ namespace pdxpartyparrot.Game.Data.Characters
         private string _fallingParam = "Falling";
 
         public string FallingParam => _fallingParam;
-#endregion
 
-#region Action Buffering
+        #endregion
+
+        #region Action Buffering
+
         [Header("Action Buffering")]
 
         [SerializeField]
@@ -83,6 +88,7 @@ namespace pdxpartyparrot.Game.Data.Characters
         private int _actionBufferTimeoutMs = 500;
 
         public int ActionBufferTimeoutMs => _actionBufferTimeoutMs;
-#endregion
+
+        #endregion
     }
 }

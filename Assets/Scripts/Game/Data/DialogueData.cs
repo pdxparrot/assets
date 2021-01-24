@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data
 {
-    [CreateAssetMenu(fileName="DialogueData", menuName="pdxpartyparrot/Game/Data/Dialogue Data")]
+    [CreateAssetMenu(fileName = "DialogueData", menuName = "pdxpartyparrot/Game/Data/Dialogue Data")]
     [Serializable]
     public sealed class DialogueData : ScriptableObject
     {

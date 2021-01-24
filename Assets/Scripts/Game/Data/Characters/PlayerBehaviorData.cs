@@ -9,13 +9,15 @@ namespace pdxpartyparrot.Game.Data.Characters
     {
         [Space(10)]
 
-#region Movement
+        #region Movement
+
         [Header("Player Movement")]
 
         [SerializeField]
         private bool _alignMovementWithViewer;
 
         public bool AlignMovementWithViewer => _alignMovementWithViewer;
-#endregion
+
+        #endregion
     }
 }

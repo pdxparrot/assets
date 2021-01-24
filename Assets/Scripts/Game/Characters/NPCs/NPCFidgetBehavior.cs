@@ -47,7 +47,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         [ReadOnly]
         private ITimer _cooldown;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             Assert.IsTrue(_fidgetRange.Valid);
@@ -62,7 +63,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 _cooldown = null;
             }
         }
-#endregion
+
+        #endregion
 
         public void Initialize(INPC owner)
         {

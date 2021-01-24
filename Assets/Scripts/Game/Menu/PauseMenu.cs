@@ -9,21 +9,26 @@ namespace pdxpartyparrot.Game.Menu
 {
     public sealed class PauseMenu : MenuPanel
     {
-#region Settings
+        #region Settings
+
         [SerializeField]
         private SettingsMenu _settingsMenu;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
 
             _settingsMenu.gameObject.SetActive(false);
         }
-#endregion
 
-#region Event Handlers
+        #endregion
+
+        #region Event Handlers
+
         public void OnSettings()
         {
             Owner.PushPanel(_settingsMenu);
@@ -53,6 +58,7 @@ namespace pdxpartyparrot.Game.Menu
         {
             UnityUtil.Quit();
         }
-#endregion
+
+        #endregion
     }
 }

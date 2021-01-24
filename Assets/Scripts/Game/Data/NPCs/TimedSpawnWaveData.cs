@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.NPCs
 {
-    [CreateAssetMenu(fileName="TimedSpawnWaveData", menuName="pdxpartyparrot/Game/Data/Wave Spawner/TimedSpawnWave Data")]
+    [CreateAssetMenu(fileName = "TimedSpawnWaveData", menuName = "pdxpartyparrot/Game/Data/Wave Spawner/TimedSpawnWave Data")]
     [Serializable]
     public class TimedSpawnWaveData : SpawnWaveData
     {

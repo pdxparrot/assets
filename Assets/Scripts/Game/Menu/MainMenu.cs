@@ -10,26 +10,33 @@ namespace pdxpartyparrot.Game.Menu
 {
     public abstract class MainMenu : MenuPanel
     {
-#region High Scores
+        #region High Scores
+
         [SerializeField]
         [CanBeNull]
         private HighScoresMenu _highScoresPanel;
-#endregion
 
-#region Credits
+        #endregion
+
+        #region Credits
+
         [SerializeField]
         private CreditsMenu _creditsPanel;
-#endregion
 
-#region Character Select
+        #endregion
+
+        #region Character Select
+
         [SerializeField]
         [CanBeNull]
         private CharacterSelectMenu _characterSelectPanel;
-#endregion
+
+        #endregion
 
         private DebugMenuNode _debugMenuNode;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -55,14 +62,16 @@ namespace pdxpartyparrot.Game.Menu
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public void ShowHighScores()
         {
             OnHighScores();
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         public virtual void OnStart()
         {
             if(null != _characterSelectPanel) {
@@ -84,7 +93,8 @@ namespace pdxpartyparrot.Game.Menu
         {
             UnityUtil.Quit();
         }
-#endregion
+
+        #endregion
 
         private void InitDebugMenu()
         {

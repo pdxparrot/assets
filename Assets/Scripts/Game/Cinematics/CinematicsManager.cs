@@ -14,7 +14,8 @@ namespace pdxpartyparrot.Game.Cinematics
 
         private readonly Dictionary<string, Cinematic> _cinematicsPrefabs = new Dictionary<string, Cinematic>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             foreach(Cinematic cinematicPrefab in _data.CinematicsPrefabs) {
@@ -24,6 +25,7 @@ namespace pdxpartyparrot.Game.Cinematics
                 _cinematicsPrefabs[cinematicPrefab.Id] = cinematicPrefab;
             }
         }
-#endregion
+
+        #endregion
     }
 }

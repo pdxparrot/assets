@@ -19,7 +19,8 @@ namespace pdxpartyparrot.Game.Data
 
         [Space(10)]
 
-#region Input Buffering
+        #region Input Buffering
+
         [Header("Input Buffering")]
 
         [SerializeField]
@@ -32,6 +33,7 @@ namespace pdxpartyparrot.Game.Data
         private int _inputBufferTimeoutMs = 500;
 
         public int InputBufferTimeoutMs => _inputBufferTimeoutMs;
-#endregion
+
+        #endregion
     }
 }

@@ -15,7 +15,8 @@ namespace pdxpartyparrot.Game.Menu
         [CanBeNull]
         protected InitialInputMenu InitialInputMenu => _initialInputMenu;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -24,7 +25,8 @@ namespace pdxpartyparrot.Game.Menu
                 _initialInputMenu.gameObject.SetActive(false);
             }
         }
-#endregion
+
+        #endregion
 
         public override void Initialize()
         {
@@ -36,11 +38,13 @@ namespace pdxpartyparrot.Game.Menu
             }
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         public virtual void OnDone()
         {
             GameStateManager.Instance.TransitionToInitialStateAsync();
         }
-#endregion
+
+        #endregion
     }
 }

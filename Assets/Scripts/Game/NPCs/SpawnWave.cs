@@ -127,7 +127,8 @@ namespace pdxpartyparrot.Game.NPCs
             }
         }
 
-#region Events
+        #region Events
+
         public void OnWaveSpawned(int count)
         {
             _spawnedCount += count;
@@ -141,13 +142,16 @@ namespace pdxpartyparrot.Game.NPCs
                 _owner.Advance();
             }
         }
-#endregion
 
-#region Event Handlers
+        #endregion
+
+        #region Event Handlers
+
         private void WaveTimerTimesUpEventHandler(object sender, EventArgs args)
         {
             _owner.Advance();
         }
-#endregion
+
+        #endregion
     }
 }

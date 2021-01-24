@@ -35,7 +35,8 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected float MouseSensitivity => _mouseSensitivity;
 
-#region Input Buffers
+        #region Input Buffers
+
         [SerializeField]
         [ReadOnly]
         private long _lastMoveBufferTimestampMs;
@@ -55,9 +56,10 @@ namespace pdxpartyparrot.Game.Players.Input
         private CircularBuffer<Vector3> _lookBuffer;
 
         public Vector3 LastLook => _moveBuffer.Tail;
-#endregion
 
-        protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor  && GameStateManager.Instance.GameManager.IsGameReady && !GameStateManager.Instance.GameManager.IsGameOver;
+        #endregion
+
+        protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor && GameStateManager.Instance.GameManager.IsGameReady && !GameStateManager.Instance.GameManager.IsGameOver;
 
         protected bool EnableMouseLook { get; private set; } = !Application.isEditor;
 
@@ -65,7 +67,8 @@ namespace pdxpartyparrot.Game.Players.Input
 
         private DebugMenuNode _debugMenuNode;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             Assert.IsTrue(Owner is IPlayer);
@@ -92,7 +95,8 @@ namespace pdxpartyparrot.Game.Players.Input
 
             UpdateBuffers();
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize(short playerControllerId)
         {
@@ -133,7 +137,8 @@ namespace pdxpartyparrot.Game.Players.Input
             }
         }
 
-#region Common Actions
+        #region Common Actions
+
         public void OnPause()
         {
             PartyParrotManager.Instance.TogglePause();
@@ -150,9 +155,11 @@ namespace pdxpartyparrot.Game.Players.Input
             _lookBuffer.Add(axes);
             _lastLookBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
         }
-#endregion
 
-#region Debug Menu
+        #endregion
+
+        #region Debug Menu
+
         private void InitDebugMenu()
         {
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => $"Game.Player {Player.Id} Input");
@@ -167,15 +174,15 @@ namespace pdxpartyparrot.Game.Players.Input
                 }
 
                 GUILayout.BeginVertical("Move Buffer", GUI.skin.box);
-                    foreach(var move in _moveBuffer) {
-                        GUILayout.Label(move.ToString());
-                    }
+                foreach(var move in _moveBuffer) {
+                    GUILayout.Label(move.ToString());
+                }
                 GUILayout.EndVertical();
 
                 GUILayout.BeginVertical("Look Buffer", GUI.skin.box);
-                    foreach(var look in _lookBuffer) {
-                        GUILayout.Label(look.ToString());
-                    }
+                foreach(var look in _lookBuffer) {
+                    GUILayout.Label(look.ToString());
+                }
                 GUILayout.EndVertical();
             };
         }
@@ -187,6 +194,7 @@ namespace pdxpartyparrot.Game.Players.Input
             }
             _debugMenuNode = null;
         }
-#endregion
+
+        #endregion
     }
 }

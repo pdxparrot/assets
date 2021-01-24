@@ -1,4 +1,5 @@
 using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Game.Editor.Dialogue

@@ -28,9 +28,10 @@ namespace pdxpartyparrot.Game.Players
         void DespawnPlayers();
     }
 
-    public abstract class PlayerManager<T> : SingletonBehavior<T>, IPlayerManager where T: PlayerManager<T>
+    public abstract class PlayerManager<T> : SingletonBehavior<T>, IPlayerManager where T : PlayerManager<T>
     {
-#region Debug
+        #region Debug
+
         [SerializeField]
         private bool _playersImmune;
 
@@ -40,7 +41,8 @@ namespace pdxpartyparrot.Game.Players
         private bool _debugInput;
 
         public bool DebugInput => _debugInput;
-#endregion
+
+        #endregion
 
         [SerializeField]
         private PlayerData _playerData;
@@ -70,7 +72,8 @@ namespace pdxpartyparrot.Game.Players
 
         private DebugMenuNode _debugMenuNode;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             Assert.IsTrue(_playerBehaviorData is PlayerBehaviorData);
@@ -103,7 +106,8 @@ namespace pdxpartyparrot.Game.Players
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
 
         private void SpawnPlayer(NetworkConnection conn, short controllerId)
@@ -153,7 +157,7 @@ namespace pdxpartyparrot.Game.Players
         // so... not sure what to do here
 
         // TODO: figure out how to work this in when players disconnect
-        public void DespawnPlayer(IPlayer player, bool remove=true)
+        public void DespawnPlayer(IPlayer player, bool remove = true)
         {
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
 
@@ -184,21 +188,23 @@ namespace pdxpartyparrot.Game.Players
             _players.Clear();
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void ServerAddPlayerEventHandler(object sender, ServerAddPlayerEventArgs args)
         {
             SpawnPlayer(args.NetworkConnection, args.PlayerControllerId);
         }
-#endregion
+
+        #endregion
 
         private void InitDebugMenu()
         {
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Game.PlayerManager");
             _debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Players", GUI.skin.box);
-                    foreach(IPlayer player in _players) {
-                        GUILayout.Label($"{player.Id} {player.Movement.Position}");
-                    }
+                foreach(IPlayer player in _players) {
+                    GUILayout.Label($"{player.Id} {player.Movement.Position}");
+                }
                 GUILayout.EndVertical();
 
                 _playersImmune = GUILayout.Toggle(_playersImmune, "Players Immune");

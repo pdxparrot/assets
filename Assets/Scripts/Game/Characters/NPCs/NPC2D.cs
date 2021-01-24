@@ -14,24 +14,31 @@ namespace pdxpartyparrot.Game.Characters.NPCs
     {
         public GameObject GameObject => gameObject;
 
-#region Network
+        #region Network
+
         public override bool IsLocalActor => false;
-#endregion
 
-#region Behavior
+        #endregion
+
+        #region Behavior
+
         public NPCBehavior NPCBehavior => (NPCBehavior)Behavior;
-#endregion
 
-#region Pathing
+        #endregion
+
+        #region Pathing
+
         public bool HasPath => false;
 
         public Vector3 NextPosition => Vector3.zero;
-#endregion
+
+        #endregion
 
         [CanBeNull]
         private PooledObject _pooledObject;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -41,7 +48,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 _pooledObject.RecycleEvent += RecycleEventHandler;
             }
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(Guid id)
         {
@@ -61,7 +69,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             base.SetFacing(direction);
         }
 
-#region Pathing
+        #region Pathing
+
         public bool UpdatePath(Vector3 target)
         {
             Debug.LogWarning("TODO: NPC2D.UpdatePath()");
@@ -77,7 +86,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 NPCBehavior.OnIdle();
             }
         }
-#endregion
+
+        #endregion
 
         public void Stop(bool resetPath, bool idle)
         {
@@ -98,11 +108,13 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             }
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void RecycleEventHandler(object sender, EventArgs args)
         {
             OnDeSpawn();
         }
-#endregion
+
+        #endregion
     }
 }

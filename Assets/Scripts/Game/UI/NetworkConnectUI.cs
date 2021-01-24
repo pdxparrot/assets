@@ -16,12 +16,14 @@ namespace pdxpartyparrot.Game.UI
 
         private NetworkConnectState _owner;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _canvas.sortingOrder = 500;
         }
-#endregion
+
+        #endregion
 
         public void Initialize(NetworkConnectState owner)
         {
@@ -33,11 +35,13 @@ namespace pdxpartyparrot.Game.UI
             _connectionStatusText.text = status;
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         public void OnCancel()
         {
             _owner.Cancel();
         }
-#endregion
+
+        #endregion
     }
 }

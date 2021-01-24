@@ -62,7 +62,8 @@ namespace pdxpartyparrot.Game.Menu
         [ReadOnly]
         private float _lastVerticalPosition;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -116,9 +117,11 @@ namespace pdxpartyparrot.Game.Menu
             _scrollRect.verticalNormalizedPosition = 1.0f;
             _lastVerticalPosition = _scrollRect.verticalNormalizedPosition;
         }
-#endregion
 
-#region Event Handlers
+        #endregion
+
+        #region Event Handlers
+
         public override void OnMove(InputAction.CallbackContext context)
         {
             if(!context.performed) {
@@ -139,6 +142,7 @@ namespace pdxpartyparrot.Game.Menu
             //_scrollRect.verticalNormalizedPosition = Mathf.MoveTowards(_scrollRect.verticalNormalizedPosition, 0.0f, _lastScrollAmount);
             _lastVerticalPosition = _scrollRect.verticalNormalizedPosition;
         }
-#endregion
+
+        #endregion
     }
 }

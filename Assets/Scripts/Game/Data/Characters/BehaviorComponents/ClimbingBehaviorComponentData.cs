@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="ClimbingBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/ClimbingBehaviorComponent Data")]
+    [CreateAssetMenu(fileName = "ClimbingBehaviorComponentData", menuName = "pdxpartyparrot/Game/Data/Behavior Components/ClimbingBehaviorComponent Data")]
     [Serializable]
     public class ClimbingBehaviorComponentData : CharacterBehaviorComponentData
     {
@@ -77,7 +77,8 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 
         [Space(10)]
 
-#region Animations
+        #region Animations
+
         [Header("Animations")]
 
         [SerializeField]
@@ -109,6 +110,7 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
         private float _hangTimeSeconds = 1.0f;
 
         public float HangTimeSeconds => _hangTimeSeconds;
-#endregion
+
+        #endregion
     }
 }

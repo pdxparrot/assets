@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="ViewerBoundsPlayerBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/ViewerBoundsPlayerBehaviorComponent Data")]
+    [CreateAssetMenu(fileName = "ViewerBoundsPlayerBehaviorComponentData", menuName = "pdxpartyparrot/Game/Data/Behavior Components/ViewerBoundsPlayerBehaviorComponent Data")]
     [Serializable]
     public class ViewerBoundsPlayerBehaviorComponentData : CharacterBehaviorComponentData
     {

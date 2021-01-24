@@ -4,7 +4,8 @@ namespace pdxpartyparrot.Game.Menu
 {
     public sealed class MultiplayerMenu : MenuPanel
     {
-#region Event Handlers
+        #region Event Handlers
+
         // TODO: these methods take in the main game state now
         public void OnHost()
         {
@@ -15,6 +16,7 @@ namespace pdxpartyparrot.Game.Menu
         {
             //GameStateManager.Instance.StartJoin();
         }
-#endregion
+
+        #endregion
     }
 }

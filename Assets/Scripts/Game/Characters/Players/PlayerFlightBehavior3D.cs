@@ -26,8 +26,7 @@ namespace pdxpartyparrot.Game.Characters.Players
             Transform modelTransform = Owner.Model.transform;
 
             Quaternion rotation = modelTransform.localRotation;
-            Vector3 targetEuler = new Vector3
-            {
+            Vector3 targetEuler = new Vector3 {
                 z = MoveDirection.x * -CharacterFlightMovement3D.FlightMovementData.MaxBankAngle,
                 x = MoveDirection.y * -CharacterFlightMovement3D.FlightMovementData.MaxAttackAngle
             };

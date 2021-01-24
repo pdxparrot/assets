@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data
 {
-    [CreateAssetMenu(fileName="CreditsData", menuName="pdxpartyparrot/Game/Data/Credits Data")]
+    [CreateAssetMenu(fileName = "CreditsData", menuName = "pdxpartyparrot/Game/Data/Credits Data")]
     [Serializable]
     public sealed class CreditsData : ScriptableObject
     {
@@ -87,7 +87,8 @@ namespace pdxpartyparrot.Game.Data
             }
 
             builder.AppendLine($"<size=36><align=\"center\">{Application.productName}</align></size>");
-            builder.AppendLine(); builder.AppendLine();
+            builder.AppendLine();
+            builder.AppendLine();
 
             foreach(Credits credits in _credits.Items) {
                 builder.AppendLine($"<size=24><align=\"center\">{credits.Title}</align></size>");

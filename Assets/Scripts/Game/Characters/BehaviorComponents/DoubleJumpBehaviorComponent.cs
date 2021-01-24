@@ -16,13 +16,15 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         [Space(10)]
 
-#region Effects
+        #region Effects
+
         [Header("Effects")]
 
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _doubleJumpEffect;
-#endregion
+
+        #endregion
 
         [SerializeField]
         [ReadOnly]
@@ -30,14 +32,16 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         private bool CanDoubleJump => !Behavior.IsGrounded && (_data.DoubleJumpCount < 0 || _doubleJumpCount < _data.DoubleJumpCount);
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void LateUpdate()
         {
             if(Behavior.IsGrounded) {
                 _doubleJumpCount = 0;
             }
         }
-#endregion
+
+        #endregion
 
         // TODO: this is never called?
         public void ResetComponent()
@@ -45,7 +49,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             _doubleJumpCount = 0;
         }
 
-#region Actions
+        #region Actions
+
         public override bool OnPerformed(CharacterBehaviorAction action)
         {
             if(!(action is JumpBehaviorComponent.JumpAction)) {
@@ -64,6 +69,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             _doubleJumpCount++;
             return true;
         }
-#endregion
+
+        #endregion
     }
 }

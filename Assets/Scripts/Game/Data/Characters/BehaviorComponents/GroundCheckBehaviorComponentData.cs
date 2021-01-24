@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="GroundCheckBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/GroundCheckBehaviorComponent Data")]
+    [CreateAssetMenu(fileName = "GroundCheckBehaviorComponentData", menuName = "pdxpartyparrot/Game/Data/Behavior Components/GroundCheckBehaviorComponent Data")]
     [Serializable]
     public class GroundCheckBehaviorComponentData : CharacterBehaviorComponentData
     {

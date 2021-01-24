@@ -66,11 +66,13 @@ namespace pdxpartyparrot.Game.State
         {
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void CompleteTimerTimesUpEventHandler(object sender, EventArgs args)
         {
             GameStateManager.Instance.TransitionToInitialStateAsync();
         }
-#endregion
+
+        #endregion
     }
 }

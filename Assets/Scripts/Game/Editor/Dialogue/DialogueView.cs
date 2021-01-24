@@ -31,11 +31,13 @@ namespace pdxpartyparrot.Game.Editor.Dialogue
             return null;
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         protected override void NodeCreationRequestEventHandler(NodeCreationContext context)
         {
             //CreateNodeWindow.ShowForCreate(this, context.screenMousePosition);
         }
-#endregion
+
+        #endregion
     }
 }

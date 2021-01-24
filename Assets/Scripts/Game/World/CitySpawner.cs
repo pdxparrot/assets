@@ -39,7 +39,8 @@ namespace pdxpartyparrot.Game.World
         // random block spawning
         private float _maxFrequency;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             if(_randomSeed > 0) {
@@ -53,7 +54,8 @@ namespace pdxpartyparrot.Game.World
                 Generate(false);
             }
         }
-#endregion
+
+        #endregion
 
         public void Generate(bool fromEditorGenerate)
         {
@@ -101,7 +103,7 @@ namespace pdxpartyparrot.Game.World
                     Spawn(RandomBlock(), pos, fromEditorGenerate);
                 }
             }
-        } 
+        }
 
         private GameObject Spawn(GameObject p, Vector3 pos, bool fromEditorGenerate)
         {

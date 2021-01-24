@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data
 {
-    [CreateAssetMenu(fileName="CinematicsData", menuName="pdxpartyparrot/Game/Data/Cinematics Data")]
+    [CreateAssetMenu(fileName = "CinematicsData", menuName = "pdxpartyparrot/Game/Data/Cinematics Data")]
     [Serializable]
     public sealed class CinematicsData : ScriptableObject
     {

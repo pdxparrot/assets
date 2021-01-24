@@ -32,7 +32,8 @@ namespace pdxpartyparrot.Game.Level
         private NavMeshSurface _navMeshSurface;
 #endif
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
 #if USE_NAVMESH
@@ -58,7 +59,8 @@ namespace pdxpartyparrot.Game.Level
                 GameStateManager.Instance.GameManager.UnRegisterLevelHelper(this);
             }
         }
-#endregion
+
+        #endregion
 
         protected void TransitionLevel()
         {
@@ -80,7 +82,8 @@ namespace pdxpartyparrot.Game.Level
             GameStateManager.Instance.GameManager.TransitionScene(_nextLevel, null);
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         protected virtual void GameStartServerEventHandler(object sender, EventArgs args)
         {
             Debug.Log("[Level] Server start...");
@@ -114,6 +117,7 @@ namespace pdxpartyparrot.Game.Level
         protected virtual void GameOverEventHandler(object sender, EventArgs args)
         {
         }
-#endregion
+
+        #endregion
     }
 }

@@ -8,31 +8,32 @@ namespace pdxpartyparrot.Game.Players.Input
 {
     public abstract class PlayerInputSystemHandler : PlayerInputHandler
     {
-        [SerializeField]	
-        [ReadOnly]	
-        private bool _pollMove;	
+        [SerializeField]
+        [ReadOnly]
+        private bool _pollMove;
 
-        protected bool PollMove	
-        {	
-            get => _pollMove;	
-            set => _pollMove = value;	
-        }	
+        protected bool PollMove
+        {
+            get => _pollMove;
+            set => _pollMove = value;
+        }
 
-        [SerializeField]	
-        [ReadOnly]	
-        private bool _pollLook;	
+        [SerializeField]
+        [ReadOnly]
+        private bool _pollLook;
 
-        protected bool PollLook	
-        {	
-            get => _pollLook;	
-            set => _pollLook = value;	
+        protected bool PollLook
+        {
+            get => _pollLook;
+            set => _pollLook = value;
         }
 
         private InputAction _moveAction;
 
         private InputAction _lookAction;
 
-#region Unity Lifecycle	
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -41,39 +42,41 @@ namespace pdxpartyparrot.Game.Players.Input
             _lookAction = InputHelper.PlayerInput.actions.FindAction(InputManager.Instance.InputData.LookActionName);
         }
 
-        protected override void Update()	
+        protected override void Update()
         {
             base.Update();
 
-            if(PollMove) {	
+            if(PollMove) {
                 DoPollMove();
-            }	
+            }
 
-            if(PollLook) {	
-                DoPollLook();	
-            }	
-        }	
-#endregion
+            if(PollLook) {
+                DoPollLook();
+            }
+        }
 
-        protected virtual void DoPollMove()	
-        {	
-            if(!InputAllowed || null == _moveAction) {	
-                return;	
+        #endregion
+
+        protected virtual void DoPollMove()
+        {
+            if(!InputAllowed || null == _moveAction) {
+                return;
             }
 
             DoMove(_moveAction);
-        }	
-
-        protected virtual void DoPollLook()	
-        {	
-            if(!InputAllowed || null == _lookAction) {	
-                return;	
-            }	
-
-            DoLook(_lookAction);	
         }
 
-#region Common Actions
+        protected virtual void DoPollLook()
+        {
+            if(!InputAllowed || null == _lookAction) {
+                return;
+            }
+
+            DoLook(_lookAction);
+        }
+
+        #region Common Actions
+
         public void OnPauseAction(InputAction.CallbackContext context)
         {
             if(!IsInputAllowed(context)) {
@@ -138,6 +141,7 @@ namespace pdxpartyparrot.Game.Players.Input
                 OnLook(Vector3.zero);
             }
         }
-#endregion
+
+        #endregion
     }
 }

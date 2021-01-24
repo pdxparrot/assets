@@ -14,12 +14,14 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         public abstract Vector3 MoveDirection { get; }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void LateUpdate()
         {
             Owner.IsMoving = !Mathf.Approximately(MoveDirection.sqrMagnitude, 0.0f);
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {
@@ -76,10 +78,12 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             base.PhysicsUpdate(dt);
         }*/
 
-#region Events
+        #region Events
+
         public virtual void OnRecycle()
         {
         }
-#endregion
+
+        #endregion
     }
 }

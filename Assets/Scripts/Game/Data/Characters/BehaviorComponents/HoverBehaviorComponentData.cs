@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="HoverBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/HoverBehaviorComponent Data")]
+    [CreateAssetMenu(fileName = "HoverBehaviorComponentData", menuName = "pdxpartyparrot/Game/Data/Behavior Components/HoverBehaviorComponent Data")]
     [Serializable]
     public class HoverBehaviorComponentData : CharacterBehaviorComponentData
     {
@@ -55,13 +55,15 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 
         [Space(10)]
 
-#region Animations
+        #region Animations
+
         [Header("Animations")]
 
         [SerializeField]
         private string _hoverParam = "Hover";
 
         public string HoverParam => _hoverParam;
-#endregion
+
+        #endregion
     }
 }

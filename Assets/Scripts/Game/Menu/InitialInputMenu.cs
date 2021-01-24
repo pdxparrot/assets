@@ -43,7 +43,8 @@ namespace pdxpartyparrot.Game.Menu
         [ReadOnly]
         private bool _enableButton;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             Assert.IsTrue(_initials.Length > 0);
@@ -94,7 +95,8 @@ namespace pdxpartyparrot.Game.Menu
                 _enableButton = false;
             }
         }
-#endregion
+
+        #endregion
 
         public override void Initialize()
         {
@@ -169,7 +171,8 @@ namespace pdxpartyparrot.Game.Menu
             _pollCooldownTimer.Start(_pollCooldown);
         }
 
-#region Events
+        #region Event Handlers
+
         public override void OnSubmit(InputAction.CallbackContext context)
         {
             if(!context.performed || _currentInitialIdx < 0) {
@@ -202,7 +205,8 @@ namespace pdxpartyparrot.Game.Menu
                     NextInitial();
                 } else if(direction.x < 0.0f) {
                     PreviousInitial();
-                } else*/ if(direction.y != 0.0f) {
+                } else*/
+                if(direction.y != 0.0f) {
                     _pollAdvanceLetter = true;
                     _pollCooldownTimer.Stop();
 
@@ -213,6 +217,7 @@ namespace pdxpartyparrot.Game.Menu
                 _pollAdvanceLetter = false;
             }
         }
-#endregion
+
+        #endregion
     }
 }

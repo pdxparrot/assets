@@ -33,7 +33,8 @@ namespace pdxpartyparrot.Game.Menu
 
         private readonly Stack<MenuPanel> _panelStack = new Stack<MenuPanel>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _canvas.sortingOrder = 100;
@@ -44,7 +45,8 @@ namespace pdxpartyparrot.Game.Menu
 
             PushPanel(_mainPanel);
         }
-#endregion
+
+        #endregion
 
         public void Initialize()
         {

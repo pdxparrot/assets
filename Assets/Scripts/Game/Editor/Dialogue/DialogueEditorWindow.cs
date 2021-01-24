@@ -3,6 +3,7 @@ using pdxpartyparrot.Game.Data;
 
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,7 +35,8 @@ namespace pdxpartyparrot.Game.Editor.Dialogue
 
         private DialogueData _dialogueData;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -46,7 +48,8 @@ namespace pdxpartyparrot.Game.Editor.Dialogue
 
             CreateNodeView();
         }
-#endregion
+
+        #endregion
 
         protected override NodeEditorView CreateView()
         {

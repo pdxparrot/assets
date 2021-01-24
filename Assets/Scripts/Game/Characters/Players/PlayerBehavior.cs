@@ -24,7 +24,8 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         public Vector3 MoveDirection => _moveDirection;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Update()
         {
             base.Update();
@@ -40,7 +41,8 @@ namespace pdxpartyparrot.Game.Characters.Players
         {
             Owner.IsMoving = !Mathf.Approximately(MoveDirection.sqrMagnitude, 0.0f);
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {

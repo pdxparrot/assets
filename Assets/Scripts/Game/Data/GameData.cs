@@ -38,7 +38,8 @@ namespace pdxpartyparrot.Game.Data
 
         [Space(10)]
 
-#region Floating Text
+        #region Floating Text
+
         [Header("Floating text")]
 
         [SerializeField]
@@ -52,6 +53,7 @@ namespace pdxpartyparrot.Game.Data
         private int _floatingTextPoolSize = 10;
 
         public int FloatingTextPoolSize => _floatingTextPoolSize;
-#endregion
+
+        #endregion
     }
 }

@@ -20,14 +20,15 @@ namespace pdxpartyparrot.Game.UI
 
         void Shutdown();
 
-        TV InstantiateUIPrefab<TV>(TV prefab) where TV: Component;
+        TV InstantiateUIPrefab<TV>(TV prefab) where TV : Component;
 
         FloatingText InstantiateFloatingText(string poolName);
     }
 
-    public abstract class GameUIManager<T> : SingletonBehavior<T>, IGameUIManager where T: GameUIManager<T>
+    public abstract class GameUIManager<T> : SingletonBehavior<T>, IGameUIManager where T : GameUIManager<T>
     {
-#region UI / Menus
+        #region UI / Menus
+
         [SerializeField]
         private GameUI _gameUIPrefab;
 
@@ -42,20 +43,24 @@ namespace pdxpartyparrot.Game.UI
 
         [CanBeNull]
         private Menu.Menu _pauseMenu;
-#endregion
 
-#region Floating Text
+        #endregion
+
+        #region Floating Text
+
         [SerializeField]
         private string _defaultFloatingTextPoolName = "floating_text";
 
         public string DefaultFloatingTextPoolName => _defaultFloatingTextPoolName;
-#endregion
+
+        #endregion
 
         private GameObject _uiContainer;
 
         private GameObject _floatingTextContainer;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _uiContainer = new GameObject("UI");
@@ -84,7 +89,8 @@ namespace pdxpartyparrot.Game.UI
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public void Initialize()
         {
@@ -118,7 +124,7 @@ namespace pdxpartyparrot.Game.UI
         }
 
         // helper for instantiating UI prefabs under the UI container
-        public TV InstantiateUIPrefab<TV>(TV prefab) where TV: Component
+        public TV InstantiateUIPrefab<TV>(TV prefab) where TV : Component
         {
             return null == prefab ? null : Instantiate(prefab, _uiContainer.transform);
         }
@@ -129,7 +135,8 @@ namespace pdxpartyparrot.Game.UI
             return ObjectPoolManager.Instance.GetPooledObject<FloatingText>(poolName, _floatingTextContainer.transform);
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void PauseEventHandler(object sender, EventArgs args)
         {
             if(null == _pauseMenu) {
@@ -143,6 +150,7 @@ namespace pdxpartyparrot.Game.UI
                 _pauseMenu.gameObject.SetActive(false);
             }
         }
-#endregion
+
+        #endregion
     }
 }

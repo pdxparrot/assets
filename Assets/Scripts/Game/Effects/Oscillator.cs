@@ -27,7 +27,8 @@ namespace pdxpartyparrot.Game.Effects
 
         private Transform _transform;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             // can't oscillate rigidbodies with this component
@@ -54,7 +55,8 @@ namespace pdxpartyparrot.Game.Effects
 
             Oscillate(dt);
         }
-#endregion
+
+        #endregion
 
         private void Oscillate(float dt)
         {
@@ -62,7 +64,7 @@ namespace pdxpartyparrot.Game.Effects
                                  MathUtil.WrapAngleRad(_angle.y + _speed.y * dt),
                                  MathUtil.WrapAngleRad(_angle.z + _speed.z * dt));
 
-            Vector3 oscillate = new Vector3(Mathf.Sin(_angle.x) * _distance.x, 
+            Vector3 oscillate = new Vector3(Mathf.Sin(_angle.x) * _distance.x,
                                             Mathf.Sin(_angle.y) * _distance.y,
                                             Mathf.Sin(_angle.z) * _distance.z);
 

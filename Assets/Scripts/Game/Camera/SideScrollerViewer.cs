@@ -26,7 +26,8 @@ namespace pdxpartyparrot.Game.Camera
 
         private CinemachineConfiner _confiner;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -34,7 +35,8 @@ namespace pdxpartyparrot.Game.Camera
             _transposer = GetCinemachineComponent<CinemachineFramingTransposer>();
             _confiner = GetComponent<CinemachineConfiner>();
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize(GameData gameData)
         {
@@ -53,7 +55,7 @@ namespace pdxpartyparrot.Game.Camera
             _confiner.m_BoundingShape2D = bounds;
         }
 
-        public void AddTarget(Actor actor, float weight=1.0f)
+        public void AddTarget(Actor actor, float weight = 1.0f)
         {
             Debug.Log($"Adding viewer target {actor.Id}");
 

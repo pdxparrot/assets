@@ -31,7 +31,8 @@ namespace pdxpartyparrot.Game.Characters
 
         public bool IsComponentControlling { get; set; }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void FixedUpdate()
         {
             float dt = Time.fixedDeltaTime;
@@ -57,7 +58,8 @@ namespace pdxpartyparrot.Game.Characters
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(Position, Position + Velocity);
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {

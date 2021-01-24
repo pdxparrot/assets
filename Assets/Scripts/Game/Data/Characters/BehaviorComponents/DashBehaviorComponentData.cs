@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
 {
-    [CreateAssetMenu(fileName="DashBehaviorComponentData", menuName="pdxpartyparrot/Game/Data/Behavior Components/DashBehaviorComponent Data")]
+    [CreateAssetMenu(fileName = "DashBehaviorComponentData", menuName = "pdxpartyparrot/Game/Data/Behavior Components/DashBehaviorComponent Data")]
     [Serializable]
     public class DashBehaviorComponentData : CharacterBehaviorComponentData
     {

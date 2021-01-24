@@ -9,7 +9,8 @@ namespace pdxpartyparrot.Game.Audio
     {
         private AudioSource[] _audioSources;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _audioSources = GetComponents<AudioSource>();
@@ -17,6 +18,7 @@ namespace pdxpartyparrot.Game.Audio
                 AudioManager.Instance.InitAmbientAudioMixerGroup(source);
             }
         }
-#endregion
+
+        #endregion
     }
 }

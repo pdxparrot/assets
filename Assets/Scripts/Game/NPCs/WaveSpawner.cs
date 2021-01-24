@@ -13,11 +13,13 @@ namespace pdxpartyparrot.Game.NPCs
 {
     public class WaveSpawner : MonoBehaviour
     {
-#region Events
+        #region Events
+
         public event EventHandler<SpawnWaveEventArgs> WaveStartEvent;
 
         public event EventHandler<SpawnWaveEventArgs> WaveCompleteEvent;
-#endregion
+
+        #endregion
 
         [SerializeField]
         private WaveSpawnData _waveSpawnData;
@@ -37,7 +39,8 @@ namespace pdxpartyparrot.Game.NPCs
 
         private readonly List<SpawnWave> _spawnWaves = new List<SpawnWave>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             foreach(SpawnWaveData spawnWave in _waveSpawnData.Waves) {
@@ -51,7 +54,8 @@ namespace pdxpartyparrot.Game.NPCs
 
             _spawnWaves.Clear();
         }
-#endregion
+
+        #endregion
 
         public void Initialize()
         {
@@ -86,14 +90,14 @@ namespace pdxpartyparrot.Game.NPCs
         public EffectTrigger AddWaveEffectTrigger(EffectTrigger effectTriggerPrefab)
         {
             return Instantiate(effectTriggerPrefab, transform);
-        } 
+        }
 
         public void RemoveWaveEffectTrigger(EffectTrigger effectTrigger)
         {
             effectTrigger.KillTrigger();
 
             Destroy(effectTrigger.gameObject);
-        } 
+        }
 
         public void Advance()
         {

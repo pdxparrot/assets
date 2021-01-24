@@ -34,12 +34,14 @@ namespace pdxpartyparrot.Game.UI
 
         private readonly Queue<FloatingTextEntry> _floatingText = new Queue<FloatingTextEntry>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             StartCoroutine(SpawnRoutine());
         }
-#endregion
+
+        #endregion
 
         public void QueueFloatingText(string text, Color color, Func<Vector3> position)
         {
@@ -48,8 +50,7 @@ namespace pdxpartyparrot.Game.UI
 
         public void QueueFloatingText(string poolName, string text, Color color, Func<Vector3> position)
         {
-            _floatingText.Enqueue(new FloatingTextEntry
-            {
+            _floatingText.Enqueue(new FloatingTextEntry {
                 poolName = poolName,
                 text = text,
                 color = color,

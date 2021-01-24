@@ -22,7 +22,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         bool IsMoving { get; }
 
-#region Pathing
+        #region Pathing
+
         bool HasPath { get; }
 
         Vector3 NextPosition { get; }
@@ -30,7 +31,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         bool UpdatePath(Vector3 target);
 
         void ResetPath(bool idle);
-#endregion
+
+        #endregion
 
         void Stop(bool resetPath, bool idle);
 
