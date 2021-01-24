@@ -6,7 +6,9 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Util;
 
+#if USE_SPINE
 using Spine.Unity;
+#endif
 
 using TMPro;
 
