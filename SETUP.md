@@ -185,6 +185,7 @@
 * pdxpartyparrot.Game.State.GameStateManager
 * Cinemachine PixelPerfect
 * Default Time
+* Unity ToggleGroup
 * Cinemachine Brain
 * pdxpartyparrot.Core.Debug.DebugMenuManager
   * This must be run last
@@ -209,18 +210,23 @@
   * Rename the default Snapshot to Unpaused
   * Create a new Snapshot and name it to Paused
     * Set the Lowpass filter to 350Hz
-* Copy button-click.mp3 and button-hover.mp3 to Data/Audio/UI
 * Data/Prefabs/Input/EventSystem.prefab
   * Create using default EventSystem that gets added automatically when adding a UI object
   * Replace Standalone Input Module with InputSystemUIInputModule
   * Add EventSystemHelper script to this
-  * Copy the DefaultInputActions asset to Assets/Data/Input (can rename if desired)
-    * Replace the EventSystem InputActions with this copy
+  * Copy the DefaultInputActions asset (linked to the Actions Asset by default) to Assets/Data/Input
+    * Rename the asset to avoid confusion with the default
+    * Replace the EventSystem Actions Asset with this copy
+    * UI actions may need to be reset to Pass Through to fix warnings
     * Pause action usually has to be added to this
+      * Action Type: Button
+      * Start [Gamepad] (Gamepad scheme)
+      * Escape [Keyboard] (Keyboard & Mouse scheme)
+    * Unused actions may be removed
 
 ## Server Spectator
 
-* **TODO:** This is all wrong now
+* **TODO:** This is all wrong now and should be skipped until fixed
 * Create Data/Input/ServerSpectator.inputactions
   * Generate C# Class
     * File: Assets/Scripts/Game/Input/ServerSpectatorControls.cs
