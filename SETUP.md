@@ -57,22 +57,24 @@
 * Open the new Unity Project and the project should automatically initialize
   * This process can take a while and currently is not very responsive
   * Say **No** to enabling the new Input System backend (initializing will set this up instead)
-* Add Keijiro Kino
+* ~~Add Keijiro Kino~~ **TODO:** this required the HDRP so we probably don't want to always use it
   * https://github.com/keijiro/Kino
     * Add registry to scopedRegistries in Packages/manifest.json
     * Add "jp.keijiro.kino.post-processing": "2.1.15" to dependencies in Packages/manifest.json
 * Update any out of date packages
 * Copy the rest of the core engine scripts
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Game
+  * Do **not** copy the core game scripts yet
   * **TODO:** simplify this
-* Create ASMDEFs
+* Create Assembly Definitions
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
-    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
+    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, ~~Kino.Postprocessing~~
     * Reference com.unity.multiplayer-hlapi.Runtime if using networking
+    * Uncheck Auto Referenced
   * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
     * References: com.pdxpartyparrot.Core.asmdef, Unity.TextMeshPro
+    * Uncheck Auto Referenced
   * **TODO:** simplify this
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
@@ -134,13 +136,13 @@
 
 * DOTween (not Pro)
   * Make sure to run the setup
-  * Make sure to create ASMDEF
+  * Make sure to create the Assembly Definition
   * Make sure to enable DOTween in the PDX Party Parrot Project Settings
 * If using Spine, download the latest Spine-Unity package (currently 3.8+) and import it
   * Assets/Spine* must be added to the .gitignore to prevent committing this
     * **TODO:** this should already be done in the common .gitignore
-  * The ASMDEF will need to be force added to source control
-    * If the ASMDEF does not exist, your version is too old!
+  * The Assembly Definition will need to be force added to source control
+    * If the Assembly Definition does not exist, your version is too old!
 
 # Engine Source
 
@@ -148,13 +150,15 @@
 
 * Copy Game Scripts
   * Remove .meta files
-* Create ASMDEF
+* Create the Assembly Definitions
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro
     * Reference com.unity.multiplayer-hlapi.Runtime if using networking
+    * Uncheck Auto Referenced
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
     * Editor platform only
     * References: com.pdxpartyparrot.Game.asmdef
+    * Uncheck Auto Referenced
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
 
@@ -162,10 +166,11 @@
 
 * Create Loading Manager
   * Create a new project LoadingManager script that overrides Game LoadingManager
-* Create ASMDEFs
+* Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
     * Reference Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, and Unity.TextMeshPro as required
+    * Uncheck Auto Referenced
 
 ## Set Script Execution Order
 
