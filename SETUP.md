@@ -79,7 +79,7 @@
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
 
-# Project Setup
+# Project Settings
 
 * Graphics Settings
   * Set the Render Pipeline Asset if desired (https://github.com/Unity-Technologies/ScriptableRenderPipeline)
@@ -87,6 +87,9 @@
 * Input System Package
   * Create the Input System Settings asset if not already done
     * Process events in Fixed Update
+* Package Manager
+  * Enable Preview Packages
+  * Show Dependencies
 * Tags and Layers
   * Add the following layers if they don't exist:
     * PostProcessing
@@ -99,7 +102,7 @@
     * Weather
 * Physics Settings
   * Only enable the minimum necessary collisions
-    * **TODO:** water?
+    * **TODO:** Water?
     * Vfx -> Vfx
     * Viewer -> Weather, World
     * Player -> Weather, World, NPC (and Player if that's the desired behavior)
@@ -107,7 +110,7 @@
     * World -> Weather
 * Physics 2D Settings
   * Only enable the minimum necessary collisions
-    * **TODO:** water?
+    * **TODO:** Water?
     * Vfx -> Vfx
     * Viewer -> Weather, World
     * Player -> Weather, World, NPC (and Player if that's the desired behavior)
@@ -125,18 +128,17 @@
 
 # Packages
 
-* Add release packages
-  * Asset Bundle Browser
 * Add preview packages
-  * Android Logcat (optional)
-  * HD/Lightweight Render Pipeline (optional - whichever best fits the project)
-  * Burst/Entities (if using ECS)
+  * Android Logcat if desired
+  * HD Render Pipeline if desired
+  * Burst/Jobs (if using ECS)
+    * Unity Netcode if doing multiplayer
 
 # Asset Store Assets
 
 * DOTween (not Pro)
-  * Make sure to run the setup
-  * Make sure to create the Assembly Definition
+  * Make sure to run Setup DOTween
+  * Make sure to run Create ASMDEF
   * Make sure to enable DOTween in the PDX Party Parrot Project Settings
 * If using Spine, download the latest Spine-Unity package (currently 3.8+) and import it
   * Assets/Spine* must be added to the .gitignore to prevent committing this
