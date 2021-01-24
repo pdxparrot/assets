@@ -56,8 +56,7 @@
   * **TODO:** this shouldn't be necessary...
 * Open the new Unity Project and the project should automatically initialize
   * This process can take a while and currently is not very responsive
-  * Say **No** to enabling the new Input System backend ~~(initializing will set this up instead)~~
-    * **TODO:** Document the manual step here and figure out how re-automate this
+  * Say **No** to enabling the new Input System backend (initializing will set this up instead)
 * Add Keijiro Kino
   * https://github.com/keijiro/Kino
     * Add registry to scopedRegistries in Packages/manifest.json
