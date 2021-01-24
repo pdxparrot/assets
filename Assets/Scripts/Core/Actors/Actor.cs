@@ -24,7 +24,8 @@ namespace pdxpartyparrot.Core.Actors
 
         public abstract float Radius { get; }
 
-#region Model
+        #region Model
+
         [SerializeField]
         [CanBeNull]
         private GameObject _model;
@@ -35,18 +36,21 @@ namespace pdxpartyparrot.Core.Actors
             get => _model;
             protected set => _model = value;
         }
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Components
+        #region Components
+
         [Header("Components")]
 
         [SerializeField]
         [ReorderableList]
         private ActorComponent.ReorderableList _components = new ActorComponent.ReorderableList();
 
-#region Behavior
+        #region Behavior
+
         [Header("Behavior")]
 
         [SerializeField]
@@ -56,9 +60,11 @@ namespace pdxpartyparrot.Core.Actors
 
         [CanBeNull]
         public ActorBehaviorComponent Behavior => _behavior;
-#endregion
 
-#region Movement
+        #endregion
+
+        #region Movement
+
         [Header("Movement")]
 
         [SerializeField]
@@ -93,11 +99,13 @@ namespace pdxpartyparrot.Core.Actors
         public Vector3 FacingDirection
         {
             get => _facingDirection;
-            private  set => _facingDirection = value;
+            private set => _facingDirection = value;
         }
-#endregion
 
-#region Animation
+        #endregion
+
+        #region Animation
+
         [Header("Animation")]
 
         [SerializeField]
@@ -107,15 +115,19 @@ namespace pdxpartyparrot.Core.Actors
 
         [CanBeNull]
         public ActorManualAnimatorComponent ManualAnimator => _manualAnimator;
-#endregion
 
-#endregion
+        #endregion
 
-#region Network
+        #endregion
+
+        #region Network
+
         public abstract bool IsLocalActor { get; }
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
         }
@@ -126,7 +138,8 @@ namespace pdxpartyparrot.Core.Actors
                 ActorManager.Instance.Unregister(this);
             }
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize(Guid id)
         {
@@ -141,8 +154,7 @@ namespace pdxpartyparrot.Core.Actors
                 component.Initialize(this);
 
                 // cache some useful components while we're here
-                switch(component)
-                {
+                switch(component) {
                 case ActorBehaviorComponent behavior:
                     Assert.IsNull(_behavior);
                     _behavior = behavior;
@@ -155,9 +167,10 @@ namespace pdxpartyparrot.Core.Actors
             }
         }
 
-#region Components
+        #region Components
+
         [CanBeNull]
-        public T GetActorComponent<T>() where T: ActorComponent
+        public T GetActorComponent<T>() where T : ActorComponent
         {
             foreach(ActorComponent component in _components.Items) {
                 T tc = component as T;
@@ -168,7 +181,7 @@ namespace pdxpartyparrot.Core.Actors
             return null;
         }
 
-        public void GetActorComponents<T>(ICollection<T> components) where T: ActorComponent
+        public void GetActorComponents<T>(ICollection<T> components) where T : ActorComponent
         {
             components.Clear();
             foreach(ActorComponent component in _components.Items) {
@@ -187,7 +200,8 @@ namespace pdxpartyparrot.Core.Actors
                 }
             }
         }
-#endregion
+
+        #endregion
 
         public void Think(float dt)
         {
@@ -237,14 +251,14 @@ namespace pdxpartyparrot.Core.Actors
         }*/
 
         // TODO: would be better if we did radius (x) and height (y) separately
-        public bool Collides(Actor other, float distance=float.Epsilon)
+        public bool Collides(Actor other, float distance = float.Epsilon)
         {
             Vector3 opos = null != other.Movement ? other.Movement.Position : other.transform.position;
             return Collides(opos, other.Radius, distance);
         }
 
         // TODO: would be better if we did radius (x) and height (y) separately
-        public bool Collides(Vector3 opos, float radius, float distance=float.Epsilon)
+        public bool Collides(Vector3 opos, float radius, float distance = float.Epsilon)
         {
             Vector3 pos = null != Movement ? Movement.Position : transform.position;
             Vector3 offset = opos - pos;
@@ -261,7 +275,8 @@ namespace pdxpartyparrot.Core.Actors
             gameObject.SetActive(false);
         }
 
-#region Events
+        #region Events
+
         public virtual bool OnSpawn(SpawnPoint spawnpoint)
         {
             ActorManager.Instance.Register(this);
@@ -293,6 +308,7 @@ namespace pdxpartyparrot.Core.Actors
         {
             RunOnComponents(c => c.OnMoveStateChanged());
         }
-#endregion
+
+        #endregion
     }
 }

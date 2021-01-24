@@ -11,7 +11,8 @@ namespace pdxpartyparrot.Core.Util.Editor
     {
         private UnityEditorInternal.ReorderableList _reorderableList;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             SerializedProperty listProperty = property.FindPropertyRelative("_items");
@@ -20,14 +21,15 @@ namespace pdxpartyparrot.Core.Util.Editor
             }
 
             float elementHeight = 0.0f;
-            for(int i=0; i<listProperty.arraySize; ++i) {
+            for(int i = 0; i < listProperty.arraySize; ++i) {
                 elementHeight = Mathf.Max(elementHeight, EditorGUI.GetPropertyHeight(listProperty.GetArrayElementAtIndex(i)));
             }
             _reorderableList.elementHeight = elementHeight;
 
             _reorderableList.DoList(position);
         }
-#endregion
+
+        #endregion
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -40,10 +42,8 @@ namespace pdxpartyparrot.Core.Util.Editor
 
         private void Initialize(SerializedProperty property, SerializedProperty listProperty, GUIContent label)
         {
-            _reorderableList = new UnityEditorInternal.ReorderableList(property.serializedObject, listProperty, true, true, true, true)
-            {
-                drawElementCallback = (position, index, isActive, isFocused) =>
-                {
+            _reorderableList = new UnityEditorInternal.ReorderableList(property.serializedObject, listProperty, true, true, true, true) {
+                drawElementCallback = (position, index, isActive, isFocused) => {
                     position.width -= 40;
                     position.x += 20;
                     EditorGUI.PropertyField(position, listProperty.GetArrayElementAtIndex(index), true);

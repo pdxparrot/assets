@@ -20,11 +20,13 @@ namespace pdxpartyparrot.Core.UI
             set => _percent = Mathf.Clamp01(value);
         }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Update()
         {
             _foreground.fillAmount = Percent;
         }
-#endregion
+
+        #endregion
     }
 }

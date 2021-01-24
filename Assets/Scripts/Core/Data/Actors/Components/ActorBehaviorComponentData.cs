@@ -12,7 +12,8 @@ namespace pdxpartyparrot.Core.Data.Actors.Components
 
         public LayerMask ActorLayer => _actorLayer;
 
-#region Physics
+        #region Physics
+
         [Header("Actor Physics")]
 
         [SerializeField]
@@ -38,11 +39,13 @@ namespace pdxpartyparrot.Core.Data.Actors.Components
         private bool _isKinematic = false;
 
         public bool IsKinematic => _isKinematic;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Animation
+        #region Animation
+
         [Header("Actor Animations")]
 
         [SerializeField]
@@ -50,6 +53,7 @@ namespace pdxpartyparrot.Core.Data.Actors.Components
         private bool _animateModel;
 
         public bool AnimateModel => _animateModel;
-#endregion
+
+        #endregion
     }
 }

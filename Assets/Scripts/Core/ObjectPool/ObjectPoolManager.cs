@@ -71,7 +71,7 @@ namespace pdxpartyparrot.Core.ObjectPool
             }
 
             [CanBeNull]
-            public PooledObject GetPooledObject(Transform parent=null, bool activate=true)
+            public PooledObject GetPooledObject(Transform parent = null, bool activate = true)
             {
                 if(!_pooledObjects.Any()) {
                     if(!AllowExpand) {
@@ -124,7 +124,7 @@ namespace pdxpartyparrot.Core.ObjectPool
                     return;
                 }
 
-                for(int i=0; i<amount; ++i) {
+                for(int i = 0; i < amount; ++i) {
                     PooledObject pooledObject = Instantiate(Prefab);
                     pooledObject.Tag = Tag;
                     Recycle(pooledObject);
@@ -173,7 +173,8 @@ namespace pdxpartyparrot.Core.ObjectPool
 
         private GameObject _poolContainer;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _poolContainer = new GameObject("Object Pools");
@@ -196,14 +197,15 @@ namespace pdxpartyparrot.Core.ObjectPool
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public bool HasPool(string poolTag)
         {
             return _objectPools.ContainsKey(poolTag);
         }
 
-        public void InitializePoolAsync(string poolTag, PooledObject prefab, int size, bool allowExpand=true)
+        public void InitializePoolAsync(string poolTag, PooledObject prefab, int size, bool allowExpand = true)
         {
             Assert.IsNotNull(prefab);
 
@@ -228,8 +230,7 @@ namespace pdxpartyparrot.Core.ObjectPool
                 return;
             }
 
-            objectPool = new ObjectPool(_poolContainer, poolTag, prefab, size, isNetwork)
-            {
+            objectPool = new ObjectPool(_poolContainer, poolTag, prefab, size, isNetwork) {
                 AllowExpand = allowExpand
             };
             objectPool.Expander = StartCoroutine(objectPool.ExpandRoutine());
@@ -277,7 +278,7 @@ namespace pdxpartyparrot.Core.ObjectPool
         }
 
         [CanBeNull]
-        public PooledObject GetPooledObject(string poolTag, Transform parent=null, bool activate=true)
+        public PooledObject GetPooledObject(string poolTag, Transform parent = null, bool activate = true)
         {
             ObjectPool pool = _objectPools.GetOrDefault(poolTag);
             if(null == pool) {
@@ -288,7 +289,7 @@ namespace pdxpartyparrot.Core.ObjectPool
         }
 
         [CanBeNull]
-        public T GetPooledObject<T>(string poolTag, Transform parent=null, bool activate=true) where T: Component
+        public T GetPooledObject<T>(string poolTag, Transform parent = null, bool activate = true) where T : Component
         {
             PooledObject po = GetPooledObject(poolTag, parent, activate);
             if(null != po) {
@@ -313,13 +314,13 @@ namespace pdxpartyparrot.Core.ObjectPool
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.ObjectPoolManager");
             debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Object Pools:", GUI.skin.box);
-                    foreach(var kvp in _objectPools) {
-                        GUILayout.BeginVertical(kvp.Key, GUI.skin.box);
-                            GUILayout.Label($"Expandable: {kvp.Value.AllowExpand}");
-                            GUILayout.Label($"Networked: {kvp.Value.IsNetwork}");
-                            GUILayout.Label($"Size: {kvp.Value.Count} / {kvp.Value.Size} / {kvp.Value.TargetSize}");
-                        GUILayout.EndVertical();
-                    }
+                foreach(var kvp in _objectPools) {
+                    GUILayout.BeginVertical(kvp.Key, GUI.skin.box);
+                    GUILayout.Label($"Expandable: {kvp.Value.AllowExpand}");
+                    GUILayout.Label($"Networked: {kvp.Value.IsNetwork}");
+                    GUILayout.Label($"Size: {kvp.Value.Count} / {kvp.Value.Size} / {kvp.Value.TargetSize}");
+                    GUILayout.EndVertical();
+                }
                 GUILayout.EndVertical();
             };
         }

@@ -40,16 +40,18 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         public override bool CanMove => !IsAnimating;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected void Update()
         {
             float dt = UnityEngine.Time.deltaTime;
 
             UpdateAnimation(dt);
         }
-#endregion
 
-        public virtual void StartAnimation(Vector3 targetPosition, Quaternion targetRotation, float timeSeconds, Action onComplete=null)
+        #endregion
+
+        public virtual void StartAnimation(Vector3 targetPosition, Quaternion targetRotation, float timeSeconds, Action onComplete = null)
         {
             if(IsAnimating || null == Owner || null == Owner.Movement) {
                 return;

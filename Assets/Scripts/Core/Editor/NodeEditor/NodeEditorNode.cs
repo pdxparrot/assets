@@ -2,6 +2,7 @@ using pdxpartyparrot.Core.Data.NodeEditor;
 using pdxpartyparrot.Core.Editor.Window;
 
 using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -45,8 +46,7 @@ namespace pdxpartyparrot.Core.Editor.NodeEditor
 
         protected virtual void InitializeView()
         {
-            Label label = new Label
-            {
+            Label label = new Label {
                 text = $"ID: 0x{(int)Id:X}"
             };
             Add(label);

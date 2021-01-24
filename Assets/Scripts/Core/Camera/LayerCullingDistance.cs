@@ -9,17 +9,19 @@ namespace pdxpartyparrot.Core.Camera
         [SerializeField]
         private float[] _distances = new float[32];
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Start()
         {
             float[] actualDistances = new float[32];
 
             int minLength = System.Math.Min(actualDistances.Length, _distances.Length);
-            for(int i=0; i<minLength; ++i) {
+            for(int i = 0; i < minLength; ++i) {
                 actualDistances[i] = _distances[i];
             }
             GetComponent<UnityEngine.Camera>().layerCullDistances = actualDistances;
         }
-#endregion
+
+        #endregion
     }
 }

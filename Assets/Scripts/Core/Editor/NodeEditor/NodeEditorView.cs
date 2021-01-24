@@ -6,6 +6,7 @@ using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data.NodeEditor;
 
 using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UIElements;
@@ -107,8 +108,8 @@ namespace pdxpartyparrot.Core.Editor.NodeEditor
             return ports.ToList().Where(x => x.portType == startAnchor.portType && x.direction != startAnchor.direction).ToList();
         }
 
-#region Event Handlers
+        #region Event Handlers
         protected abstract void NodeCreationRequestEventHandler(NodeCreationContext context);
-#endregion
+        #endregion
     }
 }

@@ -6,17 +6,20 @@ namespace pdxpartyparrot.Core.Actors
     [RequireComponent(typeof(Collider))]
     public abstract class Actor3D : Actor
     {
-#region Collider
+        #region Collider
+
         public Rigidbody Rigidbody { get; private set; }
 
         public Collider Collider { get; private set; }
-#endregion
+
+        #endregion
 
         public override float Height => Collider.bounds.size.y;
 
         public override float Radius => Collider.bounds.size.x / 2.0f;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -54,6 +57,7 @@ namespace pdxpartyparrot.Core.Actors
         {
             RunOnComponents(c => c.TriggerExit(other.gameObject));
         }
-#endregion
+
+        #endregion
     }
 }

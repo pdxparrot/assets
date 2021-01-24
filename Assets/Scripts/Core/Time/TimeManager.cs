@@ -17,11 +17,13 @@ namespace pdxpartyparrot.Core.Time
         [Serializable]
         private sealed class Timer : ITimer
         {
-#region Events
+            #region Events
+
             public event EventHandler<EventArgs> StartEvent;
             public event EventHandler<EventArgs> StopEvent;
             public event EventHandler<EventArgs> TimesUpEvent;
-#endregion
+
+            #endregion
 
             [SerializeField]
             private float _secondsRemaining;
@@ -122,11 +124,13 @@ namespace pdxpartyparrot.Core.Time
         [Serializable]
         private sealed class Stopwatch : IStopwatch
         {
-#region Events
+            #region Events
+
             public event EventHandler StartEvent;
             public event EventHandler StopEvent;
             public event EventHandler ResetEvent;
-#endregion
+
+            #endregion
 
             [SerializeField]
             private float _stopwatchSeconds;
@@ -220,7 +224,8 @@ namespace pdxpartyparrot.Core.Time
         private readonly HashSet<Stopwatch> _stopwatches = new HashSet<Stopwatch>();
         private readonly Dictionary<string, Stopwatch> _namedStopwatches = new Dictionary<string, Stopwatch>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             InitDebugMenu();
@@ -248,7 +253,8 @@ namespace pdxpartyparrot.Core.Time
 
             DoUpdate(dt);
         }
-#endregion
+
+        #endregion
 
         private IEnumerator UpdateRoutine()
         {
@@ -285,7 +291,8 @@ namespace pdxpartyparrot.Core.Time
             StartCoroutine(RunAfterDelayRoutine(seconds, action));
         }
 
-#region Timers
+        #region Timers
+
         public ITimer AddTimer()
         {
             Timer timer = new Timer();
@@ -329,9 +336,11 @@ namespace pdxpartyparrot.Core.Time
                 kvp.Value.Update(dt);
             }
         }
-#endregion
 
-#region Stopwatches
+        #endregion
+
+        #region Stopwatches
+
         public IStopwatch AddStopwatch()
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -375,7 +384,8 @@ namespace pdxpartyparrot.Core.Time
                 kvp.Value.Update(dt);
             }
         }
-#endregion
+
+        #endregion
 
         private IEnumerator RunAfterDelayRoutine(float seconds, Action action)
         {

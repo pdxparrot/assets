@@ -1,6 +1,7 @@
 using pdxpartyparrot.Core.Math;
 
 using UnityEditor;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.Math
@@ -14,7 +15,8 @@ namespace pdxpartyparrot.Core.Editor.Math
 
         private const float DirectionScale = 0.5f;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void OnSceneGUI()
         {
             BezierCurve curve = (BezierCurve)target;
@@ -33,7 +35,8 @@ namespace pdxpartyparrot.Core.Editor.Math
             ShowDirections(curve);
             Handles.DrawBezier(p0, p3, p1, p2, Color.white, null, 2.0f);
         }
-#endregion
+
+        #endregion
 
         private void ShowDirections(BezierCurve curve)
         {
@@ -41,7 +44,7 @@ namespace pdxpartyparrot.Core.Editor.Math
             Vector3 point = curve.GetPoint(0.0f);
             Handles.DrawLine(point, point + curve.GetDirection(0.0f) * DirectionScale);
 
-            for(int i=1; i<=LineSteps; ++i) {
+            for(int i = 1; i <= LineSteps; ++i) {
                 point = curve.GetPoint(i / (float)LineSteps);
                 Handles.DrawLine(point, point + curve.GetDirection(i / (float)LineSteps) * DirectionScale);
             }

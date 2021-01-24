@@ -21,7 +21,8 @@ namespace pdxpartyparrot.Core.Camera
 
         private UnityEngine.Camera _camera;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _camera = GetComponent<UnityEngine.Camera>();
@@ -34,7 +35,8 @@ namespace pdxpartyparrot.Core.Camera
         {
             UpdateAspectRatio();
         }
-#endregion
+
+        #endregion
 
         public void UpdateAspectRatio()
         {
@@ -43,7 +45,7 @@ namespace pdxpartyparrot.Core.Camera
             float viewportAspectRatio = (Screen.width * cameraRect.width) / (Screen.height * cameraRect.height);
             if(viewportAspectRatio >= _targetAspectRatio) {
                 _camera.orthographicSize = _aspectHeight / 2.0f;
-            }  else {
+            } else {
                 float scale = _targetAspectRatio / viewportAspectRatio;
                 _camera.orthographicSize = (_aspectHeight / 2.0f) * scale;
             }

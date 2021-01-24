@@ -11,7 +11,7 @@ using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Core.Data
 {
-    [CreateAssetMenu(fileName="UIData", menuName="pdxpartyparrot/Core/Data/UI Data")]
+    [CreateAssetMenu(fileName = "UIData", menuName = "pdxpartyparrot/Core/Data/UI Data")]
     [Serializable]
     public class UIData : ScriptableObject
     {

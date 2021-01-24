@@ -21,8 +21,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
-            switch(_level)
-            {
+            switch(_level) {
             case LogLevel.Info:
                 Debug.Log(_logMessage);
                 break;

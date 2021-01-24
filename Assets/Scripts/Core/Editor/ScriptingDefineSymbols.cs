@@ -19,7 +19,8 @@ namespace pdxpartyparrot.Core.Editor
             AddSymbols(symbols);
         }
 
-#region Add
+        #region Add
+
         public void AddSymbol(string symbol)
         {
             _symbols.Add(symbol);
@@ -36,9 +37,11 @@ namespace pdxpartyparrot.Core.Editor
                 _symbols.Add(symbol);
             }
         }
-#endregion
 
-#region Remove
+        #endregion
+
+        #region Remove
+
         public void RemoveSymbol(string symbol)
         {
             _symbols.Remove(symbol);
@@ -55,7 +58,8 @@ namespace pdxpartyparrot.Core.Editor
                 RemoveSymbol(symbol);
             }
         }
-#endregion
+
+        #endregion
 
         public bool Contains(string symbol)
         {

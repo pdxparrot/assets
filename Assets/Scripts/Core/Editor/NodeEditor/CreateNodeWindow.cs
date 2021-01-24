@@ -8,11 +8,12 @@ using pdxpartyparrot.Core.Data.NodeEditor;
 using pdxpartyparrot.Core.Util;
 
 using UnityEditor;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.NodeEditor
 {
-    public abstract class CreateNodeWindow<D, A, V> : Window.EditorWindow where D: NodeData where A: NodeAttribute where V: NodeEditorNode
+    public abstract class CreateNodeWindow<D, A, V> : Window.EditorWindow where D : NodeData where A : NodeAttribute where V : NodeEditorNode
     {
         private NodeEditorView _view;
 
@@ -34,7 +35,8 @@ namespace pdxpartyparrot.Core.Editor.NodeEditor
 
         private readonly List<string> _filteredNodeNames = new List<string>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -51,7 +53,8 @@ namespace pdxpartyparrot.Core.Editor.NodeEditor
             }
             //Debug.Log($"Found {_nodes.Count} nodes");
         }
-#endregion
+
+        #endregion
 
         protected string GetNodeName(int index)
         {

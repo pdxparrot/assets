@@ -24,7 +24,8 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         [Space(10)]
 
-#region Animation
+        #region Animation
+
         [Header("Animation")]
 
 #if USE_SPINE
@@ -61,11 +62,13 @@ namespace pdxpartyparrot.Core.Actors.Components
         private bool _pauseAnimationOnPause = true;
 
         protected bool PauseAnimationOnPause => _pauseAnimationOnPause;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Effects
+        #region Effects
+
         [Header("Actor Effects")]
 
         [SerializeField]
@@ -79,7 +82,8 @@ namespace pdxpartyparrot.Core.Actors.Components
         [SerializeField]
         [CanBeNull]
         protected EffectTrigger _despawnEffect;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
@@ -89,7 +93,8 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         public bool IsAlive => _isAlive;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -124,7 +129,8 @@ namespace pdxpartyparrot.Core.Actors.Components
                 Owner.Movement.ResetAngularVelocity();
             }
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize(ActorBehaviorComponentData behaviorData)
         {
@@ -149,7 +155,8 @@ namespace pdxpartyparrot.Core.Actors.Components
         {
         }
 
-#region Events
+        #region Events
+
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
             if(null != _spawnEffect) {
@@ -217,9 +224,11 @@ namespace pdxpartyparrot.Core.Actors.Components
 
             return false;
         }
-#endregion
 
-#region Event Handlers
+        #endregion
+
+        #region Event Handlers
+
         private void PauseEventHandler(object sender, EventArgs args)
         {
             if(!PauseAnimationOnPause) {
@@ -236,6 +245,7 @@ namespace pdxpartyparrot.Core.Actors.Components
                 Animator.enabled = !PartyParrotManager.Instance.IsPaused;
             }
         }
-#endregion
+
+        #endregion
     }
 }

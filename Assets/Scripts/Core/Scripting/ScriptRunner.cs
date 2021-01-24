@@ -65,9 +65,10 @@ namespace pdxpartyparrot.Core.Scripting
         [CanBeNull]
         private ScriptNode _currentNode;
 
-// TODO: make initializing scripts more deterministic so it doesn't bog down load
+        // TODO: make initializing scripts more deterministic so it doesn't bog down load
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             ScriptingManager.Instance.Register(this);
@@ -89,7 +90,8 @@ namespace pdxpartyparrot.Core.Scripting
                 ScriptingManager.Instance.Unregister(this);
             }
         }
-#endregion
+
+        #endregion
 
         public void SetData(ScriptData scriptData)
         {
@@ -158,7 +160,8 @@ namespace pdxpartyparrot.Core.Scripting
             return true;
         }
 
-#region Script Lifecycle
+        #region Script Lifecycle
+
         public void ResetScript()
         {
             Stop();
@@ -211,7 +214,8 @@ namespace pdxpartyparrot.Core.Scripting
             Debug.Log("Script stopping");
             IsPlaying = false;
         }
-#endregion
+
+        #endregion
 
         [CanBeNull]
         internal ScriptNode GetNode(NodeId id)

@@ -74,11 +74,13 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             return new ScriptViewNode((ScriptNodeData)nodeData, Window.EdgeConnectorListener);
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         protected override void NodeCreationRequestEventHandler(NodeCreationContext context)
         {
             CreateNodeWindow.ShowForCreate(this, context.screenMousePosition);
         }
-#endregion
+
+        #endregion
     }
 }

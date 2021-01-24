@@ -16,15 +16,18 @@ namespace pdxpartyparrot.Core.Scenes
 
         private readonly List<string> _loadedScenes = new List<string>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             InitDebugMenu();
         }
-#endregion
 
-#region Load Scenes
-        public IEnumerator<float> LoadSceneRoutine(string sceneName, bool setActive=false)
+        #endregion
+
+        #region Load Scenes
+
+        public IEnumerator<float> LoadSceneRoutine(string sceneName, bool setActive = false)
         {
             Debug.Log($"Loading scene '{sceneName}'...");
 
@@ -45,9 +48,11 @@ namespace pdxpartyparrot.Core.Scenes
 
             Debug.Log($"Scene '{sceneName}' loaded...");
         }
-#endregion
 
-#region Unload Scenes
+        #endregion
+
+        #region Unload Scenes
+
         public IEnumerator<float> UnloadSceneRoutine(string sceneName)
         {
             Debug.Log($"Unloading scene '{sceneName}'...");
@@ -81,9 +86,11 @@ namespace pdxpartyparrot.Core.Scenes
 
             UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName(_mainSceneName));
         }
-#endregion
 
-#region Reload Scene
+        #endregion
+
+        #region Reload Scene
+
         public IEnumerator ReloadMainSceneRoutine()
         {
             Debug.Log("Reloading...");
@@ -111,16 +118,17 @@ namespace pdxpartyparrot.Core.Scenes
                 yield return null;
             }
         }
-#endregion
+
+        #endregion
 
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.SceneManager");
             debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Loaded Scenes", GUI.skin.box);
-                    foreach(string loadedScene in _loadedScenes) {
-                        GUILayout.Label(loadedScene);
-                    }
+                foreach(string loadedScene in _loadedScenes) {
+                    GUILayout.Label(loadedScene);
+                }
                 GUILayout.EndVertical();
             };
         }

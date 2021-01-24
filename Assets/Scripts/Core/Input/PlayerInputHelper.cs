@@ -17,7 +17,8 @@ namespace pdxpartyparrot.Core.Input
 
         public PlayerInput PlayerInput => _playerInput;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
@@ -34,7 +35,8 @@ namespace pdxpartyparrot.Core.Input
                 gamepad.SetMotorSpeeds(0.0f, 0.0f);
             }
         }
-#endregion
+
+        #endregion
 
         public void Initialize(short playerControllerId)
         {

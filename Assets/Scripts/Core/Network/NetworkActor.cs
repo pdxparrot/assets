@@ -24,7 +24,8 @@ namespace pdxpartyparrot.Core.Network
 
         protected Actor Actor { get; private set; }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
 #if USE_NETWORKING
@@ -34,6 +35,7 @@ namespace pdxpartyparrot.Core.Network
 
             Actor = GetComponent<Actor>();
         }
-#endregion
+
+        #endregion
     }
 }

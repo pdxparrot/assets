@@ -89,7 +89,8 @@ namespace pdxpartyparrot.Core.DebugMenu
         private int _maxLogMessages = 1000;
 #endif
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             ResetFrameStats();
@@ -100,8 +101,7 @@ namespace pdxpartyparrot.Core.DebugMenu
             _showMemory = true;
 #endif
 
-            _window = new DebugWindow(new Rect(10, 10, 800, 600), RenderWindowContents)
-            {
+            _window = new DebugWindow(new Rect(10, 10, 800, 600), RenderWindowContents) {
                 Title = () => {
                     string title = "Debug Menu";
 
@@ -177,7 +177,8 @@ namespace pdxpartyparrot.Core.DebugMenu
                 Profiler.EndSample();
             }
         }
-#endregion
+
+        #endregion
 
         public DebugMenuNode AddNode(Func<string> title)
         {
@@ -241,72 +242,72 @@ namespace pdxpartyparrot.Core.DebugMenu
                 _showScreen = GUIUtils.Foldout(_showScreen, "Screen");
                 if(_showScreen) {
                     GUILayout.BeginVertical(GUI.skin.box);
-                        GUILayout.Label($"Current Resolution: {Screen.currentResolution} ({Screen.width} x {Screen.height})");
-                        GUILayout.Label($"Fullscreen: {Screen.fullScreen}");
-                        GUILayout.Label($"DPI: {Screen.dpi}");
-                        GUILayout.Label($"Orientation: {Screen.orientation}");
+                    GUILayout.Label($"Current Resolution: {Screen.currentResolution} ({Screen.width} x {Screen.height})");
+                    GUILayout.Label($"Fullscreen: {Screen.fullScreen}");
+                    GUILayout.Label($"DPI: {Screen.dpi}");
+                    GUILayout.Label($"Orientation: {Screen.orientation}");
                     GUILayout.EndVertical();
                 }
 
                 _showRendering = GUIUtils.Foldout(_showRendering, "Rendering");
                 if(_showRendering) {
                     GUILayout.BeginVertical(GUI.skin.box);
-                        GUILayout.Label($"Frame Time: {(int)(_lastFrameTime * 1000.0f)} ms");
-                        GUILayout.Label($"Min Frame Time: {(int)(_minFrameTime * 1000.0f)} ms");
-                        GUILayout.Label($"Max Frame Time: {(int)(_maxFrameTime * 1000.0f)} ms");
-                        GUILayout.Label($"Average FPS: {(int)AverageFPS}");
+                    GUILayout.Label($"Frame Time: {(int)(_lastFrameTime * 1000.0f)} ms");
+                    GUILayout.Label($"Min Frame Time: {(int)(_minFrameTime * 1000.0f)} ms");
+                    GUILayout.Label($"Max Frame Time: {(int)(_maxFrameTime * 1000.0f)} ms");
+                    GUILayout.Label($"Average FPS: {(int)AverageFPS}");
                     GUILayout.EndVertical();
                 }
 
                 _showMemory = GUIUtils.Foldout(_showMemory, "Memory");
                 if(_showMemory) {
                     GUILayout.BeginVertical(GUI.skin.box);
-                        GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB");
-                        GUILayout.Label($"Reserved: {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
-                        GUILayout.Label($"Unused: {Profiler.GetTotalUnusedReservedMemoryLong() / 1048576.0f:0.00}MB");
-                        GUILayout.Label($"Mono Heap: {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
-                        GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB");
-                        GUILayout.Label($"Temp Allocator Size: {Profiler.GetTempAllocatorSize() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"Reserved: {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"Unused: {Profiler.GetTotalUnusedReservedMemoryLong() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"Mono Heap: {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"Temp Allocator Size: {Profiler.GetTempAllocatorSize() / 1048576.0f:0.00}MB");
 #if UNITY_EDITOR
-                        GUILayout.Label($"GPU Allocated: {Profiler.GetAllocatedMemoryForGraphicsDriver() / 1048576.0f:0.00}MB");
+                    GUILayout.Label($"GPU Allocated: {Profiler.GetAllocatedMemoryForGraphicsDriver() / 1048576.0f:0.00}MB");
 #endif
                     GUILayout.EndVertical();
                 }
 
                 _windowScrollPos = GUILayout.BeginScrollView(_windowScrollPos);
-                    foreach(DebugMenuNode node in _nodes) {
-                        node.RenderNode();
-                    }
+                foreach(DebugMenuNode node in _nodes) {
+                    node.RenderNode();
+                }
                 GUILayout.EndScrollView();
 
 #if UNITY_EDITOR
                 GUILayout.BeginHorizontal();
-                    if(GUIUtils.LayoutButton("Break")) {
-                        Debug.Break();
-                    }
+                if(GUIUtils.LayoutButton("Break")) {
+                    Debug.Break();
+                }
 
-                    _frameStepping = GUILayout.Toggle(_frameStepping, "Enable Frame Stepping (Manually disable in the Hierarchy)");
-                    // TODO: should we force select the manager for the user?
+                _frameStepping = GUILayout.Toggle(_frameStepping, "Enable Frame Stepping (Manually disable in the Hierarchy)");
+                // TODO: should we force select the manager for the user?
                 GUILayout.EndHorizontal();
 #endif
 
                 GUILayout.BeginHorizontal();
-                    // TODO: reloading doesn't work right (it has to be in a coroutine or something right?)
-                    /*if(GUIUtils.LayoutButton("Reload")) {
-                        Scenes.SceneManager.Instance.ReloadMainScene();
-                    }*/
+                // TODO: reloading doesn't work right (it has to be in a coroutine or something right?)
+                /*if(GUIUtils.LayoutButton("Reload")) {
+                    Scenes.SceneManager.Instance.ReloadMainScene();
+                }*/
 
-                    if(GUIUtils.LayoutButton("Quit")) {
-                        UnityUtil.Quit();
-                    }
+                if(GUIUtils.LayoutButton("Quit")) {
+                    UnityUtil.Quit();
+                }
 
-                    if(GUIUtils.LayoutButton("Reset PlayerPrefs")) {
-                        PlayerPrefs.DeleteAll();
-                    }
+                if(GUIUtils.LayoutButton("Reset PlayerPrefs")) {
+                    PlayerPrefs.DeleteAll();
+                }
                 GUILayout.EndHorizontal();
             } else {
                 _windowScrollPos = GUILayout.BeginScrollView(_windowScrollPos);
-                    _currentNode.RenderContents();
+                _currentNode.RenderContents();
                 GUILayout.EndScrollView();
 
                 if(GUIUtils.LayoutButton("Back")) {
@@ -357,22 +358,22 @@ namespace pdxpartyparrot.Core.DebugMenu
             GUI.color = Color.white;
 
             GUILayout.BeginVertical();
-                GUILayout.Label($"{_debugGUIEnableKey} to hide");
-                GUILayout.Label($"{_enableKey} for debug menu");
-                GUILayout.Label($"Average FPS: {(int)AverageFPS}");
-                GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB / {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
-                GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB / {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
+            GUILayout.Label($"{_debugGUIEnableKey} to hide");
+            GUILayout.Label($"{_enableKey} for debug menu");
+            GUILayout.Label($"Average FPS: {(int)AverageFPS}");
+            GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB / {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
+            GUILayout.Label($"Mono Used: {Profiler.GetMonoUsedSizeLong() / 1048576.0f:0.00}MB / {Profiler.GetMonoHeapSizeLong() / 1048576.0f:0.00}MB");
             GUILayout.EndVertical();
         }
 #endif
 
-#region Event Handlers
+        #region Event Handlers
+
         private void OnLogMessageReceived(string logString, string stackTrace, LogType type)
         {
 #if USE_LOG_MESSAGE_BUFFER
             string color;
-            switch(type)
-            {
+            switch(type) {
             case LogType.Assert:
                 color = "green";
                 break;
@@ -395,6 +396,7 @@ namespace pdxpartyparrot.Core.DebugMenu
             }
 #endif
         }
-#endregion
+
+        #endregion
     }
 }

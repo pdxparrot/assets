@@ -44,7 +44,8 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         [Space(10)]
 
-#region Physics
+        #region Physics
+
         [Header("Physics")]
 
         // expose some useful rigidbody properties that unity doesn't
@@ -129,11 +130,13 @@ namespace pdxpartyparrot.Core.Actors.Components
             get => _rigidbody.useGravity;
             set => _rigidbody.useGravity = value;
         }
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Pause State
+        #region Pause State
+
         [Header("Pause State")]
 
         [SerializeField]
@@ -141,15 +144,18 @@ namespace pdxpartyparrot.Core.Actors.Components
         private InternalPauseState _pauseState;
 
         protected InternalPauseState PauseState => _pauseState;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected virtual void LateUpdate()
         {
             _lastVelocity = _rigidbody.velocity;
             _lastAngularVelocity = _rigidbody.angularVelocity;
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(Actor owner)
         {
@@ -228,7 +234,8 @@ namespace pdxpartyparrot.Core.Actors.Components
             _rigidbody.AddRelativeTorque(torque, mode);
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         protected override void PauseEventHandler(object sender, EventArgs args)
         {
             base.PauseEventHandler(sender, args);
@@ -239,6 +246,7 @@ namespace pdxpartyparrot.Core.Actors.Components
                 _pauseState.Restore(_rigidbody);
             }
         }
-#endregion
+
+        #endregion
     }
 }

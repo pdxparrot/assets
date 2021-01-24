@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 namespace pdxpartyparrot.Core.UI
 {
-/*
-Tips on making this work:
+    /*
+    Tips on making this work:
 
-TODO: these two things seem to be the source of the initial scrolling issues
-Add a LayoutGroup to Content
-    Set Child Controls Size Width / Height
-    Set Child Force Expand Width / Height
-Add a ContentSizeFitter to Content
-    Set Horizontal Fit to Unconstrained
-    Set Vertical Fit to Preferred Size
+    TODO: these two things seem to be the source of the initial scrolling issues
+    Add a LayoutGroup to Content
+        Set Child Controls Size Width / Height
+        Set Child Force Expand Width / Height
+    Add a ContentSizeFitter to Content
+        Set Horizontal Fit to Unconstrained
+        Set Vertical Fit to Preferred Size
 
-Delete the ScrollBars completely to get them to not show up
-*/
+    Delete the ScrollBars completely to get them to not show up
+    */
 
     [RequireComponent(typeof(ScrollRect))]
     public class ScrollRectAutoScroll : MonoBehaviour
@@ -51,7 +51,8 @@ Delete the ScrollBars completely to get them to not show up
 
         private ScrollRect _scrollRect;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _scrollRect = GetComponent<ScrollRect>();
@@ -64,17 +65,17 @@ Delete the ScrollBars completely to get them to not show up
             // make sure we have the right content size before we begin
             // TODO: none of these seem to do the trick :(
             // this not working seems like it might be related to the content size fitter
-/*Debug.Log($"height a: {_scrollRect.content.rect.height}");
-            Canvas.ForceUpdateCanvases();
+            /*Debug.Log($"height a: {_scrollRect.content.rect.height}");
+                        Canvas.ForceUpdateCanvases();
 
-            LayoutGroup layoutGroup = _scrollRect.content.GetComponent<LayoutGroup>();
-            layoutGroup.CalculateLayoutInputVertical();
-            layoutGroup.SetLayoutVertical();
+                        LayoutGroup layoutGroup = _scrollRect.content.GetComponent<LayoutGroup>();
+                        layoutGroup.CalculateLayoutInputVertical();
+                        layoutGroup.SetLayoutVertical();
 
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
+                        LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
 
-            _scrollRect.Rebuild(CanvasUpdate.PostLayout);
-Debug.Log($"height b: {_scrollRect.content.rect.height}");*/
+                        _scrollRect.Rebuild(CanvasUpdate.PostLayout);
+            Debug.Log($"height b: {_scrollRect.content.rect.height}");*/
 
             _step = Mathf.Clamp01(_scrollRate / _scrollRect.content.rect.height);
             if(_resetOnEnable) {
@@ -90,7 +91,8 @@ Debug.Log($"height b: {_scrollRect.content.rect.height}");*/
 
             Scroll(dt);
         }
-#endregion
+
+        #endregion
 
         private void Scroll(float dt)
         {

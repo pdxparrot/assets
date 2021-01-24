@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Editor.NodeEditor;
 
 using UnityEditor.Experimental.GraphView;
+
 using UnityEngine.UIElements;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
@@ -40,8 +41,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 //Debug.Log($"Add input connection {attr.Name} to node 0x{Id:X}");
 
                 ScriptNodePortData inputPort = (ScriptNodePortData)connection.GetValue(ScriptNodeData);
-                ScriptViewPort port = new ScriptViewPort(this, inputPort, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(ScriptNodePortData))
-                {
+                ScriptViewPort port = new ScriptViewPort(this, inputPort, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(ScriptNodePortData)) {
                     portName = attr.Name
                 };
                 port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));
@@ -55,8 +55,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 //Debug.Log($"Add input {attr.Name} of type {attr.Type} to node 0x{Id:X}");
 
                 ScriptNodePortData inputPort = (ScriptNodePortData)input.GetValue(ScriptNodeData);
-                ScriptViewPort port = new ScriptViewPort(this, inputPort, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, attr.Type)
-                {
+                ScriptViewPort port = new ScriptViewPort(this, inputPort, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, attr.Type) {
                     portName = attr.Name
                 };
                 port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));
@@ -71,8 +70,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 //Debug.Log($"Add output connection {attr.Name} to node 0x{Id:X}");
 
                 ScriptNodePortData outputPort = (ScriptNodePortData)connection.GetValue(ScriptNodeData);
-                ScriptViewPort port = new ScriptViewPort(this, outputPort, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(ScriptNodePortData))
-                {
+                ScriptViewPort port = new ScriptViewPort(this, outputPort, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(ScriptNodePortData)) {
                     portName = attr.Name
                 };
                 port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));
@@ -86,8 +84,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 //Debug.Log($"Add output {attr.Name} of type {attr.Type} to node 0x{Id:X}");
 
                 ScriptNodePortData outputPort = (ScriptNodePortData)output.GetValue(ScriptNodeData);
-                ScriptViewPort port = new ScriptViewPort(this, outputPort, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, attr.Type)
-                {
+                ScriptViewPort port = new ScriptViewPort(this, outputPort, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, attr.Type) {
                     portName = attr.Name
                 };
                 port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));

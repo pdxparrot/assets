@@ -36,7 +36,8 @@ namespace pdxpartyparrot.Core.Tween
             set => _resetOnEnable = value;
         }
 
-#region Time Scale
+        #region Time Scale
+
         [SerializeField]
         private float _timeScale = 1.0f;
 
@@ -48,9 +49,11 @@ namespace pdxpartyparrot.Core.Tween
 
         [SerializeField]
         private float _randomTimeScaleMax = 1.0f;
-#endregion
 
-#region Duration
+        #endregion
+
+        #region Duration
+
         [SerializeField]
         private float _duration = 1.0f;
 
@@ -64,9 +67,11 @@ namespace pdxpartyparrot.Core.Tween
 
         [SerializeField]
         private float _randomDurationMax = 1.0f;
-#endregion
 
-#region Looping
+        #endregion
+
+        #region Looping
+
         [SerializeField]
         private int _loops;
 
@@ -82,28 +87,35 @@ namespace pdxpartyparrot.Core.Tween
         LoopType _loopType = LoopType.Restart;
 
         public LoopType LoopType => _loopType;
-#endregion
 
-#region Easing
+        #endregion
+
+        #region Easing
+
         [SerializeField]
         private Ease _ease = Ease.Linear;
-#endregion
 
-#region Delay
+        #endregion
+
+        #region Delay
+
         [SerializeField]
         private float _firstRunDelay = 0.0f;
 
         [SerializeField]
         private float _delay = 0.0f;
-#endregion
 
-#region From / Relative
+        #endregion
+
+        #region From / Relative
+
         [SerializeField]
         private bool _isFrom = false;
 
         [SerializeField]
         private bool _isRelative = false;
-#endregion
+
+        #endregion
 
         [SerializeField]
         [ReadOnly]
@@ -128,7 +140,8 @@ namespace pdxpartyparrot.Core.Tween
 
         public bool IsPaused => _isPaused;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
@@ -155,7 +168,8 @@ namespace pdxpartyparrot.Core.Tween
                 Play();
             }
         }
-#endregion
+
+        #endregion
 
         private void InitDuration()
         {
@@ -231,12 +245,14 @@ namespace pdxpartyparrot.Core.Tween
 
         protected abstract Tweener CreateTweener();
 
-#region Events
+        #region Events
+
         private void PauseEventHandler(object sender, EventArgs args)
         {
             TogglePause();
         }
-#endregion
+
+        #endregion
     }
 }
 #endif

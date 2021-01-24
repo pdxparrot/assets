@@ -8,9 +8,11 @@ namespace pdxpartyparrot.Core.ObjectPool
 {
     public sealed class PooledObject : MonoBehaviour
     {
-#region Events
+        #region Events
+
         public event EventHandler<EventArgs> RecycleEvent;
-#endregion
+
+        #endregion
 
         [SerializeField]
         [ReadOnly]

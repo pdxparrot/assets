@@ -15,12 +15,14 @@ namespace pdxpartyparrot.Core.UI
 
         private readonly Dictionary<string, string> _stringTable = new Dictionary<string, string>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             // TODO: build the string table
         }
-#endregion
+
+        #endregion
 
         public string GetText(string key)
         {

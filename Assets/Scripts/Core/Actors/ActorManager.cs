@@ -20,23 +20,27 @@ namespace pdxpartyparrot.Core.Actors
 
         private float ActorThinkRateSeconds => _actorThinkRateMs * TimeManager.MilliSecondsToSeconds;
 
-#region Debug
+        #region Debug
+
         [SerializeField]
         private bool _enableDebug;
 
         public bool EnableDebug => _enableDebug;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         private void Awake()
         {
             InitDebugMenu();
 
             StartCoroutine(ThinkRoutine());
         }
-#endregion
 
-        public void Register<T>(T actor) where T: Actor
+        #endregion
+
+        public void Register<T>(T actor) where T : Actor
         {
             Type actorType = actor.GetType();
             if(_enableDebug) {
@@ -47,7 +51,7 @@ namespace pdxpartyparrot.Core.Actors
             actors.Add(actor);
         }
 
-        public void Unregister<T>(T actor) where T: Actor
+        public void Unregister<T>(T actor) where T : Actor
         {
             Type actorType = actor.GetType();
             if(_enableDebug) {
@@ -59,12 +63,12 @@ namespace pdxpartyparrot.Core.Actors
             }
         }
 
-        public int ActorCount<TV>() where TV: Actor
+        public int ActorCount<TV>() where TV : Actor
         {
             return _actors.TryGetValue(typeof(TV), out var actors) ? actors.Count : 0;
         }
 
-        public IReadOnlyCollection<Actor> GetActors<T>() where T: Actor
+        public IReadOnlyCollection<Actor> GetActors<T>() where T : Actor
         {
             return _actors.GetOrDefault(typeof(T));
         }
@@ -103,9 +107,9 @@ namespace pdxpartyparrot.Core.Actors
 
                 foreach(var kvp in _actors) {
                     GUILayout.BeginVertical($"{kvp.Key}", GUI.skin.box);
-                        foreach(Actor actor in kvp.Value) {
-                            GUILayout.Label($"{actor.Id} {(null != actor.Movement ? actor.Movement.Position : actor.transform.position)}");
-                        }
+                    foreach(Actor actor in kvp.Value) {
+                        GUILayout.Label($"{actor.Id} {(null != actor.Movement ? actor.Movement.Position : actor.transform.position)}");
+                    }
                     GUILayout.EndVertical();
                 }
             };

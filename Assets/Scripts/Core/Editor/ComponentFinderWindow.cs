@@ -7,10 +7,12 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Util;
 
 using Spine.Unity;
+
 using TMPro;
 
 using UnityEditor;
 using UnityEditor.UIElements;
+
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -90,7 +92,8 @@ namespace pdxpartyparrot.Core.Editor
 
         private VisualElement _selectedPrefabsContainer;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -134,7 +137,8 @@ namespace pdxpartyparrot.Core.Editor
 
             _selectedPrefabsContainer = rootVisualElement.Q<VisualElement>("container-selected-prefabs");
         }
-#endregion
+
+        #endregion
 
         // TODO: this could be done much better
         private void Filter()
@@ -213,7 +217,8 @@ namespace pdxpartyparrot.Core.Editor
             }
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void OnComponentTypeChanged(ChangeEvent<string> evt)
         {
             Type selectedType = SelectedComponentType;
@@ -230,6 +235,7 @@ namespace pdxpartyparrot.Core.Editor
         {
             Filter();
         }
-#endregion
+
+        #endregion
     }
 }

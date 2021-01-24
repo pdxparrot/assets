@@ -12,7 +12,8 @@ namespace pdxpartyparrot.Core.Actors.Components
     {
         //[Space(10)]
 
-#region Physics
+        #region Physics
+
         //[Header("Physics")]
 
         private Transform _transform;
@@ -38,41 +39,43 @@ namespace pdxpartyparrot.Core.Actors.Components
         public virtual Vector3 Velocity
         {
             get => Vector3.zero;
-            set {}
+            set { }
         }
 
         public virtual float Mass
         {
             get => 1.0f;
-            set {}
+            set { }
         }
 
         public virtual float LinearDrag
         {
             get => 0.0f;
-            set {}
+            set { }
         }
 
         public virtual float AngularDrag
         {
             get => 0.0f;
-            set {}
+            set { }
         }
 
         public virtual bool IsKinematic
         {
             get => true;
-            set {}
+            set { }
         }
 
         public virtual bool UseGravity
         {
             get => false;
-            set {}
+            set { }
         }
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -92,7 +95,8 @@ namespace pdxpartyparrot.Core.Actors.Components
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(Actor owner)
         {
@@ -166,10 +170,12 @@ namespace pdxpartyparrot.Core.Actors.Components
             // TODO:
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         protected virtual void PauseEventHandler(object sender, EventArgs args)
         {
         }
-#endregion
+
+        #endregion
     }
 }

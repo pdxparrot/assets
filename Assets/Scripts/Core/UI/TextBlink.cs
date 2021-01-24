@@ -41,7 +41,8 @@ namespace pdxpartyparrot.Core.UI
 
         private TextMeshProUGUI _text;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _text = GetComponent<TextMeshProUGUI>();
@@ -67,7 +68,8 @@ namespace pdxpartyparrot.Core.UI
                 _delayTimer = null;
             }
         }
-#endregion
+
+        #endregion
 
         public void StartBlink()
         {
@@ -107,7 +109,8 @@ namespace pdxpartyparrot.Core.UI
             _blinkTimer.Start(duration);
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void BlinkTimesUpEventHandler(object sender, EventArgs args)
         {
             if(_blinkOut) {
@@ -121,6 +124,7 @@ namespace pdxpartyparrot.Core.UI
         {
             DoBlink(true);
         }
-#endregion
+
+        #endregion
     }
 }

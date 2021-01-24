@@ -16,7 +16,8 @@ namespace pdxpartyparrot.Core.Util
     // this class allows a coroutine to return a value
     public class Coroutine<T>
     {
-#region Result
+        #region Result
+
         private T _result;
 
         private Exception _exception;
@@ -33,7 +34,8 @@ namespace pdxpartyparrot.Core.Util
 
             private set => _result = value;
         }
-#endregion
+
+        #endregion
 
         private readonly MonoBehaviour _behavior;
 

@@ -22,7 +22,7 @@ namespace pdxpartyparrot.Core.Camera
 
             public readonly Queue<Viewer> UnassignedViewers = new Queue<Viewer>();
 
-            public void AllocateViewers<T>(int count, T viewerPrefab, GameObject container) where T: Viewer
+            public void AllocateViewers<T>(int count, T viewerPrefab, GameObject container) where T : Viewer
             {
                 int actualCount = count - Viewers.Count;
                 if(actualCount <= 0) {
@@ -31,7 +31,7 @@ namespace pdxpartyparrot.Core.Camera
 
                 Debug.Log($"Allocating {actualCount} viewers of type {typeof(T)}...");
 
-                for(int i=0; i<actualCount; ++i) {
+                for(int i = 0; i < actualCount; ++i) {
                     Viewer viewer = Instantiate(viewerPrefab, container.transform);
                     viewer.Initialize(i);
                     viewer.gameObject.SetActive(false);
@@ -55,7 +55,7 @@ namespace pdxpartyparrot.Core.Camera
                 Viewers.Clear();
             }
 
-            public T AcquireViewer<T>() where T: Viewer
+            public T AcquireViewer<T>() where T : Viewer
             {
                 if(UnassignedViewers.Count < 1) {
                     Debug.LogWarning($"Attempt to acquire a viewer of type {typeof(T)} when there are none!");
@@ -73,7 +73,7 @@ namespace pdxpartyparrot.Core.Camera
                 return viewer as T;
             }
 
-            public void ReleaseViewer<T>(T viewer) where T: Viewer
+            public void ReleaseViewer<T>(T viewer) where T : Viewer
             {
                 if(!AssignedViewers.Contains(viewer)) {
                     // TODO: log a warning?
@@ -92,7 +92,7 @@ namespace pdxpartyparrot.Core.Camera
                 UnassignedViewers.Enqueue(viewer);
             }
 
-            public void ResetViewers<T>() where T: Viewer
+            public void ResetViewers<T>() where T : Viewer
             {
                 Debug.Log($"Releasing all ({UnassignedViewers.Count}) {typeof(T)} viewers");
 
@@ -113,18 +113,21 @@ namespace pdxpartyparrot.Core.Camera
 
         public float ViewportEpsilon => _viewportEpsilon;
 
-        private readonly Dictionary<Type, ViewerSet> _viewers = new Dictionary<Type,ViewerSet>();
+        private readonly Dictionary<Type, ViewerSet> _viewers = new Dictionary<Type, ViewerSet>();
 
         private GameObject _viewerContainer;
 
-#region Debug
+        #region Debug
+
         [SerializeField]
         private bool _enableDebug;
 
         public bool EnableDebug => _enableDebug;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _viewerContainer = new GameObject("Viewers");
@@ -139,10 +142,12 @@ namespace pdxpartyparrot.Core.Camera
 
             base.OnDestroy();
         }
-#endregion
 
-#region Allocate
-        public void AllocateViewers<T>(int count, T viewerPrefab) where T: Viewer
+        #endregion
+
+        #region Allocate
+
+        public void AllocateViewers<T>(int count, T viewerPrefab) where T : Viewer
         {
             Type viewerType = viewerPrefab.GetType();
             ViewerSet viewerSet = _viewers.GetOrAdd(viewerType);
@@ -151,7 +156,7 @@ namespace pdxpartyparrot.Core.Camera
             ResizeViewports();
         }
 
-        public void FreeViewers<T>() where T: Viewer
+        public void FreeViewers<T>() where T : Viewer
         {
             Type viewerType = typeof(T);
             if(!_viewers.TryGetValue(viewerType, out var viewerSet)) {
@@ -168,11 +173,13 @@ namespace pdxpartyparrot.Core.Camera
                 kvp.Value.FreeViewers();
             }
         }
-#endregion
 
-#region Acquire
+        #endregion
+
+        #region Acquire
+
         [CanBeNull]
-        public T AcquireViewer<T>() where T: Viewer
+        public T AcquireViewer<T>() where T : Viewer
         {
             Type viewerType = typeof(T);
             if(!_viewers.TryGetValue(viewerType, out var viewerSet)) {
@@ -183,7 +190,7 @@ namespace pdxpartyparrot.Core.Camera
             return viewerSet.AcquireViewer<T>();
         }
 
-        public void ReleaseViewer<T>(T viewer) where T: Viewer
+        public void ReleaseViewer<T>(T viewer) where T : Viewer
         {
             Type viewerType = viewer.GetType();
             if(!_viewers.TryGetValue(viewerType, out var viewerSet)) {
@@ -194,7 +201,7 @@ namespace pdxpartyparrot.Core.Camera
             viewerSet.ReleaseViewer(viewer);
         }
 
-        public void ResetViewers<T>() where T: Viewer
+        public void ResetViewers<T>() where T : Viewer
         {
             Type viewerType = typeof(T);
             if(!_viewers.TryGetValue(viewerType, out var viewerSet)) {
@@ -206,7 +213,8 @@ namespace pdxpartyparrot.Core.Camera
 
             ResizeViewports();
         }
-#endregion
+
+        #endregion
 
         public void ResizeViewports()
         {
@@ -234,8 +242,8 @@ namespace pdxpartyparrot.Core.Camera
 
             Debug.Log($"Resizing {viewers.Count} viewports, Grid Size: {gridCols}x{gridRows} Viewport Size: {viewportWidth}x{viewportHeight}");
 
-            for(int row=0; row<gridRows; ++row) {
-                for(int col=0; col<gridCols; ++col) {
+            for(int row = 0; row < gridRows; ++row) {
+                for(int col = 0; col < gridCols; ++col) {
                     int viewerIdx = (row * gridCols) + col;
                     if(viewerIdx >= viewers.Count) {
                         break;
@@ -254,9 +262,9 @@ namespace pdxpartyparrot.Core.Camera
                 foreach(var kvp in _viewers) {
                     ViewerSet viewerSet = kvp.Value;
                     GUILayout.BeginVertical($"{kvp.Key} Viewers", GUI.skin.box);
-                        GUILayout.Label($"Total Viewers: {viewerSet.Viewers.Count}");
-                        GUILayout.Label($"Assigned Viewers: {viewerSet.AssignedViewers.Count}");
-                        GUILayout.Label($"Unassigned Viewers: {viewerSet.UnassignedViewers.Count}");
+                    GUILayout.Label($"Total Viewers: {viewerSet.Viewers.Count}");
+                    GUILayout.Label($"Assigned Viewers: {viewerSet.AssignedViewers.Count}");
+                    GUILayout.Label($"Unassigned Viewers: {viewerSet.UnassignedViewers.Count}");
                     GUILayout.EndVertical();
                 }
             };

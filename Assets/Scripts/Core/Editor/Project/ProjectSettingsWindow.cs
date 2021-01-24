@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEditor.UIElements;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,7 +29,8 @@ namespace pdxpartyparrot.Core.Editor.Project
         private Toggle _useDOTween;
         private Toggle _useNetworking;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void OnDestroy()
         {
             OnSave();
@@ -67,7 +69,8 @@ namespace pdxpartyparrot.Core.Editor.Project
             _useNetworking = rootVisualElement.Q<Toggle>("toggle-feature-networking");
             _useNetworking.value = manifest.UseNetworking;
         }
-#endregion
+
+        #endregion
 
         private void SetScriptingDefineSymbols(BuildTargetGroup targetGroup)
         {
@@ -94,7 +97,8 @@ namespace pdxpartyparrot.Core.Editor.Project
             PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, scriptingDefineSymbols.ToString());
         }
 
-#region Events
+        #region Events
+
         private void OnSave()
         {
             ProjectManifest manifest = new ProjectManifest();
@@ -127,6 +131,7 @@ namespace pdxpartyparrot.Core.Editor.Project
                 AssetDatabase.Refresh();
             }
         }
-#endregion
+
+        #endregion
     }
 }

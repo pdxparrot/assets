@@ -49,7 +49,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         private ScriptView ScriptView => (ScriptView)View;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -69,7 +70,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             _nodeList.selectionType = SelectionType.Single;
             _nodeList.onItemChosen += ItemChosenEventHandler;
         }
-#endregion
+
+        #endregion
 
         protected override bool FilterNode(Type nodeType, ScriptNodeAttribute attr)
         {
@@ -89,7 +91,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             return (ScriptViewNode)ScriptView.CreateNode(nodeData, null == _onSuccess);
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void FilterChangedEventHandler(ChangeEvent<string> evt)
         {
             FilterNodes(_filter.text);
@@ -115,6 +118,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             Close();
         }
-#endregion
+
+        #endregion
     }
 }

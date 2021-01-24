@@ -43,7 +43,8 @@ namespace pdxpartyparrot.Core.Effects
 
         private Coroutine _effectWaiter;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             RunOnComponents(c => c.Initialize(this));
@@ -64,11 +65,13 @@ namespace pdxpartyparrot.Core.Effects
                 }
             });
         }
-#endregion
 
-#region Components
+        #endregion
+
+        #region Components
+
         [CanBeNull]
-        public T GetEffectTriggerComponent<T>() where T: EffectTriggerComponent
+        public T GetEffectTriggerComponent<T>() where T : EffectTriggerComponent
         {
             foreach(var component in _components.Items) {
                 T tc = component as T;
@@ -79,7 +82,7 @@ namespace pdxpartyparrot.Core.Effects
             return null;
         }
 
-        public void GetEffectTriggerComponents<T>(ICollection<T> components) where T: EffectTriggerComponent
+        public void GetEffectTriggerComponents<T>(ICollection<T> components) where T : EffectTriggerComponent
         {
             components.Clear();
             foreach(var component in _components.Items) {
@@ -96,9 +99,11 @@ namespace pdxpartyparrot.Core.Effects
                 f(component);
             }
         }
-#endregion
 
-#region Context
+        #endregion
+
+        #region Context
+
         public int GetInt(string name)
         {
             return Convert.ToInt32(_context.GetOrDefault(name));
@@ -128,9 +133,10 @@ namespace pdxpartyparrot.Core.Effects
         {
             _context[name] = value;
         }
-#endregion
 
-        public void Trigger(Action callback=null)
+        #endregion
+
+        public void Trigger(Action callback = null)
         {
             KillTrigger();
 
@@ -149,7 +155,7 @@ namespace pdxpartyparrot.Core.Effects
             _effectWaiter = StartCoroutine(EffectWaiter(callback));
         }
 
-        private void TriggerWithContext(Dictionary<string, object> context, Action callback=null)
+        private void TriggerWithContext(Dictionary<string, object> context, Action callback = null)
         {
             foreach(var kvp in context) {
                 _context[kvp.Key] = kvp.Value;

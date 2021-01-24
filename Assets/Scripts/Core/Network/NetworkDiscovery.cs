@@ -9,9 +9,11 @@ namespace pdxpartyparrot.Core.Network
 {
     public sealed class NetworkDiscovery : UnityEngine.Networking.NetworkDiscovery
     {
-#region Events
+        #region Events
+
         public event EventHandler<ReceivedBroadcastEventArgs> ReceivedBroadcastEvent;
-#endregion
+
+        #endregion
 
         public override void OnReceivedBroadcast(string fromAddress, string data)
         {

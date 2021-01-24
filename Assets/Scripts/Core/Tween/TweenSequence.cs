@@ -19,7 +19,8 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private bool _resetOnEnable = false;
 
-#region Looping
+        #region Looping
+
         [SerializeField]
         private int _loops = 0;
 
@@ -29,15 +30,18 @@ namespace pdxpartyparrot.Core.Tween
         LoopType _loopType = LoopType.Restart;
 
         public LoopType LoopType => _loopType;
-#endregion
 
-#region Delay
+        #endregion
+
+        #region Delay
+
         [SerializeField]
         private float _firstRunDelay = 0.0f;
 
         [SerializeField]
         private float _delay = 0.0f;
-#endregion
+
+        #endregion
 
         [SerializeField]
         [ReadOnly]
@@ -60,7 +64,8 @@ namespace pdxpartyparrot.Core.Tween
 
         public bool IsPaused => _isPaused;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
@@ -97,7 +102,8 @@ namespace pdxpartyparrot.Core.Tween
                 Play();
             }
         }
-#endregion
+
+        #endregion
 
         private void DoReset()
         {
@@ -174,12 +180,14 @@ namespace pdxpartyparrot.Core.Tween
             _isPaused = false;
         }
 
-#region Events
+        #region Events
+
         private void PauseEventHandler(object sender, EventArgs args)
         {
             TogglePause();
         }
-#endregion
+
+        #endregion
     }
 }
 #endif

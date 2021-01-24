@@ -8,7 +8,8 @@ namespace pdxpartyparrot.Core.Util
 {
     public static class RandomExtensions
     {
-#region Random Collection Entries
+        #region Random Collection Entries
+
         [CanBeNull]
         public static T GetRandomEntry<T>(this Random random, IReadOnlyCollection<T> collection)
         {
@@ -32,7 +33,8 @@ namespace pdxpartyparrot.Core.Util
             collection.RemoveAt(idx);
             return v;
         }
-#endregion
+
+        #endregion
 
         public static int CoinFlip(this Random random)
         {

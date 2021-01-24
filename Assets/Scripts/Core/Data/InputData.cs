@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data
 {
-    [CreateAssetMenu(fileName="InputData", menuName="pdxpartyparrot/Core/Data/Input Data")]
+    [CreateAssetMenu(fileName = "InputData", menuName = "pdxpartyparrot/Core/Data/Input Data")]
     [Serializable]
     public class InputData : ScriptableObject
     {

@@ -33,7 +33,8 @@ namespace pdxpartyparrot.Core.UI
 
         private VideoPlayer _videoPlayer;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _camera.clearFlags = CameraClearFlags.Color;
@@ -59,7 +60,8 @@ namespace pdxpartyparrot.Core.UI
         {
             PlayNextSplashScreen();
         }
-#endregion
+
+        #endregion
 
         private void PlayNextSplashScreen()
         {
@@ -76,7 +78,7 @@ namespace pdxpartyparrot.Core.UI
 
             // config the volume for each track
             _videoPlayer.SetDirectAudioVolume(0, 1.0f);
-            for(ushort i=0; i<config.volume.Length && i<_videoPlayer.audioTrackCount; ++i) {
+            for(ushort i = 0; i < config.volume.Length && i < _videoPlayer.audioTrackCount; ++i) {
                 _videoPlayer.SetDirectAudioVolume(i, config.volume[i]);
             }
 
@@ -85,7 +87,8 @@ namespace pdxpartyparrot.Core.UI
             _videoPlayer.Prepare();
         }
 
-#region Events
+        #region Events
+
         private void ErrorReceivedEventHandler(VideoPlayer source, string message)
         {
             Debug.LogError($"Video player received error: {message}");
@@ -108,6 +111,7 @@ namespace pdxpartyparrot.Core.UI
             _currentSplashScreen++;
             PlayNextSplashScreen();
         }
-#endregion
+
+        #endregion
     }
 }

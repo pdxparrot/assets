@@ -12,7 +12,7 @@ namespace pdxpartyparrot.Core.UI
     [RequireComponent(typeof(Button))]
     public class ButtonHelper : MonoBehaviour, ISelectHandler, IPointerClickHandler, IPointerEnterHandler
     {
-// TODO: add font override to this (like TextHelper)
+        // TODO: add font override to this (like TextHelper)
 
         [SerializeField]
         [CanBeNull]
@@ -34,14 +34,17 @@ namespace pdxpartyparrot.Core.UI
 
         private Button _button;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _button = GetComponent<Button>();
         }
-#endregion
 
-#region Event Handlers
+        #endregion
+
+        #region Event Handlers
+
         public void OnSelect(BaseEventData eventData)
         {
             if(null != _hoverEffectTrigger) {
@@ -68,6 +71,7 @@ namespace pdxpartyparrot.Core.UI
                 }
             }
         }
-#endregion
+
+        #endregion
     }
 }

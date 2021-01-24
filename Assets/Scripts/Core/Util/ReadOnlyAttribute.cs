@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 
 namespace pdxpartyparrot.Core.Util
 {

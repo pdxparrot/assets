@@ -14,7 +14,8 @@ namespace pdxpartyparrot.Core.UI
 #endif
 
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
 #if ENABLE_VR
@@ -26,6 +27,7 @@ namespace pdxpartyparrot.Core.UI
             _gvrPhysicsRaycaster.enabled = GameManager.Instance.EnableGoogleVR;
 #endif
         }
-#endregion
+
+        #endregion
     }
 }

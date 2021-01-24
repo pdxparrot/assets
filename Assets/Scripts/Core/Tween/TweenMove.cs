@@ -37,7 +37,8 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private bool _useLocalPosition = true;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             if(null == _target) {
@@ -48,7 +49,8 @@ namespace pdxpartyparrot.Core.Tween
 
             base.Awake();
         }
-#endregion
+
+        #endregion
 
         public override void DoReset()
         {

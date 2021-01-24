@@ -12,12 +12,14 @@ namespace pdxpartyparrot.Core.Input
 
         public InputSystemUIInputModule UIModule { get; private set; }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             EventSystem = GetComponent<EventSystem>();
             UIModule = GetComponent<InputSystemUIInputModule>();
         }
-#endregion
+
+        #endregion
     }
 }

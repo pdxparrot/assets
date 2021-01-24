@@ -4,11 +4,13 @@ namespace pdxpartyparrot.Core.Time
 {
     public interface IStopwatch
     {
-#region Events
+        #region Events
+
         event EventHandler StartEvent;
         event EventHandler StopEvent;
         event EventHandler ResetEvent;
-#endregion
+
+        #endregion
 
         float StopwatchSeconds { get; }
 

@@ -13,7 +13,8 @@ namespace pdxpartyparrot.Core.Util.Editor
     [CustomPropertyDrawer(typeof(TagSelectorAttribute), true)]
     public class TagSelectorPropertyDrawer : PropertyDrawer
     {
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             if(SerializedPropertyType.String != property.propertyType) {
@@ -36,13 +37,13 @@ namespace pdxpartyparrot.Core.Util.Editor
                 string propertyString = property.stringValue;
 
                 int index = -1;
-                if(propertyString =="") {
+                if(propertyString == "") {
                     // the tag is empty
                     index = 0; // first index is the special <notag> entry
                 } else {
                     // check if there is an entry that matches the entry and get the index
                     // we skip index 0 as that is a special custom case
-                    for(int i=1; i<tagList.Count; ++i) {
+                    for(int i = 1; i < tagList.Count; ++i) {
                         if(tagList[i] == propertyString) {
                             index = i;
                             break;
@@ -65,6 +66,7 @@ namespace pdxpartyparrot.Core.Util.Editor
                 EditorGUI.EndProperty();
             }
         }
-#endregion
+
+        #endregion
     }
 }

@@ -13,13 +13,15 @@ namespace pdxpartyparrot.Core.UI
         [SerializeField]
         private TMP_FontAsset _fontOverride;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             TextMeshProUGUI text = GetComponent<TextMeshProUGUI>();
             text.font = _fontOverride == null ? UIManager.Instance.Data.DefaultFont : _fontOverride;
             text.text = LocalizationManager.Instance.GetText(_stringId);
         }
-#endregion
+
+        #endregion
     }
 }

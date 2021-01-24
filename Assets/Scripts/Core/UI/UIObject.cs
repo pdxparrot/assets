@@ -10,7 +10,8 @@ namespace pdxpartyparrot.Core.UI
 
         public string Id => _id;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             UIManager.Instance.RegisterUIObject(this);
@@ -22,6 +23,7 @@ namespace pdxpartyparrot.Core.UI
                 UIManager.Instance.UnregisterUIObject(this);
             }
         }
-#endregion
+
+        #endregion
     }
 }

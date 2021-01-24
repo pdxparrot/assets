@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data
 {
-    [CreateAssetMenu(fileName="SpawnData", menuName="pdxpartyparrot/Core/Data/Spawn Data")]
+    [CreateAssetMenu(fileName = "SpawnData", menuName = "pdxpartyparrot/Core/Data/Spawn Data")]
     [Serializable]
     public class SpawnData : ScriptableObject
     {

@@ -26,7 +26,8 @@ namespace pdxpartyparrot.Core.World
 
         private Action _onRelease;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void OnEnable()
         {
             Register();
@@ -43,7 +44,8 @@ namespace pdxpartyparrot.Core.World
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, _spawnRange.Max <= 0.0f ? 1.0f : _spawnRange.Max);
         }
-#endregion
+
+        #endregion
 
         private void Register()
         {
@@ -84,7 +86,7 @@ namespace pdxpartyparrot.Core.World
         }
 
         [CanBeNull]
-        public virtual Actor SpawnFromPrefab(Actor prefab, Guid id, ActorBehaviorComponentData behaviorData, Transform parent=null, bool activate=true)
+        public virtual Actor SpawnFromPrefab(Actor prefab, Guid id, ActorBehaviorComponentData behaviorData, Transform parent = null, bool activate = true)
         {
 #if USE_NETWORKING
             Debug.LogWarning("You probably meant to use NetworkManager.SpawnNetworkPrefab");
@@ -101,7 +103,7 @@ namespace pdxpartyparrot.Core.World
         }
 
         [CanBeNull]
-        public Actor SpawnNPCPrefab(Actor prefab, ActorBehaviorComponentData behaviorData, Transform parent=null, bool active=true)
+        public Actor SpawnNPCPrefab(Actor prefab, ActorBehaviorComponentData behaviorData, Transform parent = null, bool active = true)
         {
             return SpawnFromPrefab(prefab, Guid.NewGuid(), behaviorData, parent, active);
         }
@@ -127,7 +129,7 @@ namespace pdxpartyparrot.Core.World
             return actor.OnReSpawn(this);
         }
 
-        public bool Acquire(Actor owner, Action onRelease=null, bool force=false)
+        public bool Acquire(Actor owner, Action onRelease = null, bool force = false)
         {
             if(!force && null != _owner) {
                 return false;

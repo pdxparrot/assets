@@ -19,7 +19,7 @@ namespace pdxpartyparrot.Core.Collections
         int Free { get; }
     }
 
-    public sealed class ObjectPool<T> : IEnumerable<T>, IEnumerable, IReadOnlyObjectPool<T> where T: class, IPooledItem, new()
+    public sealed class ObjectPool<T> : IEnumerable<T>, IEnumerable, IReadOnlyObjectPool<T> where T : class, IPooledItem, new()
     {
         public int Size => Used + Free;
 
@@ -36,7 +36,7 @@ namespace pdxpartyparrot.Core.Collections
             _unused = new List<T>(size);
             _used = new List<T>(size);
 
-            for(int i=0; i<size; ++i) {
+            for(int i = 0; i < size; ++i) {
                 _unused.Add(new T());
             }
         }

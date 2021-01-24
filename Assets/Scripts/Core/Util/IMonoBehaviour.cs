@@ -16,14 +16,14 @@ namespace pdxpartyparrot.Core.Util
 
         bool enabled { get; set; }
 
-        T GetComponent<T>() where T: Component;
+        T GetComponent<T>() where T : Component;
 
-        T GetComponentInChildren<T>() where T: Component;
+        T GetComponentInChildren<T>() where T : Component;
 
-        T[] GetComponents<T>() where T: Component;
+        T[] GetComponents<T>() where T : Component;
 
-        T[] GetComponentsInChildren<T>() where T: Component;
+        T[] GetComponentsInChildren<T>() where T : Component;
 
-        T[] GetComponentsInChildren<T>(bool includeInactive) where T: Component;
+        T[] GetComponentsInChildren<T>(bool includeInactive) where T : Component;
     }
 }

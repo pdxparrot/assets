@@ -21,7 +21,8 @@ namespace pdxpartyparrot.Core.Camera
 
         [Space(10)]
 
-#region Cameras
+        #region Cameras
+
         [Header("Cameras")]
 
         [SerializeField]
@@ -33,11 +34,13 @@ namespace pdxpartyparrot.Core.Camera
         private UnityEngine.Camera _uiCamera;
 
         public UnityEngine.Camera UICamera => _uiCamera;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Post Processing
+        #region Post Processing
+
         [Header("Post Processing")]
 
         [SerializeField]
@@ -50,7 +53,8 @@ namespace pdxpartyparrot.Core.Camera
         // TODO: disabled until keijiro makes a package for this
         /*[SerializeField]
         private Bokeh _bokehEffect;*/
-#endregion
+
+        #endregion
 
         [SerializeField]
         [ReadOnly]
@@ -69,7 +73,8 @@ namespace pdxpartyparrot.Core.Camera
         // this is meaningless for 3D
         public virtual float ViewportSize => _camera.orthographicSize;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             _defaultCameraPosition = Camera.transform.localPosition;
@@ -90,7 +95,8 @@ namespace pdxpartyparrot.Core.Camera
         {
             ResetViewer();
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize(int id)
         {
@@ -108,7 +114,8 @@ namespace pdxpartyparrot.Core.Camera
             }
         }
 
-#region Orthographic / Perspective
+        #region Orthographic / Perspective
+
         public virtual void Set2D()
         {
             Camera.orthographic = true;
@@ -130,7 +137,8 @@ namespace pdxpartyparrot.Core.Camera
             Set3D();
             Camera.fieldOfView = fieldOfView;
         }
-#endregion
+
+        #endregion
 
         public void EnableCamera(bool enable)
         {
@@ -203,7 +211,8 @@ namespace pdxpartyparrot.Core.Camera
             }
         }
 
-#region Render Layers
+        #region Render Layers
+
         public void AddRenderLayer(LayerMask layer)
         {
             Camera.cullingMask |= (1 << layer.value);
@@ -213,6 +222,7 @@ namespace pdxpartyparrot.Core.Camera
         {
             Camera.cullingMask &= ~(1 << layer.value);
         }
-#endregion
+
+        #endregion
     }
 }

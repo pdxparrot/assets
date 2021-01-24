@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data
 {
-    [CreateAssetMenu(fileName="LoadingTipData", menuName="pdxpartyparrot/Core/Data/Loading Tip Data")]
+    [CreateAssetMenu(fileName = "LoadingTipData", menuName = "pdxpartyparrot/Core/Data/Loading Tip Data")]
     [Serializable]
     public sealed class LoadingTipData : ScriptableObject
     {

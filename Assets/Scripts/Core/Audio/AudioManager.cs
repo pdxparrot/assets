@@ -31,27 +31,32 @@ namespace pdxpartyparrot.Core.Audio
 
         [Space(10)]
 
-#region SFX
+        #region SFX
+
         [Header("SFX")]
 
         [SerializeField]
         private AudioSource _oneShotAudioSource;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Stingers
+        #region Stingers
+
         [Header("Stingers")]
 
         [SerializeField]
         private AudioSource _stingerAudioSource;
 
         public bool IsStingerPlaying => _stingerAudioSource.isPlaying;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Music
+        #region Music
+
         [Header("Music")]
 
         [SerializeField]
@@ -76,22 +81,26 @@ namespace pdxpartyparrot.Core.Audio
             get => _musicCrossFade;
             set => _musicCrossFade = Mathf.Clamp01(value);
         }
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Ambient
+        #region Ambient
+
         [Header("Ambient")]
 
         [SerializeField]
         private AudioSource _ambientAudioSource;
 
         public bool IsAmbientPlaying => _ambientAudioSource.isPlaying;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Volume
+        #region Volume
+
         [Header("Volume")]
 
         [SerializeField]
@@ -168,7 +177,8 @@ namespace pdxpartyparrot.Core.Audio
                 Mute = false;
             }
         }
-#endregion
+
+        #endregion
 
         private AudioMixer _mixer;
 
@@ -176,7 +186,8 @@ namespace pdxpartyparrot.Core.Audio
 
         private Coroutine _musicTransitionRoutine;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             Debug.Assert(_audioData.UpdateCrossfadeUpdateSeconds < _audioData.UpdateMusicTransitionSeconds);
@@ -189,14 +200,12 @@ namespace pdxpartyparrot.Core.Audio
             }
 
             // add in the paused / unpaused config
-            AddSnapshotConfig("unpaused", new InternalAudioMixerSnapshotConfig
-            {
+            AddSnapshotConfig("unpaused", new InternalAudioMixerSnapshotConfig {
                 snapshots = new[] { _mixer.FindSnapshot(_audioData.UnpausedSnapshotName) },
                 weights = new[] { 1.0f }
             });
 
-            AddSnapshotConfig("paused", new InternalAudioMixerSnapshotConfig
-            {
+            AddSnapshotConfig("paused", new InternalAudioMixerSnapshotConfig {
                 snapshots = new[] { _mixer.FindSnapshot(_audioData.PausedSnapshotName) },
                 weights = new[] { 1.0f }
             });
@@ -242,7 +251,8 @@ namespace pdxpartyparrot.Core.Audio
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public void InitSFXAudioMixerGroup(AudioSource source)
         {
@@ -269,14 +279,17 @@ namespace pdxpartyparrot.Core.Audio
             StopAmbient();
         }
 
-#region SFX
+        #region SFX
+
         public void PlayOneShot(AudioClip audioClip)
         {
             _oneShotAudioSource.PlayOneShot(audioClip);
         }
-#endregion
 
-#region Stingers
+        #endregion
+
+        #region Stingers
+
         public void PlayStinger(AudioClip stingerAudioClip)
         {
             _stingerAudioSource.clip = stingerAudioClip;
@@ -287,9 +300,11 @@ namespace pdxpartyparrot.Core.Audio
         {
             _stingerAudioSource.Stop();
         }
-#endregion
 
-#region Music
+        #endregion
+
+        #region Music
+
         // plays a music clip on the first audio source at no crossfade
         public void PlayMusic(AudioClip musicAudioClip)
         {
@@ -327,7 +342,7 @@ namespace pdxpartyparrot.Core.Audio
         }
 
         // if stopOnComplete is true, will stop the clip being transitioned away from
-        public void TransitionMusicAsync(AudioClip musicAudioClip, float seconds, bool stopOnComplete=true)
+        public void TransitionMusicAsync(AudioClip musicAudioClip, float seconds, bool stopOnComplete = true)
         {
             if(null == musicAudioClip) {
                 return;
@@ -418,9 +433,11 @@ namespace pdxpartyparrot.Core.Audio
             _musicTransitionRoutine = null;
             onComplete?.Invoke();
         }
-#endregion
 
-#region Ambient
+        #endregion
+
+        #region Ambient
+
         public void PlayAmbient(AudioClip audioClip)
         {
             StopAmbient();
@@ -433,18 +450,19 @@ namespace pdxpartyparrot.Core.Audio
         {
             _ambientAudioSource.Stop();
         }
-#endregion
 
-#region  Snapshots
+        #endregion
+
+        #region  Snapshots
+
         private void AddSnapshotConfig(AudioMixerSnapshotsConfig snapshotsConfig)
         {
-            InternalAudioMixerSnapshotConfig snapshotConfig = new InternalAudioMixerSnapshotConfig
-            {
+            InternalAudioMixerSnapshotConfig snapshotConfig = new InternalAudioMixerSnapshotConfig {
                 snapshots = new AudioMixerSnapshot[snapshotsConfig.Snapshots.Count],
                 weights = new float[snapshotsConfig.Snapshots.Count]
             };
 
-            for(int i=0; i<snapshotsConfig.Snapshots.Count; ++i) {
+            for(int i = 0; i < snapshotsConfig.Snapshots.Count; ++i) {
                 snapshotConfig.snapshots[i] = _mixer.FindSnapshot(snapshotsConfig.Snapshots.ElementAt(i).Name);
                 snapshotConfig.weights[i] = snapshotsConfig.Snapshots.ElementAt(i).Weight;
             }
@@ -466,30 +484,33 @@ namespace pdxpartyparrot.Core.Audio
                 _mixer.TransitionToSnapshots(snapshotConfig.snapshots, snapshotConfig.weights, 0.1f);
             }
         }
-#endregion
 
-#region Event Handlers
+        #endregion
+
+        #region Event Handlers
+
         private void PauseEventHandler(object sender, EventArgs args)
         {
             SetSnapshots(PartyParrotManager.Instance.IsPaused ? "paused" : "unpaused");
         }
-#endregion
+
+        #endregion
 
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.AudioManager");
             debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Volume", GUI.skin.box);
-                    GUILayout.Label($"Master Volume: {MasterVolume}");
-                    GUILayout.Label($"Music Volume: {MusicVolume}");
-                    GUILayout.Label($"SFX Volume: {SFXVolume}");
-                    GUILayout.Label($"Ambient Volume: {AmbientVolume}");
-                    GUILayout.Label($"Mute: {Mute}");
+                GUILayout.Label($"Master Volume: {MasterVolume}");
+                GUILayout.Label($"Music Volume: {MusicVolume}");
+                GUILayout.Label($"SFX Volume: {SFXVolume}");
+                GUILayout.Label($"Ambient Volume: {AmbientVolume}");
+                GUILayout.Label($"Mute: {Mute}");
                 GUILayout.EndVertical();
 
                 GUILayout.BeginVertical("Music", GUI.skin.box);
-                    GUILayout.Label($"Music Crossfade: {MusicCrossFade}");
-                    GUILayout.Label($"Transitioning: {null != _musicTransitionRoutine}");
+                GUILayout.Label($"Music Crossfade: {MusicCrossFade}");
+                GUILayout.Label($"Transitioning: {null != _musicTransitionRoutine}");
                 GUILayout.EndVertical();
             };
         }

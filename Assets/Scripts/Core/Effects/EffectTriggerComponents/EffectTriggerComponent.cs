@@ -14,7 +14,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         {
         }
 
-        protected  EffectTrigger Owner { get; private set; }
+        protected EffectTrigger Owner { get; private set; }
 
         public abstract bool WaitForComplete { get; }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,7 +19,8 @@ namespace pdxpartyparrot.Core.Editor
 
         public override string Title => "Build";
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -28,6 +30,7 @@ namespace pdxpartyparrot.Core.Editor
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
             mainVisualTree.CloneTree(rootVisualElement);
         }
-#endregion
+
+        #endregion
     }
 }

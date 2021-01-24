@@ -13,18 +13,20 @@ namespace pdxpartyparrot.Core
     {
         private const string ConfigFileName = "config.json";
 
-#region Events
+        #region Events
+
         public event EventHandler<EventArgs> PauseEvent;
-#endregion
+
+        #endregion
 
         [SerializeField]
         private EngineData _data;
 
-// TODO: a lot of this junk should move to the data object
+        // TODO: a lot of this junk should move to the data object
 
         [Space(10)]
 
-#region VR Config
+        #region VR Config
 
 #if ENABLE_VR
         [SerializeField]
@@ -40,11 +42,12 @@ namespace pdxpartyparrot.Core
         public bool EnableGoogleVR => _enableGoogleVR;
 #endif
 
-#endregion
+        #endregion
 
         [Space(10)]
 
-#region Physics
+        #region Physics
+
         [Header("Physics")]
 
         [SerializeField]
@@ -56,12 +59,14 @@ namespace pdxpartyparrot.Core
         private PhysicsMaterial2D _frictionlesssMaterial2D;
 
         public PhysicsMaterial2D FrictionlessMaterial2D => _frictionlesssMaterial2D;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-// TODO: this should be network sync'd and server-authoritative
-#region Game State
+        // TODO: this should be network sync'd and server-authoritative
+        #region Game State
+
         [Header("Game State")]
 
         [SerializeField]
@@ -89,11 +94,13 @@ namespace pdxpartyparrot.Core
                 }
             }
         }
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Managers
+        #region Managers
+
         [Header("Mangers")]
 
         [SerializeField]
@@ -101,7 +108,8 @@ namespace pdxpartyparrot.Core
         private ILoadingManager _loadingManager;
 
         public ILoadingManager LoadingManager => _loadingManager;
-#endregion
+
+        #endregion
 
         public bool IsHeadless => GraphicsDeviceType.Null == SystemInfo.graphicsDeviceType;
 
@@ -109,7 +117,8 @@ namespace pdxpartyparrot.Core
 
         public System.Random Random { get; private set; }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             // TODO: is this the best place for this log?
@@ -136,7 +145,8 @@ namespace pdxpartyparrot.Core
 
             Config.Load(Application.streamingAssetsPath, ConfigFileName);
         }
-#endregion
+
+        #endregion
 
         public void SetRandomSeed(int seed)
         {
@@ -144,17 +154,20 @@ namespace pdxpartyparrot.Core
             Random = new System.Random(_randomSeed);
         }
 
-#region Manager Registration
+        #region Manager Registration
+
         public void RegisterLoadingManager(ILoadingManager loadingManager)
         {
             _loadingManager = loadingManager;
         }
-#endregion
+
+        #endregion
 
         // TODO: PlayerPrefs is bullshit, use a config file
-#region Player Config
+        #region Player Config
 
-#region Bool
+        #region Bool
+
         public bool GetBool(string key)
         {
             return GetInt(key) != 0;
@@ -169,9 +182,11 @@ namespace pdxpartyparrot.Core
         {
             SetInt(key, value ? 1 : 0);
         }
-#endregion
 
-#region Int
+        #endregion
+
+        #region Int
+
         public int GetInt(string key)
         {
             return PlayerPrefs.GetInt(key);
@@ -186,9 +201,11 @@ namespace pdxpartyparrot.Core
         {
             PlayerPrefs.SetInt(key, value);
         }
-#endregion
 
-#region Float
+        #endregion
+
+        #region Float
+
         public float GetFloat(string key)
         {
             return PlayerPrefs.GetFloat(key);
@@ -203,9 +220,11 @@ namespace pdxpartyparrot.Core
         {
             PlayerPrefs.SetFloat(key, value);
         }
-#endregion
 
-#region String
+        #endregion
+
+        #region String
+
         public string GetString(string key)
         {
             return PlayerPrefs.GetString(key);
@@ -220,26 +239,29 @@ namespace pdxpartyparrot.Core
         {
             PlayerPrefs.SetString(key, value);
         }
-#endregion
 
-#region Generic Objects
-        public T Get<T>(string key) where T: class
+        #endregion
+
+        #region Generic Objects
+
+        public T Get<T>(string key) where T : class
         {
             return JsonUtility.FromJson<T>(PlayerPrefs.GetString(key));
         }
 
-        public T Get<T>(string key, T defaultValue) where T: class
+        public T Get<T>(string key, T defaultValue) where T : class
         {
             return PlayerPrefs.HasKey(key) ? JsonUtility.FromJson<T>(PlayerPrefs.GetString(key)) : defaultValue;
         }
 
-        public void Set<T>(string key, T value) where T: class
+        public void Set<T>(string key, T value) where T : class
         {
             PlayerPrefs.SetString(key, JsonUtility.ToJson(value));
         }
-#endregion
 
-#endregion
+        #endregion
+
+        #endregion
 
         public void TogglePause()
         {

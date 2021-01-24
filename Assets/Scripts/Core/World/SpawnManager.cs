@@ -36,8 +36,7 @@ namespace pdxpartyparrot.Core.World
                     AdvanceRoundRobin();
                 }
 
-                switch(spawnType.SpawnMethod)
-                {
+                switch(spawnType.SpawnMethod) {
                 case SpawnData.SpawnMethod.RoundRobin:
                     SpawnPoint spawnPoint = SpawnPoints[_nextRoundRobinIndex];
                     AdvanceRoundRobin();
@@ -63,7 +62,8 @@ namespace pdxpartyparrot.Core.World
 
         private readonly Dictionary<string, SpawnPointSet> _spawnPoints = new Dictionary<string, SpawnPointSet>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             Assert.IsTrue(_spawnData.PlayerSpawnPointTags.Count > 0);
@@ -76,9 +76,11 @@ namespace pdxpartyparrot.Core.World
                 _spawnTypes.Add(spawnPointType.Tag, spawnPointType);
             }
         }
-#endregion
 
-#region Registration
+        #endregion
+
+        #region Registration
+
         public virtual void RegisterSpawnPoint(SpawnPoint spawnPoint)
         {
             //Debug.Log($"Registering spawnpoint {spawnPoint.name} of type '{spawnPoint.Tag}'");
@@ -94,7 +96,8 @@ namespace pdxpartyparrot.Core.World
                 spawnPoints.SpawnPoints.Remove(spawnPoint);
             }
         }
-#endregion
+
+        #endregion
 
         public void Initialize()
         {
@@ -119,7 +122,7 @@ namespace pdxpartyparrot.Core.World
         [CanBeNull]
         public SpawnPoint GetPlayerSpawnPoint(int controllerId)
         {
-            int spawnPointIdx = Mathf.Clamp(controllerId, 0, _spawnData.PlayerSpawnPointTags.Count-1);
+            int spawnPointIdx = Mathf.Clamp(controllerId, 0, _spawnData.PlayerSpawnPointTags.Count - 1);
             return GetSpawnPoint(_spawnData.PlayerSpawnPointTags.ElementAt(spawnPointIdx));
         }
     }

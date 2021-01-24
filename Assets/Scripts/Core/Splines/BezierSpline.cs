@@ -43,7 +43,8 @@ namespace pdxpartyparrot.Core.Splines
             }
         }
 
-#region Control Points
+        #region Control Points
+
         public Vector3 GetControlPoint(int index)
         {
             return _points[index];
@@ -80,9 +81,11 @@ namespace pdxpartyparrot.Core.Splines
             _points[index] = point;
             EnforceMode(index);
         }
-#endregion
 
-#region Control Point Modes
+        #endregion
+
+        #region Control Point Modes
+
         public Mode GetControlPointMode(int index)
         {
             return _modes[(index + 1) / 3];
@@ -94,10 +97,9 @@ namespace pdxpartyparrot.Core.Splines
             _modes[modeIndex] = mode;
 
             if(Loop) {
-                if (modeIndex == 0) {
+                if(modeIndex == 0) {
                     _modes[_modes.Length - 1] = mode;
-                }
-                else if (modeIndex == _modes.Length - 1) {
+                } else if(modeIndex == _modes.Length - 1) {
                     _modes[0] = mode;
                 }
             }
@@ -118,23 +120,22 @@ namespace pdxpartyparrot.Core.Splines
             int fixedIndex, enforcedIndex;
             if(index <= middleIndex) {
                 fixedIndex = middleIndex - 1;
-                if (fixedIndex < 0) {
+                if(fixedIndex < 0) {
                     fixedIndex = _points.Length - 2;
                 }
 
                 enforcedIndex = middleIndex + 1;
-                if (enforcedIndex >= _points.Length) {
+                if(enforcedIndex >= _points.Length) {
                     enforcedIndex = 1;
                 }
-            }
-            else {
+            } else {
                 fixedIndex = middleIndex + 1;
-                if (fixedIndex >= _points.Length) {
+                if(fixedIndex >= _points.Length) {
                     fixedIndex = 1;
                 }
 
                 enforcedIndex = middleIndex - 1;
-                if (enforcedIndex < 0) {
+                if(enforcedIndex < 0) {
                     enforcedIndex = _points.Length - 2;
                 }
             }
@@ -146,7 +147,8 @@ namespace pdxpartyparrot.Core.Splines
             }
             _points[enforcedIndex] = middle + enforcedTangent;
         }
-#endregion
+
+        #endregion
 
         public Vector3 GetPoint(float t)
         {
@@ -166,11 +168,10 @@ namespace pdxpartyparrot.Core.Splines
         public Vector3 GetVelocity(float t)
         {
             int i;
-            if (t >= 1f) {
+            if(t >= 1f) {
                 t = 1f;
                 i = _points.Length - 4;
-            }
-            else {
+            } else {
                 t = Mathf.Clamp01(t) * CurveCount;
                 i = (int)t;
                 t -= i;
@@ -205,7 +206,7 @@ namespace pdxpartyparrot.Core.Splines
                 EnforceMode(0);
             }
         }
-        
+
         public void ResetSpline()
         {
             _points = new[] {
@@ -221,12 +222,12 @@ namespace pdxpartyparrot.Core.Splines
             };
         }
 
-        public float EstimatedLength(int samples=20)
+        public float EstimatedLength(int samples = 20)
         {
             float len = 0.0f;
 
             Vector3 prev = GetPoint(0.0f);
-            for(int i=1; i<samples; ++i) {
+            for(int i = 1; i < samples; ++i) {
                 Vector3 curr = GetPoint((float)i / (float)samples);
                 len += (prev - curr).magnitude;
                 prev = curr;

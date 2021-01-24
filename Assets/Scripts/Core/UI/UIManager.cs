@@ -22,7 +22,8 @@ namespace pdxpartyparrot.Core.UI
         [SerializeField]
         private bool _enableDebug;
 
-#region Default Button Effects
+        #region Default Button Effects
+
         [CanBeNull]
         public EffectTrigger DefaultButtonHoverEffectTrigger { get; private set; }
 
@@ -31,18 +32,21 @@ namespace pdxpartyparrot.Core.UI
 
         [CanBeNull]
         public EffectTrigger DefaultButtonBackEffectTrigger { get; private set; }
-#endregion
+
+        #endregion
 
         private readonly Dictionary<string, UIObject> _uiObjects = new Dictionary<string, UIObject>();
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             InitializeDefaultButtonEffects();
 
             InitDebugMenu();
         }
-#endregion
+
+        #endregion
 
         private void InitializeDefaultButtonEffects()
         {
@@ -65,7 +69,8 @@ namespace pdxpartyparrot.Core.UI
             return isBackButton ? DefaultButtonBackEffectTrigger : DefaultButtonSubmitEffectTrigger;
         }
 
-#region UI Objects
+        #region UI Objects
+
         public void RegisterUIObject(UIObject uiObject)
         {
             if(_enableDebug) {
@@ -101,7 +106,8 @@ namespace pdxpartyparrot.Core.UI
 
             uiObject.gameObject.SetActive(show);
         }
-#endregion
+
+        #endregion
 
         private void InitDebugMenu()
         {
@@ -110,9 +116,9 @@ namespace pdxpartyparrot.Core.UI
                 _enableDebug = GUILayout.Toggle(_enableDebug, "Enable Debug");
 
                 GUILayout.BeginVertical("UI Objects:", GUI.skin.box);
-                    foreach(var kvp in _uiObjects) {
-                        GUILayout.Label(kvp.Key);
-                    }
+                foreach(var kvp in _uiObjects) {
+                    GUILayout.Label(kvp.Key);
+                }
                 GUILayout.EndVertical();
             };
         }

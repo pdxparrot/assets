@@ -52,7 +52,8 @@ namespace pdxpartyparrot.Core.Util
         public string Skin
         {
             get => SkeletonAnimation.Skeleton.Skin.Name;
-            set {
+            set
+            {
                 SkeletonAnimation.Skeleton.SetSkin(value);
                 SkeletonAnimation.Skeleton.SetSlotsToSetupPose();
                 SkeletonAnimation.AnimationState.Apply(SkeletonAnimation.Skeleton);

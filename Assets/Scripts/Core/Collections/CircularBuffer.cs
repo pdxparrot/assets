@@ -44,7 +44,8 @@ namespace pdxpartyparrot.Core.Collections
             i = (i + 1) % Size;
         }
 
-#region ICollection
+        #region ICollection
+
         public int Count => _head == -1
             ? 0
             : _tail >= _head
@@ -125,6 +126,7 @@ namespace pdxpartyparrot.Core.Collections
         {
             throw new System.NotImplementedException();
         }
-#endregion
+
+        #endregion
     }
 }

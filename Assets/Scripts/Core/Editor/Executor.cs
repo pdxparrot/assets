@@ -5,7 +5,7 @@ namespace pdxpartyparrot.Core.Editor
 {
     public static class Executor
     {
-        private static bool ExecuteProcess(Process process, Action<Process> onExit, bool redirectOutput=true, bool redirectError=true)
+        private static bool ExecuteProcess(Process process, Action<Process> onExit, bool redirectOutput = true, bool redirectError = true)
         {
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -47,10 +47,9 @@ namespace pdxpartyparrot.Core.Editor
             return true;
         }
 
-        public static bool ExecuteScriptFromCurrentDirectory(string filename, Action<Process> onExit, string arguments="")
+        public static bool ExecuteScriptFromCurrentDirectory(string filename, Action<Process> onExit, string arguments = "")
         {
-            Process process = new Process
-            {
+            Process process = new Process {
                 StartInfo =
                 {
                     FileName = filename,
@@ -60,10 +59,9 @@ namespace pdxpartyparrot.Core.Editor
             return ExecuteProcess(process, onExit);
         }
 
-        public static bool ExecuteScript(string workingDirectory, string filename, Action<Process> onExit, string arguments="")
+        public static bool ExecuteScript(string workingDirectory, string filename, Action<Process> onExit, string arguments = "")
         {
-            Process process = new Process
-            {
+            Process process = new Process {
                 StartInfo =
                 {
                     WorkingDirectory = workingDirectory,

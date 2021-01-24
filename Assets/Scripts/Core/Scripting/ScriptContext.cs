@@ -20,7 +20,8 @@ namespace pdxpartyparrot.Core.Scripting
             _runner = runner;
         }
 
-#region Runner Interface
+        #region Runner Interface
+
         public void Advance([CanBeNull] ScriptNode node)
         {
             _runner.Advance(node);
@@ -35,9 +36,11 @@ namespace pdxpartyparrot.Core.Scripting
         {
             _runner.ResetScript();
         }
-#endregion
 
-#region Data
+        #endregion
+
+        #region Data
+
         public void Set(string key, object value)
         {
             _contextData[key] = value;
@@ -53,6 +56,7 @@ namespace pdxpartyparrot.Core.Scripting
         {
             _contextData.Clear();
         }
-#endregion
+
+        #endregion
     }
 }

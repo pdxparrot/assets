@@ -24,7 +24,8 @@ namespace pdxpartyparrot.Core
 
         private readonly Dictionary<string, object> _data = new Dictionary<string, object>();
 
-#region Get / Set Values
+        #region Get / Set Values
+
         public void SetValue(string key, object value)
         {
             _data[key] = value;
@@ -47,7 +48,8 @@ namespace pdxpartyparrot.Core
         {
             return (T)_data.GetOrDefault(key);
         }
-#endregion
+
+        #endregion
 
         public IEnumerator LoadSaveRoutine()
         {

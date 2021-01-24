@@ -9,7 +9,7 @@ using UnityEngine.Audio;
 
 namespace pdxpartyparrot.Core.Data
 {
-    [CreateAssetMenu(fileName="AudioData", menuName="pdxpartyparrot/Core/Data/Audio Data")]
+    [CreateAssetMenu(fileName = "AudioData", menuName = "pdxpartyparrot/Core/Data/Audio Data")]
     [Serializable]
     public class AudioData : ScriptableObject
     {
@@ -20,7 +20,8 @@ namespace pdxpartyparrot.Core.Data
 
         [Space(10)]
 
-#region Mixer Groups
+        #region Mixer Groups
+
         [Header("Mixer Groups")]
 
         [SerializeField]
@@ -37,11 +38,13 @@ namespace pdxpartyparrot.Core.Data
         private string _ambientMixerGroupName = "Ambient";
 
         public string AmbientMixerGroupName => _ambientMixerGroupName;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Mixer Parameters
+        #region Mixer Parameters
+
         [Header("Mixer Parameters")]
 
         [SerializeField]
@@ -63,11 +66,13 @@ namespace pdxpartyparrot.Core.Data
         private string _ambientVolumeParameter = "AmbientVolume";
 
         public string AmbientVolumeParameter => _ambientVolumeParameter;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
-#region Mixer Snapshots
+        #region Mixer Snapshots
+
         [Header("Mixer Snapshots")]
 
         [SerializeField]
@@ -84,7 +89,8 @@ namespace pdxpartyparrot.Core.Data
         private AudioMixerSnapshotsConfig[] _snapshots;
 
         public IReadOnlyCollection<AudioMixerSnapshotsConfig> Snapshots => _snapshots;
-#endregion
+
+        #endregion
 
         [Space(10)]
 

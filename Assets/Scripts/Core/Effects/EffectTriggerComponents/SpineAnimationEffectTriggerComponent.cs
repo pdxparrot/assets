@@ -19,10 +19,12 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             public TrackEntry TrackEntry { get; set; }
         }
 
-#region Events
+        #region Events
+
         public event EventHandler<EventArgs> StartEvent;
         public event EventHandler<EventArgs> CompleteEvent;
-#endregion
+
+        #endregion
 
         [SerializeField]
         private SpineAnimationHelper _spineAnimation;
@@ -76,14 +78,16 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [CanBeNull]
         private TrackEntry _trackEntry;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             if(Loop) {
                 Assert.IsFalse(_waitForComplete);
             }
         }
-#endregion
+
+        #endregion
 
         public override void OnStart()
         {
@@ -97,7 +101,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
                     _trackEntry.TrackTime = TrackStartTime;
                     _trackEntry.Complete += OnComplete;
 
-                    StartEvent?.Invoke(this, new EventArgs{
+                    StartEvent?.Invoke(this, new EventArgs {
                         TrackEntry = _trackEntry,
                     });
                 }
@@ -124,7 +128,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
                 return;
             }
 
-            CompleteEvent?.Invoke(this, new EventArgs{
+            CompleteEvent?.Invoke(this, new EventArgs {
                 TrackEntry = _trackEntry,
             });
 
@@ -132,7 +136,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             _trackEntry = null;
         }
 
-#region Event Handlers
+        #region Event Handlers
+
         private void OnComplete(TrackEntry entry)
         {
             if(entry != _trackEntry) {
@@ -151,7 +156,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
             Complete();
         }
-#endregion
+
+        #endregion
     }
 }
 #endif

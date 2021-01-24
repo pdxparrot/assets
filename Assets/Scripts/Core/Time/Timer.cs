@@ -6,11 +6,13 @@ namespace pdxpartyparrot.Core.Time
 {
     public interface ITimer
     {
-#region Events
+        #region Events
+
         event EventHandler<EventArgs> StartEvent;
         event EventHandler<EventArgs> StopEvent;
         event EventHandler<EventArgs> TimesUpEvent;
-#endregion
+
+        #endregion
 
         float SecondsRemaining { get; set; }
 

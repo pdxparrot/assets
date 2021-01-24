@@ -52,7 +52,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             _vfx.time = 0.0f;
         }
 
-        public override  void OnReset()
+        public override void OnReset()
         {
             _vfx.Clear(true);
             _vfx.Simulate(0.0f, true, true);

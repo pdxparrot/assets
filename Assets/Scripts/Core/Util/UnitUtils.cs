@@ -2,7 +2,8 @@
 {
     public static class UnitUtils
     {
-#region Distance
+        #region Distance
+
         public static float FeetToMeters(float feet)
         {
             return feet * 0.3f;
@@ -22,9 +23,11 @@
         {
             return km * 0.62f;
         }
-#endregion
 
-#region Speed
+        #endregion
+
+        #region Speed
+
         public static float MetersPerSecondToMilesPerHour(float mps)
         {
             return mps * 2.24f;
@@ -34,9 +37,11 @@
         {
             return mps * 3.6f;
         }
-#endregion
 
-#region Mass / Weight
+        #endregion
+
+        #region Mass / Weight
+
         public static float PoundsToKilograms(float pounds)
         {
             return pounds * 0.45f;
@@ -46,6 +51,7 @@
         {
             return kg * 2.2f;
         }
-#endregion
+
+        #endregion
     }
 }

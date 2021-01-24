@@ -22,7 +22,7 @@ namespace pdxpartyparrot.Core.Math
             _points[index] = point;
         }
 #endif
-        
+
         public Vector3 GetPoint(float t)
         {
             return transform.TransformPoint(Bezier.GetPoint(_points[0], _points[1], _points[2], _points[3], t));

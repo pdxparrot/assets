@@ -32,7 +32,8 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         public virtual bool CanMove => true;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
         }
@@ -40,14 +41,16 @@ namespace pdxpartyparrot.Core.Actors.Components
         protected virtual void OnDestroy()
         {
         }
-#endregion
+
+        #endregion
 
         public virtual void Initialize(Actor owner)
         {
             Owner = owner;
         }
 
-#region Events
+        #region Events
+
         public virtual bool OnThink(float dt)
         {
             return false;
@@ -107,6 +110,7 @@ namespace pdxpartyparrot.Core.Actors.Components
         {
             return false;
         }
-#endregion
+
+        #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using pdxpartyparrot.Core.Splines;
 
 using UnityEditor;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.Splines
@@ -24,7 +25,8 @@ namespace pdxpartyparrot.Core.Editor.Splines
 
         private int _selectedIndex = -1;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         public override void OnInspectorGUI()
         {
             BezierSpline spline = (BezierSpline)target;
@@ -55,8 +57,8 @@ namespace pdxpartyparrot.Core.Editor.Splines
             Quaternion handleRotation = Tools.pivotRotation == PivotRotation.Local ? handle.rotation : Quaternion.identity;
 
             Vector3 p0 = ShowPoint(0, spline, handle, handleRotation);
-            for(int i=1; i<spline.ControlPointCount; i += 3) {
-                Vector3 p1 = ShowPoint(i   , spline, handle, handleRotation);
+            for(int i = 1; i < spline.ControlPointCount; i += 3) {
+                Vector3 p1 = ShowPoint(i, spline, handle, handleRotation);
                 Vector3 p2 = ShowPoint(i + 1, spline, handle, handleRotation);
                 Vector3 p3 = ShowPoint(i + 2, spline, handle, handleRotation);
 
@@ -70,7 +72,8 @@ namespace pdxpartyparrot.Core.Editor.Splines
 
             ShowDirections(spline);
         }
-#endregion
+
+        #endregion
 
         private void DrawSelectedPointInspector(BezierSpline spline)
         {
@@ -86,7 +89,7 @@ namespace pdxpartyparrot.Core.Editor.Splines
 
             EditorGUI.BeginChangeCheck();
             BezierSpline.Mode mode = (BezierSpline.Mode)EditorGUILayout.EnumPopup("Mode", spline.GetControlPointMode(_selectedIndex));
-            if (EditorGUI.EndChangeCheck()) {
+            if(EditorGUI.EndChangeCheck()) {
                 Undo.RecordObject(spline, "Change Point Mode");
                 spline.SetControlPointMode(_selectedIndex, mode);
                 EditorUtility.SetDirty(spline);
@@ -100,7 +103,7 @@ namespace pdxpartyparrot.Core.Editor.Splines
             Handles.DrawLine(point, point + spline.GetDirection(0.0f) * DirectionScale);
 
             int steps = StepsPerCurve * spline.CurveCount;
-            for(int i=1; i<=steps; ++i) {
+            for(int i = 1; i <= steps; ++i) {
                 point = spline.GetPoint(i / (float)steps);
                 Handles.DrawLine(point, point + spline.GetDirection(i / (float)steps) * DirectionScale);
             }

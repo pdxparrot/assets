@@ -48,7 +48,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [CanBeNull]
         private ITimer _audioTimer;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             if(_loop) {
@@ -65,7 +66,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
                 TimeManager.Instance.RemoveTimer(_audioTimer);
             }
         }
-#endregion
+
+        #endregion
 
         public override void Initialize(EffectTrigger owner)
         {

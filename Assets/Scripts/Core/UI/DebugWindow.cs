@@ -8,8 +8,8 @@ namespace pdxpartyparrot.Core.UI
 {
     public sealed class DebugWindow
     {
-// TODO: this should support a lot more window-type options
-// like "allow resize" and "allow move" and all that usual stuff
+        // TODO: this should support a lot more window-type options
+        // like "allow resize" and "allow move" and all that usual stuff
 
         private const int WindowHandleSize = 25;
 
@@ -21,13 +21,15 @@ namespace pdxpartyparrot.Core.UI
 
         private Rect _rect;
 
-#region Resizing
+        #region Resizing
+
         private bool _isResizing;
 
         private Rect _resizeOriginalRect;
 
         private Vector2 _resizeStartPosition;
-#endregion
+
+        #endregion
 
         public Func<string> Title { get; set; } = () => "Debug Window";
 

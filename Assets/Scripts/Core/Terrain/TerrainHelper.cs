@@ -6,7 +6,8 @@ namespace pdxpartyparrot.Core.Terrain
     [RequireComponent(typeof(TerrainCollider))]
     public sealed class TerrainHelper : MonoBehaviour
     {
-#region Neighbors
+        #region Neighbors
+
         [Header("Neighbors")]
 
         [SerializeField]
@@ -20,11 +21,13 @@ namespace pdxpartyparrot.Core.Terrain
 
         [SerializeField]
         private UnityEngine.Terrain _bottom;
-#endregion
+
+        #endregion
 
         public UnityEngine.Terrain Terrain { get; private set; }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Start()
         {
             Terrain = GetComponent<UnityEngine.Terrain>();
@@ -39,6 +42,7 @@ namespace pdxpartyparrot.Core.Terrain
                 TerrainManager.Instance.UnregisterTerrain(this);
             }
         }
-#endregion
+
+        #endregion
     }
 }

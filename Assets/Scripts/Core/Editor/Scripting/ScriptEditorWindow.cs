@@ -3,6 +3,7 @@ using pdxpartyparrot.Core.Editor.NodeEditor;
 
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,7 +35,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         private ScriptData _scriptData;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -46,7 +48,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             CreateNodeView();
         }
-#endregion
+
+        #endregion
 
         protected override NodeEditorView CreateView()
         {

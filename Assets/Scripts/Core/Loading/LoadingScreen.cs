@@ -31,12 +31,14 @@ namespace pdxpartyparrot.Core.Loading
         [CanBeNull]
         private TextMeshProUGUI _loadingTips;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _canvas.sortingOrder = 9999;
         }
-#endregion
+
+        #endregion
 
         public void ShowLoadingTip([CanBeNull] string loadingTip)
         {

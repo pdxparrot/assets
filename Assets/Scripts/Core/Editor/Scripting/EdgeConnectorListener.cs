@@ -1,4 +1,5 @@
 using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
@@ -31,7 +32,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             ScriptViewPort output = (ScriptViewPort)edge.output;
             ScriptViewPort input = (ScriptViewPort)edge.input;
-             _scriptView.CreateEdge(output.Node.Id, output.Id, input.Node.Id, input.Id);
+            _scriptView.CreateEdge(output.Node.Id, output.Id, input.Node.Id, input.Id);
         }
     }
 }

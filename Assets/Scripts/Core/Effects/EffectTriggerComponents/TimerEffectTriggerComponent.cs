@@ -23,7 +23,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool IsDone => !_timer.IsRunning;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void Awake()
         {
             _timer = TimeManager.Instance.AddTimer();
@@ -36,7 +37,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             }
             _timer = null;
         }
-#endregion
+
+        #endregion
 
         public override void OnStart()
         {

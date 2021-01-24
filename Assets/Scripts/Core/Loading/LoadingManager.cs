@@ -32,7 +32,7 @@ namespace pdxpartyparrot.Core.Loading
         void UpdateLoadingScreen(float percent, string text);
     }
 
-    public abstract class LoadingManager<T> : SingletonBehavior<T>, ILoadingManager where T: LoadingManager<T>
+    public abstract class LoadingManager<T> : SingletonBehavior<T>, ILoadingManager where T : LoadingManager<T>
     {
         [SerializeField]
         private UnityEngine.Camera _mainCamera;
@@ -42,7 +42,8 @@ namespace pdxpartyparrot.Core.Loading
 
         [Space(10)]
 
-#region Manager Prefabs
+        #region Manager Prefabs
+
         [Header("Manager Prefabs")]
 
         [SerializeField]
@@ -89,7 +90,8 @@ namespace pdxpartyparrot.Core.Loading
 
         [SerializeField]
         private EffectsManager _effectsManagerPrefab;
-#endregion
+
+        #endregion
 
         [Space(10)]
 
@@ -103,7 +105,8 @@ namespace pdxpartyparrot.Core.Loading
 
         protected GameObject ManagersContainer { get; private set; }
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected virtual void Awake()
         {
             _mainCamera.clearFlags = CameraClearFlags.SolidColor;
@@ -120,7 +123,8 @@ namespace pdxpartyparrot.Core.Loading
         {
             StartCoroutine(LoadRoutine());
         }
-#endregion
+
+        #endregion
 
         private IEnumerator LoadRoutine()
         {
@@ -218,7 +222,8 @@ namespace pdxpartyparrot.Core.Loading
             yield break;
         }
 
-#region Loading Screen
+        #region Loading Screen
+
         public void ShowLoadingScreen(bool show)
         {
             _mainCamera.cullingMask = show ? -1 : 0;
@@ -267,13 +272,16 @@ namespace pdxpartyparrot.Core.Loading
 
             _loadingTipTimer.Start(_loadingTips.LoadingTipRotateSeconds);
         }
-#endregion
 
-#region Events
+        #endregion
+
+        #region Events
+
         private void LoadingTimeTimerTimesUpEventHandler(object sender, EventArgs args)
         {
             ShowNextLoadingTip();
         }
-#endregion
+
+        #endregion
     }
 }

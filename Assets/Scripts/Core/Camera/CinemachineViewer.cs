@@ -15,7 +15,7 @@ namespace pdxpartyparrot.Core.Camera
     [RequireComponent(typeof(CinemachineImpulseListener))]
     public class CinemachineViewer : Viewer
     {
-        private enum Mode 
+        private enum Mode
         {
             Mode2D,
             Mode3D,
@@ -40,7 +40,8 @@ namespace pdxpartyparrot.Core.Camera
 
         public override float ViewportSize => _virtualCamera == null ? 0 : _virtualCamera.m_Lens.OrthographicSize;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         protected override void Awake()
         {
             base.Awake();
@@ -51,13 +52,13 @@ namespace pdxpartyparrot.Core.Camera
             _cinemachineBrain = Camera.GetComponent<CinemachineBrain>();
             Assert.IsNotNull(_cinemachineBrain);
         }
-#endregion
+
+        #endregion
 
         public void SetVirtualCamera(CinemachineVirtualCamera virtualCamera)
         {
             _virtualCamera = virtualCamera;
-            switch(_mode)
-            {
+            switch(_mode) {
             case Mode.Mode2D:
                 Set2D();
                 break;
@@ -94,7 +95,7 @@ namespace pdxpartyparrot.Core.Camera
         }
 
         [CanBeNull]
-        public T GetCinemachineComponent<T>() where T: CinemachineComponentBase
+        public T GetCinemachineComponent<T>() where T : CinemachineComponentBase
         {
             return null != _virtualCamera ? _virtualCamera.GetCinemachineComponent<T>() : null;
         }

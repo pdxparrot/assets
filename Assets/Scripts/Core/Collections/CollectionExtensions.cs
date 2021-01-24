@@ -40,12 +40,12 @@ namespace pdxpartyparrot.Core.Collections
         }
 
         [CanBeNull]
-        public static T Nearest<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T: Component
+        public static T Nearest<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T : Component
         {
             int bestIdx = -1;
             distance = float.PositiveInfinity;
 
-            for(int i=0; i<collection.Count; ++i) {
+            for(int i = 0; i < collection.Count; ++i) {
                 T element = collection.ElementAt(i);
                 Vector3 epos = element.transform.position;
 
@@ -60,12 +60,12 @@ namespace pdxpartyparrot.Core.Collections
         }
 
         [CanBeNull]
-        public static T NearestManhattan<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T: Component
+        public static T NearestManhattan<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T : Component
         {
             int bestIdx = -1;
             distance = float.PositiveInfinity;
 
-            for(int i=0; i<collection.Count; ++i) {
+            for(int i = 0; i < collection.Count; ++i) {
                 T element = collection.ElementAt(i);
                 Vector3 epos = element.transform.position;
 
@@ -80,12 +80,12 @@ namespace pdxpartyparrot.Core.Collections
         }
 
         [CanBeNull]
-        public static T Furthest<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T: Component
+        public static T Furthest<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T : Component
         {
             int bestIdx = -1;
             distance = float.NegativeInfinity;
 
-            for(int i=0; i<collection.Count; ++i) {
+            for(int i = 0; i < collection.Count; ++i) {
                 T element = collection.ElementAt(i);
                 Vector3 epos = element.transform.position;
 
@@ -100,12 +100,12 @@ namespace pdxpartyparrot.Core.Collections
         }
 
         [CanBeNull]
-        public static T FurthestManhattan<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T: Component
+        public static T FurthestManhattan<T>(this IReadOnlyCollection<T> collection, Vector3 position, out float distance) where T : Component
         {
             int bestIdx = -1;
             distance = float.NegativeInfinity;
 
-            for(int i=0; i<collection.Count; ++i) {
+            for(int i = 0; i < collection.Count; ++i) {
                 T element = collection.ElementAt(i);
                 Vector3 epos = element.transform.position;
 
@@ -119,7 +119,7 @@ namespace pdxpartyparrot.Core.Collections
             return bestIdx < 0 ? null : collection.ElementAt(bestIdx);
         }
 
-        public static void WithinDistance<T>(this IReadOnlyCollection<T> collection, Vector3 position, float distance, IList<T> matches) where T: Component
+        public static void WithinDistance<T>(this IReadOnlyCollection<T> collection, Vector3 position, float distance, IList<T> matches) where T : Component
         {
             foreach(T element in collection) {
                 Vector3 epos = element.transform.position;

@@ -26,7 +26,8 @@ namespace pdxpartyparrot.Core.Util
         [Tooltip("Allow rotation around the y-axis (horizontal billboard)")]
         private bool _yRotation = true;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
         private void LateUpdate()
         {
             if(null == Camera) {
@@ -57,6 +58,7 @@ namespace pdxpartyparrot.Core.Util
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(pos, pos - t.forward * 2.0f);
         }
-#endregion
+
+        #endregion
     }
 }

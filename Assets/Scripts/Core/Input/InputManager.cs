@@ -30,14 +30,17 @@ namespace pdxpartyparrot.Core.Input
             set => PartyParrotManager.Instance.SetBool(EnableVibrationKey, value);
         }
 
-#region Debug
+        #region Debug
+
         [SerializeField]
         private bool _enableDebug;
 
         public bool EnableDebug => _enableDebug;
-#endregion
 
-#region Unity Lifecycle
+        #endregion
+
+        #region Unity Lifecycle
+
         private void Awake()
         {
             InitDebugMenu();
@@ -71,7 +74,8 @@ namespace pdxpartyparrot.Core.Input
 
             base.OnDestroy();
         }
-#endregion
+
+        #endregion
 
         public int GetGamepadCount()
         {
@@ -116,11 +120,10 @@ namespace pdxpartyparrot.Core.Input
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "Core.InputManager");
             debugMenuNode.RenderContentsAction = () => {
                 GUILayout.BeginVertical("Gamepads", GUI.skin.box);
-                    _enableDebug = GUILayout.Toggle(_enableDebug, "Enable Debug");
-                    EnableVibration = GUILayout.Toggle(EnableVibration, "Enable Vibration");
+                _enableDebug = GUILayout.Toggle(_enableDebug, "Enable Debug");
+                EnableVibration = GUILayout.Toggle(EnableVibration, "Enable Vibration");
                 GUILayout.EndVertical();
             };
         }
     }
 }
-

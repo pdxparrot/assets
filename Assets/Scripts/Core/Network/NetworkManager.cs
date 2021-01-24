@@ -26,7 +26,8 @@ namespace pdxpartyparrot.Core.Network
     public sealed class NetworkManager :  SingletonBehavior<NetworkManager>
 #endif
     {
-#region Events
+        #region Events
+
 #if USE_NETWORKING
         public event EventHandler<EventArgs> ServerStartEvent;
         public event EventHandler<EventArgs> ServerStopEvent;
@@ -44,28 +45,33 @@ namespace pdxpartyparrot.Core.Network
         public event EventHandler<ClientSceneEventArgs> ClientSceneChangeEvent;
         public event EventHandler<ClientSceneEventArgs> ClientSceneChangedEvent;
 #endif
-#endregion
 
-#region Messages
+        #endregion
+
+        #region Messages
+
 #if USE_NETWORKING
         public class CustomMsgType
         {
-            public const short SceneChange  = MsgType.Highest + 1;
+            public const short SceneChange = MsgType.Highest + 1;
             public const short SceneChanged = MsgType.Highest + 2;
 
             // NOTE: always last, always highest
             public const short Highest = MsgType.Highest + 3;
         }
 #endif
-#endregion
 
-#region Singleton
+        #endregion
+
+        #region Singleton
+
 #if USE_NETWORKING
         public static NetworkManager Instance => (NetworkManager)singleton;
 
         public static bool HasInstance => null != Instance;
 #endif
-#endregion
+
+        #endregion
 
         [SerializeField]
         private bool _enableCallbackLogging = true;
@@ -86,24 +92,24 @@ namespace pdxpartyparrot.Core.Network
         }
 #endif
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+
 #if USE_NETWORKING
         // TODO: whenever this becomes a thing...
-/*
-        protected override void Awake()
+        /*protected override void Awake()
         {
             base.Awake();
 
             Initialize();
-        }
-*/
+        }*/
 #endif
 
         private void Start()
         {
             Initialize();
         }
-#endregion
+
+        #endregion
 
         private void Initialize()
         {
@@ -140,8 +146,9 @@ namespace pdxpartyparrot.Core.Network
 #endif
         }
 
-#region Network Prefabs
-        public void RegisterNetworkPrefab<T>(T networkPrefab) where T: NetworkBehaviour
+        #region Network Prefabs
+
+        public void RegisterNetworkPrefab<T>(T networkPrefab) where T : NetworkBehaviour
         {
             Debug.Log($"[NetworkManager]: Registering network prefab '{networkPrefab.name}'");
 #if USE_NETWORKING
@@ -151,7 +158,7 @@ namespace pdxpartyparrot.Core.Network
 #endif
         }
 
-        public void UnregisterNetworkPrefab<T>(T networkPrefab) where T: NetworkBehaviour
+        public void UnregisterNetworkPrefab<T>(T networkPrefab) where T : NetworkBehaviour
         {
             Debug.Log($"[NetworkManager]: Unregistering network prefab '{networkPrefab.name}'");
 #if USE_NETWORKING
@@ -162,7 +169,7 @@ namespace pdxpartyparrot.Core.Network
         }
 
         [CanBeNull]
-        public T SpawnNetworkPrefab<T>(T networkPrefab) where T: NetworkBehaviour
+        public T SpawnNetworkPrefab<T>(T networkPrefab) where T : NetworkBehaviour
         {
             if(!IsServerActive()) {
                 Debug.LogWarning("[NetworkManager]: Cannot spawn network prefab without an active server!");
@@ -181,7 +188,7 @@ namespace pdxpartyparrot.Core.Network
         }
 
         [CanBeNull]
-        public T SpawnNetworkPrefab<T>(T networkPrefab, Transform parent) where T: NetworkBehaviour
+        public T SpawnNetworkPrefab<T>(T networkPrefab, Transform parent) where T : NetworkBehaviour
         {
             T obj = SpawnNetworkPrefab(networkPrefab);
             if(null == obj) {
@@ -191,7 +198,7 @@ namespace pdxpartyparrot.Core.Network
             return obj;
         }
 
-        public void SpawnNetworkObject<T>([NotNull] T networkObject) where T: NetworkBehaviour
+        public void SpawnNetworkObject<T>([NotNull] T networkObject) where T : NetworkBehaviour
         {
 #if USE_NETWORKING
             NetworkServer.Spawn(networkObject.gameObject);
@@ -200,7 +207,7 @@ namespace pdxpartyparrot.Core.Network
 #endif
         }
 
-        public void DeSpawnNetworkObject<T>([NotNull] T networkObject) where T: NetworkBehaviour
+        public void DeSpawnNetworkObject<T>([NotNull] T networkObject) where T : NetworkBehaviour
         {
 #if USE_NETWORKING
             NetworkServer.UnSpawn(networkObject.gameObject);
@@ -209,7 +216,7 @@ namespace pdxpartyparrot.Core.Network
 #endif
         }
 
-        public void DestroyNetworkObject<T>([CanBeNull] T networkObject) where T: NetworkBehaviour
+        public void DestroyNetworkObject<T>([CanBeNull] T networkObject) where T : NetworkBehaviour
         {
             if(null == networkObject) {
                 return;
@@ -227,10 +234,12 @@ namespace pdxpartyparrot.Core.Network
             Debug.LogWarning($"[NetworkManager]: Not destroying network object {networkObject.name}");
 #endif
         }
-#endregion
 
-#region Player Prefab
-        public void RegisterPlayerPrefab<T>(T prefab) where T: NetworkActor
+        #endregion
+
+        #region Player Prefab
+
+        public void RegisterPlayerPrefab<T>(T prefab) where T : NetworkActor
         {
             Debug.Log($"[NetworkManager]: Registering player prefab '{prefab.name}'");
 
@@ -253,7 +262,7 @@ namespace pdxpartyparrot.Core.Network
             playerPrefab = null;
         }
 
-        public T SpawnPlayer<T>(short controllerId, NetworkConnection conn) where T: NetworkActor
+        public T SpawnPlayer<T>(short controllerId, NetworkConnection conn) where T : NetworkActor
         {
             if(!IsServerActive()) {
                 Debug.LogWarning("[NetworkManager]: Cannot spawn player prefab without an active server!");
@@ -279,7 +288,7 @@ namespace pdxpartyparrot.Core.Network
             return player.GetComponent<T>();
         }
 
-        public T SpawnPlayer<T>(short controllerId, NetworkConnection conn, Transform parent) where T: NetworkActor
+        public T SpawnPlayer<T>(short controllerId, NetworkConnection conn, Transform parent) where T : NetworkActor
         {
             T player = SpawnPlayer<T>(controllerId, conn);
             if(null == player) {
@@ -300,9 +309,11 @@ namespace pdxpartyparrot.Core.Network
             NetworkServer.DestroyPlayersForConnection(conn);
 #endif
         }
-#endregion
 
-#region Discovery
+        #endregion
+
+        #region Discovery
+
 #if USE_NETWORKING
         private bool InitDiscovery()
         {
@@ -356,7 +367,8 @@ namespace pdxpartyparrot.Core.Network
             }*/
         }
 #endif
-#endregion
+
+        #endregion
 
 #if USE_NETWORKING
         public override NetworkClient StartHost()
@@ -508,7 +520,8 @@ namespace pdxpartyparrot.Core.Network
 
 #if USE_NETWORKING
 
-#region Server Callbacks
+        #region Server Callbacks
+
         public override void OnStartHost()
         {
             CallbackLog("OnStartHost()");
@@ -589,9 +602,11 @@ namespace pdxpartyparrot.Core.Network
             StringMessage msg = new StringMessage(networkSceneName);
             NetworkServer.SendToAll(CustomMsgType.SceneChanged, msg);
         }
-#endregion
 
-#region Client Callbacks
+        #endregion
+
+        #region Client Callbacks
+
         public override void OnStartClient(NetworkClient networkClient)
         {
             CallbackLog($"OnStartClient({networkClient})");
@@ -646,7 +661,8 @@ namespace pdxpartyparrot.Core.Network
             string sceneName = netMsg.reader.ReadString();
             ClientSceneChangedEvent?.Invoke(this, new ClientSceneEventArgs(sceneName));
         }
-#endregion
+
+        #endregion
 
 #endif
 
