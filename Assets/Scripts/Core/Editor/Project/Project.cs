@@ -281,7 +281,7 @@ namespace pdxpartyparrot.Core.Editor.Project
             // base c# project namespace
             EditorSettings.projectGenerationRootNamespace = "pdxpartyparrot";
 
-            // unix line endings
+            // OS native line endings
             EditorSettings.lineEndingsForNewScripts = LineEndingsMode.OSNative;
         }
 
