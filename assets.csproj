@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <DefineConstants>USE_SPINE</DefineConstants>
+    <DefineConstants>USE_SPINE;UNITY_EDITOR</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\**\*.cs" />
