@@ -259,6 +259,7 @@
 * Managers go in Data/Prefabs/Managers
 * LoadingManager
   * Create an empty Prefab and add the LoadingManager component to it
+  * Create a LoadingTipData in Data/Data and attach it to the manager
 * ActorManager
   * Create an empty Prefab and add the ActorManager component to it
 * AudioManager
@@ -320,18 +321,21 @@
 * UIManager
   * Create an empty Prefab and add the UIManager component to it
   * Create a UIData in Data/Data and attach it to the manager
+    * Set the UI layer to UI
     * Attach a TMP_Font Asset to the Default font
       * LiberationSans SDF is currently the default TMP font
-    * Set the UI layer to UI
-    * Create empty Prefabs/UI/DefaultButtonBackEffect and add the EffectTrigger component to it
-      * Add an AudioEffectTriggerComponent and add it to the EffectTrigger components
-        * Set the Audio Clip to button-click
     * Create empty Prefabs/UI/DefaultButtonHoverEffect and add the EffectTrigger component to it
       * Add an AudioEffectTriggerComponent and add it to the EffectTrigger components
-        * Set the Audio Clip to button-click
+        * Set the Audio Clip to button-hover
+      * Attach to the UIData
     * Create empty Prefabs/UI/DefaultButtonSubmitEffect and add the EffectTrigger component to it
       * Add an AudioEffectTriggerComponent and add it to the EffectTrigger components
         * Set the Audio Clip to button-click
+      * Attach to the UIData
+    * Create empty Prefabs/UI/DefaultButtonBackEffect and add the EffectTrigger component to it
+      * Add an AudioEffectTriggerComponent and add it to the EffectTrigger components
+        * Set the Audio Clip to button-click
+      * Attach to the UIData
 * ViewerManager
   * Create an empty Prefab and add the ViewerManager component to it
 * Connect all of the managers to the LoadingManager prefab
