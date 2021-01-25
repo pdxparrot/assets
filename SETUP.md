@@ -343,14 +343,15 @@
 ## GameManager
 
 * Create a new GameData script that overrides the Game GameData
+  * Add the CreateAssetMenu and Serializable attributes
 * Create a new GameManager script that overrides the Game GameManager
-  * Implement the required interface
 * Add a connection to the project GameManager in the project LoadingManager
   * Override CreateManagers() in the loading manager to create the GameManager prefab
 * Create an empty Prefab and add the GameManager component to it
 * Create a GameData in Data/Data and attach it to the manager
   * Configure as necessary
   * **TODO:** floating text prefab
+* Create a CreditsData in Data/Data and attach it to the GameManager
 * Attach the manager to the LoadingManager prefab
 
 ### PlayerBehavior
@@ -654,7 +655,6 @@
             * Set the On Click handler to the CredisMenu OnBack method
             * Set the Text to "Back"
             * Set the Back button as the Initial Selection of the Credits Menu
-            *  Create a CreditsData in Data/Data and attach it to the Credits Menu
   * Duplicate the Start Button (Quit)
     * Set the On Click handler to the MainMenu OnQuitGame method
     * Set the Text to "Quit"
