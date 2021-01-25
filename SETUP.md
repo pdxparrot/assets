@@ -296,13 +296,14 @@
     * Set the SceneTester as the Scene Tester Prefab in the GameStateManager
 * InputManager
   * Create an empty Prefab and add the InputManager component to it
+  * Create an InputData in Data/Data and attach it to the manager
   * Attach the EventSystem prefab
 * LocalizationManager
   * Create an empty Prefab and add the LocalizationManager component to it
   * Create a LocalizationData in Data/Data and attach it to the manager
 * NetworkManager
   * Create an empty Prefab and add the (not Unity) NetworkManager component to it
-  * Uncheck Don't Destroy on Load
+  * Uncheck Don't Destroy on Load if networking is enabled
 * ObjectPoolManager
   * Create an empty Prefab and add the ObjectPoolManager component to it
 * SaveGameManager
@@ -313,7 +314,7 @@
 * SpawnManager
   * Create an empty Prefab and add the SpawnManager component to it
   * Create a SpawnData in Data/Data and attach it to the manager
-    * Add a player spawn tag
+    * Add a 'player' spawn tag
 * TimeManager
   * Create an empty Prefab and add the TimeManager component to it
 * UIManager
@@ -321,8 +322,16 @@
   * Create a UIData in Data/Data and attach it to the manager
     * Attach a TMP_Font Asset to the Default font
       * LiberationSans SDF is currently the default TMP font
-    * **TODO:** create and attach default button effect triggers
     * Set the UI layer to UI
+    * Create empty Prefabs/UI/DefaultButtonBackEffect and add the EffectTrigger component to it
+      * Add an AudioEffectTriggerComponent and add it to the EffectTrigger components
+        * Set the Audio Clip to button-click
+    * Create empty Prefabs/UI/DefaultButtonHoverEffect and add the EffectTrigger component to it
+      * Add an AudioEffectTriggerComponent and add it to the EffectTrigger components
+        * Set the Audio Clip to button-click
+    * Create empty Prefabs/UI/DefaultButtonSubmitEffect and add the EffectTrigger component to it
+      * Add an AudioEffectTriggerComponent and add it to the EffectTrigger components
+        * Set the Audio Clip to button-click
 * ViewerManager
   * Create an empty Prefab and add the ViewerManager component to it
 * Connect all of the managers to the LoadingManager prefab
