@@ -350,129 +350,38 @@
 * Create an empty Prefab and add the GameManager component to it
 * Create a GameData in Data/Data and attach it to the manager
   * Configure as necessary
-  * **TODO:** floating text prefab
+  * Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
+    * **TODO:** what else goes into this (ggj2019 uses it)?
+    * Attach to the GameData
 * Create a CreditsData in Data/Data and attach it to the GameManager
 * Attach the manager to the LoadingManager prefab
 
-### PlayerBehavior
+# Initial Scene Setup
 
-* Create a new PlayerBehaviorData script that overrides one of the Game PlayerBehaviorData
-* Create a new PlayerBehavior script that overrides one of the Game PlayerBehavior
-  * Implement the required interface
+* Create a new Lighting Settings Assets/Rendering/ui.lighting
+  * Attach to a throw away scene and configure
+    * Environment Lighting Source: Color
+    * Disable Realtime Global Illumination
+    * Disable Baked Global Illumination
+    * Disable Auto Generate lighting
 
-### PlayerInput
+## Splash Scene Setup
 
-* Create a new PlayerInputData script that overrides the Game PlayerInputData
-* Create a new PlayerInput script that overrides one of the Game PlayerInput
-  * Implement the required interface
-
-## Player
-
-* Create a new PlayerData script that overrides the Game PlayerData
-* Create a new Player script that overrides one of the Game Players
-  * Implement the required interface
-
-### PlayerControls
-
-* **TODO:** This is outdated now
-* Create Data/Input/PlayerControls.inputactions
-  * Generate C# Class
-    * File: Assets/Scripts/{project}/Input/PlayerControls.cs
-      * Need to create containing directory first
-    * Class Name: PlayerControls
-    * Namespace: pdxpartyparrot.{project}.Input
-  * Add Action Maps as necessary
-* Have the project PlayerInput implement the action interface
-  * TODO: this is probably broken now that we're using the InputSystem PlayerInput
-* The PlayerInput should set the actions callback handler to itself
-  * TODO: also probably broken
-
-### Player Prefab
-
-* Create an empty Prefab and add the Player component to it
-  * This will require a collider to be added first
-  * Layer: Player
-  * Setup networking if using it
-    * Check the Local Player Authority box in the Network Identity
-    * Attach the empty animator controller to the Animator
-      * This will stop potential animator error spam
-    * Attach the Animator to the Network Animator
-  * Attach the NetworkPlayer to the Network Player on the Player component
-* Add a new empty GameObject under the Player prefab (Model)
-  * Attach this to the Model on the Player component
-  * The actual model for the player should go under this container
-* Add a new empty GameObject under the Player prefab (Behavior) and add the PlayerBehavior component to it
-  * Attach the Player Behavior to the Actor Components of the Player component
-* Add a new empty GameObject under the Player prefab (Movement) and add one of the PlayerMovement components to it
-  * Attach the Player Movement to the Actor Components of the Player component
-    * Attach the Rigidbody on the Player to the Movement Rigidbody
-  * **TODO:** Animator on the Player Behavior ???
-* Add a new empty GameObject under the Player Prefab (Input) and add the project PlayerInput component to it
-  * Attach the Player Input to the Player component
-  * Attach the DefaultInputActions asset to the Unity PlayerInput
-    * Default Map should be set to Player
-    * Change Behavior to Invoke Unity Events
-    * Hook up any events as necessary
-  * Attach the Player to the Owner on the PlayerInput component
-  * Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
-
-### Player / Game Viewer
-
-* Create a new Player/GameViewer script that overrides one of the Core Game Viewers and implements the IPlayerViewer interface
-* Create an empty Prefab and add the project Viewer script to it
-  * Layer: Viewer
-  * Configure any additional settings as required
-  * Add a camera under the prefab (Camera)
-    * Clear Flags: Solid Color (or Skybox for a skybox)
-    * Background: Opaque Black (or Default for a skybox)
-    * Remove the Audio Listener
-    * Add CinemachineBrain to Camera
-    * Add a Post Process Layer component to the Camera object
-      * Set the Layer to PostProcessing
-      * Make sure Directly to Camera Target is unchecked
-  * Attach the Camera to the Viewer component
-  * Add another camera under the prefab (UI Camera)
-    * Clear Flags: Solid Color
-    * Background: Opaque Black
-    * Remove the AudioListener
-    * Add the UICameraAspectRatio component to the UI Camera
-  * Attach the UI Camera to the Viewer component
-  * Add an empty GameObject under the prefab (PostProcessingVolume) and add a Post Process Volume to it
-  * Attach the Post Process Volume to the Viewer component
-  * Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)
-  * **TODO:** wtf is this stuff:
-    * Create a new layer for each potential viewer
-    * **TODO:** Need to make sure we put each viewer on its own layer
-
-## PlayerManager
-
-* Create a new PlayerManager script that overrides the Game PlayerManager
-  * Implement the required interface
-* Add a connection to the project PlayerManager in the project LoadingManager
-  * Create the PlayerManager prefab in the overloaded CreateManagers() in the project LoadingManager
-* Create an empty Prefab and add the PlayerManager component to it
-* Attach the Player prefab to the Player Prefab on the PlayerManager
-* Create a PlayerData in Data/Data and attach it to the PlayerManager component
-* Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
-  * Set the Actor Layer to Player
-* Attach the manager to the LoadingManager prefab
-
-# Splash Scene Setup
-
-* Create and save a new scene (Assets/Scenes/splash.unity)
+* Create and save a new Basic scene (Assets/Scenes/splash.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged
+  * Clear Flags: Solid Color
+  * Background: Opaque Black
+  * Culling Mask: Everything
+  * Projection: Perspective
+  * Uncheck Occlusion Culling
   * Disable HDR
   * Disable MSAA
   * Leave the Audio Listener attached to the camera for audio to work
   * Add the UICameraAspectRatio component to the camera
-* Setup Lighting
-  * Remove the Skybox Material
-  * Environment Lighting Source: Color
-  * Disable Realtime Global Illumination
-  * Disable Baked Global Illumination
-  * Disable Auto Generate lighting
+* Attach the UI lighting settings
+  * Remove the Environment Skybox Material
 * Add the scene to the Build Settings and ensure that it is Scene 0
 * Add a new GameObject to the scene (SplashScreen) and add the SplashScreen component to it
 * Attach the camera to the Camera field of the SplashScreen component
@@ -480,9 +389,9 @@
 * Set the Main Scene Name to match whatever the name of your main scene is
   * The main scene should also have been added (or will need to be added) to the Build Settings along with any other required scenes
 
-# Main Scene Setup
+## Main Scene Setup
 
-* Create and save a new scene (Scenes/main.unity)
+* Create and save a new Basic scene (Scenes/main.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged
@@ -495,15 +404,11 @@
   * Disable MSAA
   * Leave the Audio Listener attached to the camera for audio to work
   * Add the UICameraAspectRatio component to the camera
-* Setup Lighting
-  * Remove the Skybox Material
-  * Environment Lighting Source: Color
-  * Disable Realtime Global Illumination
-  * Disable Baked Global Illumination
-  * Disable Auto Generate lighting
+* Attach the UI lighting settings
+  * Remove the Environment Skybox Material
 * Add the scene to the Build Settings
 
-## Loading Screen Setup
+### Loading Screen Setup
 
 * Add a new LoadingScreen object to the scene with the LoadingScreen component
   * Layer: UI
@@ -519,7 +424,7 @@
   * Clear the Source Image
   * Color: (0, 0, 0, 255)
   * Disable Raycast Target
-* Add an Image (Title) under the Canvas
+* Add an Image (Title) under the Panel
   * Stretch the Rect Transform
   * Color: (255, 0, 255, 255)
   * Disable Raycast Target
@@ -532,13 +437,14 @@
   * Pos Y: -125
 * Attach the ProgressBar component to the LoadingScreen component
 * Add an Image under the Progress Bar (Background)
-  * Move the image below the Name text
+  * Position: (0, -200, 0)
   * Color: (0, 0, 0, 255)
   * Size: (500, 25)
   * Source Image: Core Progress Image
   * Disable Raycast Target
 * And an Image under the Background Image (Foreground)
   * Position: (0, 0, 0)
+  * Color: (255, 255, 255, 255)
   * Size: (500, 25)
   * Source Image: Core Progress Image
   * Disable Raycast Target
@@ -548,14 +454,21 @@
   * Fill Amount: 0.25
 * Attach the images to the ProgressBar component
 * Add a Text - TextMeshPro (Status) under the Progress Bar
-  * Pos Y: -75
+  * Position: (0, -150, 0)
   * Size: (750, 50)
   * Text: "Loading..."
   * Center the text
   * Disable Raycast Target
 * Attach the Text to the LoadingScreen component
+* Add a Text - TextMeshPro (LoadingTips) under the Progress Bar
+  * Position: (0, -250, 0)
+  * Size: (750, 50)
+  * Text: "Tip of the Day"
+  * Center the text
+  * Disable Raycast Target
+* Attach the Text to the LoadingScreen component
 
-## Loader Setup
+### Loader Setup
 
 * Add the LoadingManager prefab to the scene
 * Attach the Main Camera
@@ -803,6 +716,111 @@
         * Set the Text to "Quit"
     * Set the Main Menu Initial Selection to the Settings Button
 * Attach the PauseMenu prefab to the GameUIManager Prefab
+
+# Player
+
+## PlayerBehavior
+
+* Create a new PlayerBehaviorData script that overrides one of the Game PlayerBehaviorData
+* Create a new PlayerBehavior script that overrides one of the Game PlayerBehavior
+  * Implement the required interface
+
+## PlayerInput
+
+* Create a new PlayerInputData script that overrides the Game PlayerInputData
+* Create a new PlayerInput script that overrides one of the Game PlayerInput
+  * Implement the required interface
+
+## Player
+
+* Create a new PlayerData script that overrides the Game PlayerData
+* Create a new Player script that overrides one of the Game Players
+  * Implement the required interface
+
+## PlayerControls
+
+* **TODO:** This is outdated now
+* Create Data/Input/PlayerControls.inputactions
+  * Generate C# Class
+    * File: Assets/Scripts/{project}/Input/PlayerControls.cs
+      * Need to create containing directory first
+    * Class Name: PlayerControls
+    * Namespace: pdxpartyparrot.{project}.Input
+  * Add Action Maps as necessary
+* Have the project PlayerInput implement the action interface
+  * TODO: this is probably broken now that we're using the InputSystem PlayerInput
+* The PlayerInput should set the actions callback handler to itself
+  * TODO: also probably broken
+
+## Player Prefab
+
+* Create an empty Prefab and add the Player component to it
+  * This will require a collider to be added first
+  * Layer: Player
+  * Setup networking if using it
+    * Check the Local Player Authority box in the Network Identity
+    * Attach the empty animator controller to the Animator
+      * This will stop potential animator error spam
+    * Attach the Animator to the Network Animator
+  * Attach the NetworkPlayer to the Network Player on the Player component
+* Add a new empty GameObject under the Player prefab (Model)
+  * Attach this to the Model on the Player component
+  * The actual model for the player should go under this container
+* Add a new empty GameObject under the Player prefab (Behavior) and add the PlayerBehavior component to it
+  * Attach the Player Behavior to the Actor Components of the Player component
+* Add a new empty GameObject under the Player prefab (Movement) and add one of the PlayerMovement components to it
+  * Attach the Player Movement to the Actor Components of the Player component
+    * Attach the Rigidbody on the Player to the Movement Rigidbody
+  * **TODO:** Animator on the Player Behavior ???
+* Add a new empty GameObject under the Player Prefab (Input) and add the project PlayerInput component to it
+  * Attach the Player Input to the Player component
+  * Attach the DefaultInputActions asset to the Unity PlayerInput
+    * Default Map should be set to Player
+    * Change Behavior to Invoke Unity Events
+    * Hook up any events as necessary
+  * Attach the Player to the Owner on the PlayerInput component
+  * Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
+
+## Player / Game Viewer
+
+* Create a new Player/GameViewer script that overrides one of the Core Game Viewers and implements the IPlayerViewer interface
+* Create an empty Prefab and add the project Viewer script to it
+  * Layer: Viewer
+  * Configure any additional settings as required
+  * Add a camera under the prefab (Camera)
+    * Clear Flags: Solid Color (or Skybox for a skybox)
+    * Background: Opaque Black (or Default for a skybox)
+    * Remove the Audio Listener
+    * Add CinemachineBrain to Camera
+    * Add a Post Process Layer component to the Camera object
+      * Set the Layer to PostProcessing
+      * Make sure Directly to Camera Target is unchecked
+  * Attach the Camera to the Viewer component
+  * Add another camera under the prefab (UI Camera)
+    * Clear Flags: Solid Color
+    * Background: Opaque Black
+    * Remove the AudioListener
+    * Add the UICameraAspectRatio component to the UI Camera
+  * Attach the UI Camera to the Viewer component
+  * Add an empty GameObject under the prefab (PostProcessingVolume) and add a Post Process Volume to it
+  * Attach the Post Process Volume to the Viewer component
+  * Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)
+  * **TODO:** wtf is this stuff:
+    * Create a new layer for each potential viewer
+    * **TODO:** Need to make sure we put each viewer on its own layer
+
+## PlayerManager
+
+* Create a new PlayerManager script that overrides the Game PlayerManager
+  * Implement the required interface
+* Add a connection to the project PlayerManager in the project LoadingManager
+  * Create the PlayerManager prefab in the overloaded CreateManagers() in the project LoadingManager
+* Create an empty Prefab and add the PlayerManager component to it
+* Attach the Player prefab to the Player Prefab on the PlayerManager
+* Create a PlayerData in Data/Data and attach it to the PlayerManager component
+* Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
+  * Set the Actor Layer to Player
+* Attach the manager to the LoadingManager prefab
 
 # Game States
 
