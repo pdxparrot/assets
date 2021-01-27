@@ -476,7 +476,23 @@
 
 # Main Menu Setup
 
-* **TODO:** In the future, make a Button prefab to stick in everything
+## Menu Button
+
+* Create an empty Prefab at Prefabs/UI/MenuButton
+  * Add a Layout Element
+    * Preferred Width: 200
+    * Preferred Height: 50
+  * Add a Button - TextMeshPro (Button)
+    * Remove the Canvas and EventSystem that get added
+    * Reset the Rect Transform
+    * Disable Raycast Target on the Text
+    * Stretch the container
+    * Center the text
+  * Normal Color: (255, 0, 255, 255)
+  * Highlight Color: (0, 255, 0, 255)
+  * Add a Button Helper to the button
+
+## Main Menu
 
 * Create a new MainMenu script that overrides the Game MainMenu
 * Create a MainMenu Prefab in Prefabs/Menus and add the Game Menu component to it
@@ -493,6 +509,14 @@
     * Add the MainMenu script to the panel
       * Set Owner to the Menu object
       * Set the Main Panel on the Menu object to the Main panel
+    * Add a Text - Text Mesh Pro (Credit)
+      * Text: "A {...} Game"
+        * Pos Y: 200
+        * Width: 500
+        * Height: 50
+        * Center the text
+        * Disable Raycast Target
+      * Attach to the Credit Title Text
     * Add an empty GameObject under the Panel (Container)
       * Stretch the container
       * Add a Vertical Layout Group
@@ -502,79 +526,86 @@
         * No Child Force Expand
       * Add a UIObject component to the container
         * Id: main_menu_buttons
-      * Add a Button - TextMeshPro (Start) under the container
-        * Normal Color: (255, 0, 255, 255)
-        * Highlight Color: (0, 255, 0, 255)
-        * Add an On Click handler that calls the MainMenu OnStart method
-        * Add a Button Helper to the button
-        * Add a Layout Element to the Button
-          * Preferred Width: 200
-          * Preferred Height: 50
+      * Add the MenuButton under the container (Start)
         * Text: "Start"
-          * Center the text
-          * Disable Raycast Target
-    * Set the Main Menu Initial Selection to the Start Button
-  * **TODO:** Multiplayer if networking
-  * Duplicate the Start Button (High Scores) if desired
-    * Set the On Click handler to the MainMenu OnHighScores method
-    * Set the Text to "High Scores"
-    * Add a Panel (High Scores) under the Canvas
-      * Remove the Image component
-      * Add the High Scores Menu component to the panel
-        * Set Owner to the Menu object
-        * Set the High Scores Panel on the Menu object to the Main panel
-        * Add an empty GameObject under the Panel (Container)
-          * Stretch the container
-          * Add a Vertical Layout Group
-            * Spacing: 0
-            * Alignment: Upper Center
-            * Child Controls Width / Height
-            * No Child Force Expand
-      * **TODO**: finish this
-  * Duplicate the Start Button (Credits)
-    * Set the On Click handler to the MainMenu OnCredits method
-    * Set the Text to "Credits"
-    * Add a Panel (Credits) under the Canvas
-      * Remove the Image component
-      * Add the Credits Menu component to the panel
-        * Set Owner to the Menu object
-        * Set the Credits Panel on the Menu object to the Main panel
-        * Add an empty GameObject under the Panel (Container)
-          * Stretch the container
-          * Add a Vertical Layout Group
-            * Spacing: 0
-            * Alignment: Upper Center
-            * Child Controls Width / Height
-            * No Child Force Expand
-          * Add a Text - Text Mesh Pro under the container
-            * Text: "Credits"
-              * Center the text
-              * Disable Raycast Target
-          * Add a Scroll View under the container
-            * Remove the Image
-            * Uncheck Horizontal
-            * **TODO:** inertia
-            * Movement Type: Clamped
-            * Remove the Scroll Bars
-          * Add a LayoutElement to the Scroll View
-            * Flexible Width: 1
-            * Flexible Height: 1
-          * Add a Scroll Rect Auto Scroll to the Scroll View
-          * Add a Text - TextMeshPro under the Scroll View Content
-            * Top Center the text
-            * Disable Raycast Target
-            * Attach the text to the Credits Menu component
-          * Duplicate the Start Button (Back)
-            * Set the On Click handler to the CredisMenu OnBack method
-            * Set the Text to "Back"
-            * Set the Back button as the Initial Selection of the Credits Menu
-  * Duplicate the Start Button (Quit)
-    * Set the On Click handler to the MainMenu OnQuitGame method
-    * Set the Text to "Quit"
-  * Attach the Start button to the Initial Selection on the Main Menu
+        * Add an On Click handler that calls the MainMenu OnStart method
+      * Set the Main Menu Initial Selection to the Start Button
+      * **TODO:** Multiplayer if networking
+      * Add the MenuButton under the container (High Scores) if desired
+        * Text: "High Scores"
+        * Add an On Click handler that calls the MainMenu OnHighScores method
+      * Add the MenuButton under the container (Credits)
+        * Text: "Credits"
+        * Add an On Click handler that calls the MainMenu OnCredits method
+      * Add the MenuButton under the container (Quit)
+        * Text: "Quit"
+        * Add an On Click handler that calls the MainMenu OnQuitGame method
 * Attach the MainMenu prefab to the MainMenuState Menu Prefab
 
- ## Title Screen
+### Multiplayer (optional)
+
+* **TODO:** ssj2018 used this maybe?
+
+### High Scores (optional)
+
+* Add a Panel under the Canvas (High Scores)
+  * Remove the Image component
+  * Add the High Scores Menu component to the panel
+    * Set Owner to the Menu object
+    * Set the High Scores Panel on the Menu object to the Main panel
+  * Add an empty GameObject under the Panel (Container)
+    * Stretch the container
+    * Add a Vertical Layout Group
+      * Spacing: 0
+      * Alignment: Upper Center
+      * Child Controls Width / Height
+      * No Child Force Expand
+  * **TODO**: finish this
+
+### Credits
+
+* Add a Panel under the Canvas (Credits)
+  * Remove the Image component
+  * Add the Credits Menu component to the panel
+    * Set Owner to the Menu object
+    * Set the Credits Panel on the Menu object to the Main panel
+  * Add an empty GameObject under the Panel (Container)
+    * Stretch the container
+    * Add a Vertical Layout Group
+      * Spacing: 0
+      * Alignment: Upper Center
+      * Child Controls Width / Height
+      * No Child Force Expand
+    * Add a Text - Text Mesh Pro under the container
+      * Text: "Credits"
+        * Center the text
+        * Disable Raycast Target
+    * Add a Scroll View under the container
+      * Remove the Image
+      * Uncheck Horizontal
+      * Movement Type: Clamped
+      * Delete the Scroll Bar objects
+    * Add a LayoutElement to the Scroll View
+      * Flexible Width: 1
+      * Flexible Height: 1
+    * Add a Scroll Rect Auto Scroll to the Scroll View
+      * Delay: 3
+      * Scroll Rate: 48
+    * Add a Text - TextMeshPro under the Scroll View Content
+      * Top Center the text
+      * Text: "Credits..."
+      * Disable Raycast Target
+    * Attach the text to the Credits Menu component
+    * Add the MenuButton under the container (Start)
+      * Text: "Back"
+      * Add an On Click handler that calls the CreditsMenu OnBack method
+    * Set the Back button as the Initial Selection of the Credits Menu
+
+### Character Select
+
+* **TODO:** Not sure what game jam actually used this ?
+
+## Title Screen
 
 * Create a TitleScreen prefab in Prefabs/UI and add the TitleScreen Component to it
   * Layer: UI
@@ -604,7 +635,7 @@
 
 ## Main Menu Scene Setup
 
-* Create and save a new scene (Scenes/main_menu.unity)
+* Create and save a new Basic scene (Scenes/main_menu.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged
@@ -617,12 +648,8 @@
   * Disable MSAA
   * Remove the Audio Listener
   * Add the UICameraAspectRatio component to the camera
-* Setup Lighting
-  * Remove the Skybox Material
-  * Environment Lighting Source: Color
-  * Disable Realtime Global Illumination
-  * Disable Baked Global Illumination
-  * Disable Auto Generate lighting
+* Attach the UI lighting settings
+  * Remove the Environment Skybox Material
 * Add the scene to the Build Settings
 * The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
 
@@ -636,15 +663,18 @@
     * UI Scale Mode: Scale With Screen Size
     * Reference Resolution: 1280x720
     * Match Width Or Height: 0.5
-    * Set the Canvas on the GameUI object
     * Remove the Graphic Raycaster
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
+* Set the Canvas on the GameUI object
+* ***TODO:*** Port the ggj2020 "IntoUI" concept to something more generic
+  * This is essentially a set of timed slides shown before the game starts to explain how to play
 * Create a new GameUIManager script that overrides the Game GameUIManager
   * Implement the required interface
 * Add a connection to the project GameUIManager in the project LoadingManager
   * Create the GameUIManager prefab in the overloaded CreateManagers() in the project LoadingManager
 * Create an empty Prefab and add the GameUIManager component to it
 * Attach the GameUI prefab to he manager
+* The game should now load to the main menu
 
 ## Pause Menu
 
@@ -662,6 +692,11 @@
     * Add the PauseMenu script to the panel
       * Set Owner to the Menu object
       * Set the Main Panel on the Menu object to the Main panel
+    * Add a Text - TextMeshPro (Pause)
+      * Text: "Pause"
+      * Pos Y: 200
+      * Center the text
+      * Disable Raycast Target
     * Add an empty GameObject under the Panel (Container)
       * Stretch the container
       * Add a Vertical Layout Group
@@ -669,53 +704,64 @@
         * Alignment: Middle Center
         * Child Controls Width / Height
         * No Child Force Expand
-      * Add a Text - TextMeshPro (Pause) under the container
-        * Text: "Pause"
+      * Add a UIObject component to the container
+        * Id: pause_menu_buttons
+      * Add the MenuButton under the container (Settings) if desired
+        * Text: "Settings"
+        * Add an On Click handler that calls the PauseMenu OnSettings method
+      * Add the MenuButton under the container (Resume)
+        * Text: "Resume"
+        * Add an On Click handler that calls the PauseMenu OnResume method
+      * Add the MenuButton under the container (Main Menu)
+        * Text: "Main Menu"
+        * Add an On Click handler that calls the PauseMenu OnExitMainMenu method
+      * Add the MenuButton under the container (Quit)
+        * Text: "Quit"
+        * Add an On Click handler that calls the PauseMenu OnQuitGame method
+    * Set the Main Menu Initial Selection to the Settings Button if used, otherwise set it to the Resume button
+* Attach the PauseMenu prefab to the GameUIManager Prefab
+
+### Settings (optional)
+
+* Add a Panel under the Canvas (Settings)
+  * Remove the Image component
+  * Add the Settings Menu component to the panel
+    * Set Owner to the Menu object
+    * Set the Settings Panel on the Settings Menu
+  * Add an empty GameObject under the Panel (Container)
+    * Stretch the container
+    * Add a Vertical Layout Group
+      * Spacing: 0
+      * Alignment: Upper Center
+      * Child Controls Width / Height
+      * No Child Force Expand
+    * Add a Text - Text Mesh Pro under the container
+      * Text: "Settings"
         * Center the text
         * Disable Raycast Target
-      * Add a Button - TextMeshPro (Settings) under the container
-        * Normal Color: (255, 0, 255, 255)
-        * Highlight Color: (0, 255, 0, 255)
-        * Add an On Click handler that calls the PauseMenu OnSettings method
-        * Add a Button Helper to the button
-        * Add a Layout Element to the Button
-          * Preferred Width: 200
-          * Preferred Height: 50
-        * Text: "Settings"
-          * Center the text
-          * Disable Raycast Target
-        * Add a Panel (Settings) under the Canvas
-          * Remove the Image component
-          * Add the Settings Menu component to the panel
-            * Set Owner to the Menu object
-            * Set the Settings Panel on the Settings Menu
-            * Add an empty GameObject under the Panel (Container)
-              * Stretch the container
-              * **TODO:** do an actual settings menu
-              * Add a Vertical Layout Group
-                * Spacing: 0
-                * Alignment: Upper Center
-                * Child Controls Width / Height
-                * No Child Force Expand
-              * Add a Text - Text Mesh Pro under the container
-                * Text: "Settings"
-                  * Center the text
-                  * Disable Raycast Target
-              * Duplicate the Settings Button (Back)
-                * Set the On Click handler to the SettingsMenu OnBack method
-                * Set the Text to "Back"
-                * Set the Back button as the Initial Selection of the Settings Menu
-      * Duplicate the Settings Button (Resume)
-        * Set the On Click handler to the PauseMenu OnResume method
-        * Set the Text to "Resume"
-      * Duplicate the Settings Button (Main Menu)
-        * Set the On Click handler to the PauseMenu OnExitMainMenu method
-        * Set the Text to "Main Menu"
-      * Duplicate the Settings Button (Quit)
-        * Set the On Click handler to the PauseMenu OnQuitGame method
-        * Set the Text to "Quit"
-    * Set the Main Menu Initial Selection to the Settings Button
-* Attach the PauseMenu prefab to the GameUIManager Prefab
+    * Add the MenuButton under the container (Start)
+      * Text: "Back"
+      * Add an On Click handler that calls the SettingsMenu OnBack method
+    * Set the Back button as the Initial Selection of the Settings Menu
+
+# Game States
+
+## MainGameState
+
+* Create a new MainGameState script that overrides the Game MainGameState
+  * Implement the required interface
+* Create an empty Prefab and add the MainGameState component to it
+* **TODO:** set the intial scene name
+* Attach to the GameData
+
+## GameOverState
+
+* Create a new GameOverState script that overrides the Game GameOverState
+  * Implement the required interface
+* Create an empty Prefab and add the GameOverState component to it
+* **TODO:** game over menu
+* Attach to the MainGameState
+* Attach to the SceneTester
 
 # Player
 
@@ -783,7 +829,7 @@
 
 ## Player / Game Viewer
 
-* Create a new Player/GameViewer script that overrides one of the Core Game Viewers and implements the IPlayerViewer interface
+* Create a new Player / GameViewer script that overrides one of the Core Game Viewers and implements the IPlayerViewer interface
 * Create an empty Prefab and add the project Viewer script to it
   * Layer: Viewer
   * Configure any additional settings as required
@@ -821,25 +867,6 @@
 * Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
   * Set the Actor Layer to Player
 * Attach the manager to the LoadingManager prefab
-
-# Game States
-
-## MainGameState
-
-* Create a new MainGameState script that overrides the Game MainGameState
-  * Implement the required interface
-* Create an empty Prefab and add the MainGameState component to it
-* **TODO:** set the intial scene name
-* Attach to the GameData
-
-## GameOverState
-
-* Create a new GameOverState script that overrides the Game GameOverState
-  * Implement the required interface
-* Create an empty Prefab and add the GameOverState component to it
-* **TODO:** game over menu
-* Attach to the MainGameState
-* Attach to the SceneTester
 
 ## TODO
 
