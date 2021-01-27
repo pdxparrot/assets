@@ -744,6 +744,10 @@
       * Add an On Click handler that calls the SettingsMenu OnBack method
     * Set the Back button as the Initial Selection of the Settings Menu
 
+## Game Over Menu (optional)
+
+* ***TODO:***
+
 # Game States
 
 ## MainGameState
@@ -751,15 +755,17 @@
 * Create a new MainGameState script that overrides the Game MainGameState
   * Implement the required interface
 * Create an empty Prefab and add the MainGameState component to it
-* **TODO:** set the intial scene name
+* **TODO:** setup the initial level and set the intial scene name
+  * Check Make Initial Scene Active
 * Attach to the GameData
+* For a simple local game, adding ```GameStateManager.Instance.StartLocal(GameManager.Instance.GameData.MainGameStatePrefab);``` to the MainMenu override OnStart() will start the game in the main game state
 
-## GameOverState
+## GameOverState (optional)
 
 * Create a new GameOverState script that overrides the Game GameOverState
   * Implement the required interface
 * Create an empty Prefab and add the GameOverState component to it
-* **TODO:** game over menu
+* **TODO:** game over menu hookup
 * Attach to the MainGameState
 * Attach to the SceneTester
 
@@ -867,6 +873,11 @@
 * Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
   * Set the Actor Layer to Player
 * Attach the manager to the LoadingManager prefab
+
+## Levels
+
+* ***TODO:*** Document how to set these up
+* ***TODO:*** Document how to transition levels
 
 ## TODO
 
