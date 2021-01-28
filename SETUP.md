@@ -293,7 +293,7 @@
   * Create an empty Prefab in Data/Prefabs/State and add the NetworkConnectState component to it
     * Set the NetworkConnectState as the Network Connect State Prefab in the GameStateManager
   * Create an empty Prefab in Data/Prefabs/State and add the SceneTester component to it
-    * **TODO:** This actually needs to be overriden so it can do stuff like allocate viewers (or is there a way we can make it so this isn't true?)
+    * **TODO:** This actually needs to be overriden now with InitViewer() implemented
     * Set the SceneTester as the Scene Tester Prefab in the GameStateManager
 * InputManager
   * Create an empty Prefab and add the InputManager component to it
@@ -769,7 +769,44 @@
 * Attach to the MainGameState
 * Attach to the SceneTester
 
+# Viewer
+
+* Create a new Player / GameViewer script that overrides one of the Game Viewers that implements the IPlayerViewer interface
+* Create an empty Prefab and add the project Viewer script to it
+  * Layer: Viewer
+  * Configure any additional settings as required
+  * Add a camera under the prefab (Camera)
+    * Clear Flags: Solid Color (or Skybox for a skybox)
+    * Background: Opaque Black (or Default for a skybox)
+    * Remove the Audio Listener
+    * Add CinemachineBrain to Camera
+    * Add a Post Process Layer component to the Camera object
+      * Set the Layer to PostProcessing
+      * Make sure Directly to Camera Target is unchecked
+  * Attach the Camera to the Viewer component
+  * Add another camera under the prefab (UI Camera)
+    * Clear Flags: Solid Color
+    * Background: Opaque Black
+    * Remove the AudioListener
+    * Add the UICameraAspectRatio component to the UI Camera
+  * Attach the UI Camera to the Viewer component
+  * Add an empty GameObject under the prefab (PostProcessingVolume) and add a Post Process Volume to it
+  * Attach the Post Process Volume to the Viewer component
+  * Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)
+  * **TODO:** wtf is this stuff:
+    * Create a new layer for each potential viewer
+    * **TODO:** Need to make sure we put each viewer on its own layer
+* Attach the Viewer prefab to the GameData
+* Vieweport Size (2D) and FoV (3D) can be adjusted on the GameData
+* The MainGameState's InitializeClient() method is a good place to Allocate() and Acquire() the viewer in a simple game
+
 # Player
+
+## Player
+
+* Create a new PlayerData script that overrides the Game PlayerData
+* Create a new Player script that overrides one of the Game Players
+  * Implement the required interface
 
 ## PlayerBehavior
 
@@ -782,12 +819,7 @@
 * Create a new PlayerInputData script that overrides the Game PlayerInputData
 * Create a new PlayerInput script that overrides one of the Game PlayerInput
   * Implement the required interface
-
-## Player
-
-* Create a new PlayerData script that overrides the Game PlayerData
-* Create a new Player script that overrides one of the Game Players
-  * Implement the required interface
+* Gamepads Are Players can be set on GameData to automatically assign players to gamepads
 
 ## PlayerControls
 
@@ -833,34 +865,6 @@
   * Attach the Player to the Owner on the PlayerInput component
   * Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
 
-## Player / Game Viewer
-
-* Create a new Player / GameViewer script that overrides one of the Core Game Viewers and implements the IPlayerViewer interface
-* Create an empty Prefab and add the project Viewer script to it
-  * Layer: Viewer
-  * Configure any additional settings as required
-  * Add a camera under the prefab (Camera)
-    * Clear Flags: Solid Color (or Skybox for a skybox)
-    * Background: Opaque Black (or Default for a skybox)
-    * Remove the Audio Listener
-    * Add CinemachineBrain to Camera
-    * Add a Post Process Layer component to the Camera object
-      * Set the Layer to PostProcessing
-      * Make sure Directly to Camera Target is unchecked
-  * Attach the Camera to the Viewer component
-  * Add another camera under the prefab (UI Camera)
-    * Clear Flags: Solid Color
-    * Background: Opaque Black
-    * Remove the AudioListener
-    * Add the UICameraAspectRatio component to the UI Camera
-  * Attach the UI Camera to the Viewer component
-  * Add an empty GameObject under the prefab (PostProcessingVolume) and add a Post Process Volume to it
-  * Attach the Post Process Volume to the Viewer component
-  * Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)
-  * **TODO:** wtf is this stuff:
-    * Create a new layer for each potential viewer
-    * **TODO:** Need to make sure we put each viewer on its own layer
-
 ## PlayerManager
 
 * Create a new PlayerManager script that overrides the Game PlayerManager
@@ -874,23 +878,38 @@
   * Set the Actor Layer to Player
 * Attach the manager to the LoadingManager prefab
 
+# Levels
+
+## Lighting
+
+* Create new Lighting Settings Assets/Rendering/{name}.lighting as needed
+  * Configure as required for the level
+
+## Test Levels
+
+* Create and save a new Empty scene
+* Attach the desired lighting settings
+* Add the scene to the Build Settings
+* Add the scene, by name, to the SceneTester
+* Test levels may be loaded through the debug menu
+  * Game.GameStateManager.TestScenes
+
 ## Levels
 
-* ***TODO:*** Document how to set these up
+* Create and save a new Empty scene
+* Attach the desired lighting settings
+* Add the scene to the Build Settings
+* ***TODO:*** finish this
 * ***TODO:*** Document how to transition levels
+* **TODO:** Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
+* **TODO:** Levels should have a level helper in them
 
-## TODO
+# TODO
 
 * **TODO:** More GameStates
 * **TODO:** Player UI
 * **TODO:** Pause / Pause Menu
 * **TODO:** Creating Data
-
-# Game Scene Notes
-
-* Game scenes must be added to the Build Settings
-* Game scenes require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn
-* Game scenes should have a level helper in them
 
 # Performance Notes
 
