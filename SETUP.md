@@ -349,6 +349,7 @@
   * Override CreateManagers() in the loading manager to create the GameManager prefab
 * Create an empty Prefab and add the GameManager component to it
 * Create a GameData in Data/Data and attach it to the manager
+  * Set the World Layer to the World layer
   * Configure as necessary
   * Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
     * **TODO:** what else goes into this (ggj2019 uses it)?
@@ -894,10 +895,6 @@
 * Create a new empty GameObject and attach the SpawnPoint component to it
   * Player spawns must be tagged with one of the Player Spawn Point Tags in the Spawn Data
 
-## Collision
-
-*
-
 ## Test Levels
 
 * Create and save a new Empty scene
@@ -914,10 +911,15 @@
 * Create and save a new Empty scene
 * Attach the desired lighting settings
 * Add the scene to the Build Settings
+* Create a new level helper script that overrides the Game LevelHelper
+  * Implement the required interface
+  * Levels can share a single helper or it can be per-level as needed
+* Create an empty Prefab and add the new level helper component to it
+* Add a level helper prefab to each level as they're created
+* If using players, create new empty GameObjects and attach Spawnpoint components to them
+  * Set the tag to 'Player' on these
 * **TODO:** finish this
 * **TODO:** Document how to transition levels
-* **TODO:** Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
-* **TODO:** Levels should have a level helper in them
 
 # TODO
 
