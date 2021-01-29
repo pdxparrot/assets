@@ -804,7 +804,9 @@
     * **TODO:** Need to make sure we put each viewer on its own layer
 * Attach the Viewer prefab to the GameData
 * Vieweport Size (2D) and FoV (3D) can be adjusted on the GameData
-* The MainGameState's InitializeClient() method is a good place to Allocate() and Acquire() the viewer in a simple game
+* The MainGameState's InitializeServer() method should call GameManager.Instance.StartGameServer();
+* The MainGameState's InitializeClient() method should call GameManager.Instance.StartGameClient();
+  * This is also a good place to Allocate() and Acquire() the viewer in a simple game
 
 # Player
 
