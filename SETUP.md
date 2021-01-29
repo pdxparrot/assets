@@ -666,7 +666,7 @@
     * Remove the Graphic Raycaster
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
 * Set the Canvas on the GameUI object
-* ***TODO:*** Port the ggj2020 "IntoUI" concept to something more generic
+* **TODO:** Port the ggj2020 "IntoUI" concept to something more generic
   * This is essentially a set of timed slides shown before the game starts to explain how to play
 * Create a new GameUIManager script that overrides the Game GameUIManager
   * Implement the required interface
@@ -746,7 +746,7 @@
 
 ## Game Over Menu (optional)
 
-* ***TODO:***
+* **TODO:**
 
 # Game States
 
@@ -772,6 +772,11 @@
 # Viewer
 
 * Create a new Player / GameViewer script that overrides one of the Game Viewers that implements the IPlayerViewer interface
+  * Set the CinemachineVirtualCamera settings as necessary
+    * The Body is probably the most useful setting to adjust
+      * 3rd Person Follow is good for follow cameras (Transposer is a lesser version of this)
+      * Framing Transposer is good for keeping multiple objects in a fixed view
+  * If necessary, add a CinemachineTargetGroup to a subobject for group targeting (ggj2020)
 * Create an empty Prefab and add the project Viewer script to it
   * Layer: Viewer
   * Configure any additional settings as required
@@ -817,31 +822,27 @@
 ## PlayerInput
 
 * Create a new PlayerInputData script that overrides the Game PlayerInputData
-* Create a new PlayerInput script that overrides one of the Game PlayerInput
+* Create a new PlayerInputHandler script that overrides one of the Game PlayerInputHandlers
   * Implement the required interface
 * Gamepads Are Players can be set on GameData to automatically assign players to gamepads
 
 ## PlayerControls
 
-* **TODO:** This is outdated now
-* Create Data/Input/PlayerControls.inputactions
-  * Generate C# Class
-    * File: Assets/Scripts/{project}/Input/PlayerControls.cs
-      * Need to create containing directory first
-    * Class Name: PlayerControls
-    * Namespace: pdxpartyparrot.{project}.Input
-  * Add Action Maps as necessary
-* Have the project PlayerInput implement the action interface
-  * TODO: this is probably broken now that we're using the InputSystem PlayerInput
-* The PlayerInput should set the actions callback handler to itself
-  * TODO: also probably broken
+* The input actions file created earlier has two Action Maps by default
+  * Player
+    * In-game player controls go here
+  * UI
+    * UI related controls go here
 
 ## Player Prefab
 
 * Create an empty Prefab and add the Player component to it
   * This will require a collider to be added first
+    * Adjust the size and position of the collider
   * Layer: Player
-  * Setup networking if using it
+  * Connect the NetworkPlayer component to the Player component
+    * This is required even if not using networking
+  * Setup networking if using it (**TODO:** this is all probably wrong now)
     * Check the Local Player Authority box in the Network Identity
     * Attach the empty animator controller to the Animator
       * This will stop potential animator error spam
@@ -850,19 +851,22 @@
 * Add a new empty GameObject under the Player prefab (Model)
   * Attach this to the Model on the Player component
   * The actual model for the player should go under this container
+    * Placeholder models should have their collider removed
 * Add a new empty GameObject under the Player prefab (Behavior) and add the PlayerBehavior component to it
   * Attach the Player Behavior to the Actor Components of the Player component
 * Add a new empty GameObject under the Player prefab (Movement) and add one of the PlayerMovement components to it
+  * Attach the Rigidbody on the Player to the Movement Rigidbody
   * Attach the Player Movement to the Actor Components of the Player component
-    * Attach the Rigidbody on the Player to the Movement Rigidbody
   * **TODO:** Animator on the Player Behavior ???
-* Add a new empty GameObject under the Player Prefab (Input) and add the project PlayerInput component to it
-  * Attach the Player Input to the Player component
-  * Attach the DefaultInputActions asset to the Unity PlayerInput
+* Add a new empty GameObject under the Player Prefab (Input) and add the project PlayerInputHandler component to it
+  * Attach the PlayerInputHandler to the Player component
+  * Attach the input actions asset to the Unity PlayerInput
     * Default Map should be set to Player
     * Change Behavior to Invoke Unity Events
+    * Hook up the main device events (lost, regained, changed)
     * Hook up any events as necessary
-  * Attach the Player to the Owner on the PlayerInput component
+      * For example OnMoveAction is necessary to move, OnPauseAction is necessary to pause, etc
+  * Attach the Player to the Owner on the PlayerInputHandler component
   * Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
 
 ## PlayerManager
@@ -872,7 +876,7 @@
 * Add a connection to the project PlayerManager in the project LoadingManager
   * Create the PlayerManager prefab in the overloaded CreateManagers() in the project LoadingManager
 * Create an empty Prefab and add the PlayerManager component to it
-* Attach the Player prefab to the Player Prefab on the PlayerManager
+* Attach the Player prefab to the Player Actor Prefab on the PlayerManager
 * Create a PlayerData in Data/Data and attach it to the PlayerManager component
 * Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
   * Set the Actor Layer to Player
@@ -885,6 +889,15 @@
 * Create new Lighting Settings Assets/Rendering/{name}.lighting as needed
   * Configure as required for the level
 
+## Spawn Points
+
+* Create a new empty GameObject and attach the SpawnPoint component to it
+  * Player spawns must be tagged with one of the Player Spawn Point Tags in the Spawn Data
+
+## Collision
+
+*
+
 ## Test Levels
 
 * Create and save a new Empty scene
@@ -893,14 +906,16 @@
 * Add the scene, by name, to the SceneTester
 * Test levels may be loaded through the debug menu
   * Game.GameStateManager.TestScenes
+* **TODO:** finish this
+* **TODO:** Test Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
 
 ## Levels
 
 * Create and save a new Empty scene
 * Attach the desired lighting settings
 * Add the scene to the Build Settings
-* ***TODO:*** finish this
-* ***TODO:*** Document how to transition levels
+* **TODO:** finish this
+* **TODO:** Document how to transition levels
 * **TODO:** Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
 * **TODO:** Levels should have a level helper in them
 
