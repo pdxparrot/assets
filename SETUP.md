@@ -13,7 +13,7 @@
 * Use addressables
 * Add feature selection for things like 2D vs 3D, XR, Mobile, ECS, etc
   * This would add and remove the required package bundles as necessary
-* Add features for ENABLE_VR and ENABLE_GVR and ENABLE_SERVER_SPECTATOR and USE_NAVMESH
+* Add features for ENABLE_VR and ENABLE_GVR and ENABLE_SERVER_SPECTATOR
 * Need to create InputSystem settings asset
 * Need to import TextMesh Pro Essentials
 * Use Mirror for networking unless Unity's high level update comes out first
@@ -855,6 +855,7 @@
   * Attach this to the Model on the Player component
   * The actual model for the player should go under this container
     * Placeholder models should have their collider removed
+  * It can be useful to create a script for this to handle model-related behavior
 * Add a new empty GameObject under the Player prefab (Behavior) and add the PlayerBehavior component to it
   * Attach the Player Behavior to the Actor Components of the Player component
 * Add a new empty GameObject under the Player prefab (Movement) and add one of the PlayerMovement components to it
@@ -903,6 +904,8 @@
 * Attach the desired lighting settings
 * Add the scene to the Build Settings
 * Add the scene, by name, to the SceneTester
+* Create an empty GameObject in the scene and add the TestSceneHelper component to it
+  * This script can be extended for more advanced functionality
 * Test levels may be loaded through the debug menu
   * Game.GameStateManager.TestScenes
 * **TODO:** finish this
