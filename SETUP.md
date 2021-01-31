@@ -293,6 +293,7 @@
   * Create an empty Prefab in Data/Prefabs/State and add the NetworkConnectState component to it
     * Set the NetworkConnectState as the Network Connect State Prefab in the GameStateManager
   * Create an empty Prefab in Data/Prefabs/State and add the SceneTester component to it
+    * Check Make Initial Scene Active
     * **TODO:** This actually needs to be overriden now with InitViewer() implemented
     * Set the SceneTester as the Scene Tester Prefab in the GameStateManager
 * InputManager
