@@ -678,7 +678,15 @@
 * Attach the GameUI prefab to he manager
 * The game should now load to the main menu
 
-## Pause Menu
+## Simple Player HUD
+
+* Create a new PlayerHUD script that overrides the Game HUD
+* Add a Panel under the GameUI Canvas and add the PlayerHUD component to it
+  * Set the UIObject Id to "hud"
+* Create a new prefab from the PlayerHUD object
+* Add a connection to the PlayerHUD to the project GameUI
+
+# Pause Menu
 
 * Create a PauseMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
