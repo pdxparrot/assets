@@ -25,7 +25,8 @@ namespace pdxpartyparrot.Core.World
                 _nextRoundRobinIndex = PartyParrotManager.Instance.Random.Next(SpawnPoints.Count);
             }
 
-            public SpawnPoint GetSpawnPoint(SpawnData.SpawnPointType spawnType)
+            [CanBeNull]
+            public SpawnPoint GetSpawnPoint(SpawnData.SpawnMethod spawnMethod)
             {
                 if(SpawnPoints.Count < 1) {
                     return null;
@@ -36,7 +37,7 @@ namespace pdxpartyparrot.Core.World
                     AdvanceRoundRobin();
                 }
 
-                switch(spawnType.SpawnMethod) {
+                switch(spawnMethod) {
                 case SpawnData.SpawnMethod.RoundRobin:
                     SpawnPoint spawnPoint = SpawnPoints[_nextRoundRobinIndex];
                     AdvanceRoundRobin();
@@ -44,9 +45,18 @@ namespace pdxpartyparrot.Core.World
                 case SpawnData.SpawnMethod.Random:
                     return PartyParrotManager.Instance.Random.GetRandomEntry(SpawnPoints);
                 default:
-                    Debug.LogWarning($"Unsupported spawn method {spawnType.SpawnMethod}, using Random");
+                    Debug.LogWarning($"Unsupported spawn method {spawnMethod}, using Random");
                     return PartyParrotManager.Instance.Random.GetRandomEntry(SpawnPoints);
                 }
+            }
+
+            [CanBeNull]
+            public SpawnPoint GetNearestSpawnPoint(Vector3 position)
+            {
+                if(SpawnPoints.Count < 1) {
+                    return null;
+                }
+                return SpawnPoints.NearestManhattan(position, out _);
             }
 
             private void AdvanceRoundRobin()
@@ -83,17 +93,21 @@ namespace pdxpartyparrot.Core.World
 
         public virtual void RegisterSpawnPoint(SpawnPoint spawnPoint)
         {
-            //Debug.Log($"Registering spawnpoint {spawnPoint.name} of type '{spawnPoint.Tag}'");
+            //Debug.Log($"Registering spawnpoint {spawnPoint.name} of type '{spawnPoint.Tags}'");
 
-            _spawnPoints.GetOrAdd(spawnPoint.Tag).SpawnPoints.Add(spawnPoint);
+            foreach(string tag in spawnPoint.Tags) {
+                _spawnPoints.GetOrAdd(tag).SpawnPoints.Add(spawnPoint);
+            }
         }
 
         public virtual void UnregisterSpawnPoint(SpawnPoint spawnPoint)
         {
             //Debug.Log($"Unregistering spawnpoint '{spawnPoint.name}'");
 
-            if(_spawnPoints.TryGetValue(spawnPoint.Tag, out var spawnPoints)) {
-                spawnPoints.SpawnPoints.Remove(spawnPoint);
+            foreach(string tag in spawnPoint.Tags) {
+                if(_spawnPoints.TryGetValue(tag, out var spawnPoints)) {
+                    spawnPoints.SpawnPoints.Remove(spawnPoint);
+                }
             }
         }
 
@@ -107,6 +121,16 @@ namespace pdxpartyparrot.Core.World
             }
         }
 
+        public int SpawnPointCount(string tag)
+        {
+            if(!_spawnPoints.TryGetValue(tag, out var spawnPoints)) {
+                Debug.LogWarning($"No spawn points with tag '{tag}' registered on spawn, are there any in the scene?");
+                return 0;
+            }
+
+            return spawnPoints.SpawnPoints.Count;
+        }
+
         [CanBeNull]
         public SpawnPoint GetSpawnPoint(string tag)
         {
@@ -116,8 +140,32 @@ namespace pdxpartyparrot.Core.World
             }
 
             var spawnPointType = _spawnTypes.GetOrDefault(tag);
-            return spawnPoints.GetSpawnPoint(spawnPointType);
+            return spawnPoints.GetSpawnPoint(spawnPointType.SpawnMethod);
         }
+
+        // gets a random spawnpoint regardless of how the spawnpoints are configured
+        [CanBeNull]
+        public SpawnPoint GetRandomSpawnPoint(string tag)
+        {
+            if(!_spawnPoints.TryGetValue(tag, out var spawnPoints)) {
+                Debug.LogWarning($"No spawn points with tag '{tag}' registered on spawn, are there any in the scene?");
+                return null;
+            }
+            return spawnPoints.GetSpawnPoint(SpawnData.SpawnMethod.Random);
+        }
+
+        // gets the spawnpoint nearest the given position
+        [CanBeNull]
+        public SpawnPoint GetNearestSpawnPoint(string tag, Vector3 position)
+        {
+            if(!_spawnPoints.TryGetValue(tag, out var spawnPoints)) {
+                Debug.LogWarning($"No spawn points with tag '{tag}' registered on spawn, are there any in the scene?");
+                return null;
+            }
+            return spawnPoints.GetNearestSpawnPoint(position);
+        }
+
+        #region Player Spawnpoints
 
         [CanBeNull]
         public SpawnPoint GetPlayerSpawnPoint(int controllerId)
@@ -125,5 +173,43 @@ namespace pdxpartyparrot.Core.World
             int spawnPointIdx = Mathf.Clamp(controllerId, 0, _spawnData.PlayerSpawnPointTags.Count - 1);
             return GetSpawnPoint(_spawnData.PlayerSpawnPointTags.ElementAt(spawnPointIdx));
         }
+
+        // gets a random player spawnpoint regardless of how the spawnpoints are configured
+        [CanBeNull]
+        public SpawnPoint GetRandomPlayerSpawnPoint(int controllerId)
+        {
+            int spawnPointIdx = Mathf.Clamp(controllerId, 0, _spawnData.PlayerSpawnPointTags.Count - 1);
+            return GetRandomSpawnPoint(_spawnData.PlayerSpawnPointTags.ElementAt(spawnPointIdx));
+        }
+
+        // gets the player spawnpoint nearest the given position
+        [CanBeNull]
+        public SpawnPoint GetNearestPlayerSpawnPoint(int controllerId, Vector3 position)
+        {
+            int spawnPointIdx = Mathf.Clamp(controllerId, 0, _spawnData.PlayerSpawnPointTags.Count - 1);
+            return GetNearestSpawnPoint(_spawnData.PlayerSpawnPointTags.ElementAt(spawnPointIdx), position);
+        }
+
+        [CanBeNull]
+        public SpawnPoint GetPlayerSpawnPoint(string tag)
+        {
+            return GetSpawnPoint(tag);
+        }
+
+        // gets a random player spawnpoint regardless of how the spawnpoints are configured
+        [CanBeNull]
+        public SpawnPoint GetRandomPlayerSpawnPoint(string tag)
+        {
+            return GetRandomSpawnPoint(tag);
+        }
+
+        // gets the player spawnpoint nearest the given position
+        [CanBeNull]
+        public SpawnPoint GetNearestPlayerSpawnPoint(string tag, Vector3 position)
+        {
+            return GetNearestSpawnPoint(tag, position);
+        }
+
+        #endregion
     }
 }

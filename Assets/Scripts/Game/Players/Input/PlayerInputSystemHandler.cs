@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
+    // TODO: add handlers for device lost / device regained / controls changed
+
     public abstract class PlayerInputSystemHandler : PlayerInputHandler
     {
         [SerializeField]
@@ -39,7 +41,14 @@ namespace pdxpartyparrot.Game.Players.Input
             base.Awake();
 
             _moveAction = InputHelper.PlayerInput.actions.FindAction(InputManager.Instance.InputData.MoveActionName);
+            if(null == _moveAction) {
+                Debug.LogWarning("Missing move action");
+            }
+
             _lookAction = InputHelper.PlayerInput.actions.FindAction(InputManager.Instance.InputData.LookActionName);
+            if(null == _lookAction) {
+                Debug.LogWarning("Missing look action");
+            }
         }
 
         protected override void Update()

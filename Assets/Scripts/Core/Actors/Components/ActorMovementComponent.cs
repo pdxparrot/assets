@@ -1,6 +1,7 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Data.Actors.Components;
+using pdxpartyparrot.Core.Math;
 
 using UnityEngine;
 
@@ -72,6 +73,8 @@ namespace pdxpartyparrot.Core.Actors.Components
             set { }
         }
 
+        public bool AtRest => Velocity.sqrMagnitude <= 0.01;
+
         #endregion
 
         #region Unity Lifecycle
@@ -105,7 +108,7 @@ namespace pdxpartyparrot.Core.Actors.Components
             _transform = owner.GetComponent<Transform>();
         }
 
-        public virtual void Initialize(ActorBehaviorComponentData behaviorData)
+        public virtual void Reset(ActorBehaviorComponentData behaviorData)
         {
             ResetFromData(behaviorData);
 
@@ -142,6 +145,12 @@ namespace pdxpartyparrot.Core.Actors.Components
                 Debug.Log($"Teleporting actor {Owner.Id} to {position}");
             }
             _transform.position = position;
+        }
+
+        public void Teleport(Transform transform)
+        {
+            Teleport(transform.position);
+            _transform.rotation = transform.rotation;
         }
 
         public virtual void Move(Vector3 amount)

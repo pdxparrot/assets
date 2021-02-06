@@ -1,7 +1,6 @@
 using System;
 
 using pdxpartyparrot.Core.Audio;
-using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 
@@ -50,6 +49,8 @@ namespace pdxpartyparrot.Game.State
         protected override void DoExit()
         {
             if(null == _menu) {
+                // NOTE: this relies on the state unloading process
+                // yielding for a frame so we're out of the TimeManager loop
                 TimeManager.Instance.RemoveTimer(_completeTimer);
                 _completeTimer = null;
             } else {

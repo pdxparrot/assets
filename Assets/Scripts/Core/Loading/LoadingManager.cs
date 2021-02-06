@@ -22,6 +22,7 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Loading
 {
@@ -30,6 +31,8 @@ namespace pdxpartyparrot.Core.Loading
         void ShowLoadingScreen(bool show);
 
         void UpdateLoadingScreen(float percent, string text);
+
+        void ShowTransitionScreen(bool show);
     }
 
     public abstract class LoadingManager<T> : SingletonBehavior<T>, ILoadingManager where T : LoadingManager<T>
@@ -39,6 +42,14 @@ namespace pdxpartyparrot.Core.Loading
 
         [SerializeField]
         private LoadingScreen _loadingScreen;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _loadingScreenRefCount;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _transitionScreenRefCount;
 
         [Space(10)]
 
@@ -171,7 +182,6 @@ namespace pdxpartyparrot.Core.Loading
             yield return null;
 
             ShowLoadingScreen(false);
-            yield return null;
         }
 
         private void PreCreateManagers()
@@ -226,23 +236,49 @@ namespace pdxpartyparrot.Core.Loading
 
         public void ShowLoadingScreen(bool show)
         {
+            Debug.Log($"Show loading screen: {show} ({_loadingScreenRefCount})");
+
+            if(show) {
+                _loadingScreenRefCount++;
+                if(_loadingScreenRefCount > 1) {
+                    // loading screen already shown
+                    return;
+                }
+            } else {
+                Assert.IsTrue(_loadingScreenRefCount > 0);
+
+                _loadingScreenRefCount--;
+                if(_loadingScreenRefCount > 0) {
+                    // need to keep the loading screen up
+                    return;
+                }
+            }
+
             _mainCamera.cullingMask = show ? -1 : 0;
             _loadingScreen.gameObject.SetActive(show);
 
             if(show) {
-                ResetLoadingScreen();
+                ResetLoadingScreen(false);
             } else {
                 _loadingTipTimer.Stop();
             }
         }
 
-        public void ResetLoadingScreen()
+        public void ResetLoadingScreen(bool transition)
         {
-            SetLoadingScreenPercent(0.0f);
-            SetLoadingScreenText("Loading...");
+            if(transition) {
+                _loadingScreen.SetTransitioning();
+            } else {
+                _loadingScreen.SetLoading();
+
+                SetLoadingScreenPercent(0.0f);
+                SetLoadingScreenText("Loading...");
+            }
             _loadingScreen.ShowLoadingTip("");
 
-            ShowNextLoadingTip();
+            if(!transition) {
+                ShowNextLoadingTip();
+            }
         }
 
         public void UpdateLoadingScreen(float percent, string text)
@@ -251,6 +287,34 @@ namespace pdxpartyparrot.Core.Loading
             SetLoadingScreenText(text);
 
             Debug.Log($"{percent * 100}%: {text}");
+        }
+
+        public void ShowTransitionScreen(bool show)
+        {
+            Debug.Log($"Show transition screen: {show} ({_transitionScreenRefCount})");
+
+            if(show) {
+                _transitionScreenRefCount++;
+                if(_transitionScreenRefCount > 1) {
+                    // transition screen already shown
+                    return;
+                }
+            } else {
+                Assert.IsTrue(_transitionScreenRefCount > 0);
+
+                _transitionScreenRefCount--;
+                if(_transitionScreenRefCount > 0) {
+                    // need to keep the transition screen up
+                    return;
+                }
+            }
+
+            _mainCamera.cullingMask = show ? -1 : 0;
+            _loadingScreen.gameObject.SetActive(show);
+
+            if(show) {
+                ResetLoadingScreen(true);
+            }
         }
 
         public void SetLoadingScreenText(string text)

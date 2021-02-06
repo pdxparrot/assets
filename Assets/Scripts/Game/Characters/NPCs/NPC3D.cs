@@ -17,6 +17,7 @@ using UnityEngine.Rendering;
 namespace pdxpartyparrot.Game.Characters.NPCs
 {
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(NavMeshObstacle))]
     public abstract class NPC3D : Actor3D, INPC
     {
         public GameObject GameObject => gameObject;
@@ -65,6 +66,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         private NavMeshAgent _agent;
 
+        private NavMeshObstacle _obstacle;
+
         private Coroutine _agentStuckCheck;
 
         [Space(10)]
@@ -100,6 +103,13 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             base.Awake();
 
             _agent = GetComponent<NavMeshAgent>();
+
+            _obstacle = GetComponent<NavMeshObstacle>();
+            _obstacle.carving = true;
+
+            if(_agent.enabled && _obstacle.enabled) {
+                Debug.LogWarning("Either the NavMeshAgent or the NavMeshObstacle component must start disabled!");
+            }
 
             _pooledObject = GetComponent<PooledObject>();
             if(null != _pooledObject) {
@@ -146,18 +156,43 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             Assert.IsTrue(Behavior is NPCBehavior);
 
-            // TODO: this might crash now that the behavior is not initialized by this
+            _agent.autoBraking = true;
+            _agent.radius = Radius;
+            _agent.height = Height;
+        }
+
+        public virtual void OnBehaviorInitialized()
+        {
             _agent.speed = NPCBehavior.NPCBehaviorData.MoveSpeed;
             _agent.angularSpeed = NPCBehavior.NPCBehaviorData.AngularMoveSpeed;
             _agent.acceleration = NPCBehavior.NPCBehaviorData.MoveAcceleration;
             _agent.stoppingDistance = Radius + NPCBehavior.NPCBehaviorData.StoppingDistance;
-            _agent.autoBraking = true;
-
-            _agent.radius = Radius;
-            _agent.height = Height;
 
             _agentStuckCheck = StartCoroutine(AgentStuckCheck());
         }
+
+        #region Agent
+
+        public void SetPassive()
+        {
+            _agent.enabled = false;
+            _obstacle.enabled = false;
+        }
+
+
+        public void SetObstacle()
+        {
+            _agent.enabled = false;
+            _obstacle.enabled = true;
+        }
+
+        public void SetAgent()
+        {
+            _obstacle.enabled = false;
+            _agent.enabled = true;
+        }
+
+        #endregion
 
         #region Pathing
 
@@ -177,7 +212,9 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         public void ResetPath(bool idle)
         {
-            _agent.ResetPath();
+            if(_agent.isActiveAndEnabled) {
+                _agent.ResetPath();
+            }
 
             if(idle) {
                 NPCBehavior.OnIdle();
@@ -199,8 +236,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         }
 #endif
 
-        #endregion
-
         public void Stop(bool resetPath, bool idle)
         {
             _agent.velocity = Vector3.zero;
@@ -211,6 +246,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 NPCBehavior.OnIdle();
             }
         }
+
+        #endregion
 
         public void Recycle()
         {

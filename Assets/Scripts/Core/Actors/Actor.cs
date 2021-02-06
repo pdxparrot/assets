@@ -142,6 +142,8 @@ namespace pdxpartyparrot.Core.Actors
 
         public virtual void Initialize(Guid id)
         {
+            Assert.IsTrue(_id == Guid.Empty);
+
             if(ActorManager.Instance.EnableDebug) {
                 Debug.Log($"Initializing actor {id}");
             }
@@ -267,11 +269,19 @@ namespace pdxpartyparrot.Core.Actors
             return offset.sqrMagnitude < d;
         }
 
-        public void DeSpawn()
+        // NOTE: it's usually necessary to run an effect trigger
+        // before destroying (for animations, etc)
+        // passing true here straight up destroys the object
+        // and my cancel any running effects
+        public void DeSpawn(bool destroy)
         {
             OnDeSpawn();
 
-            gameObject.SetActive(false);
+            if(destroy) {
+                Destroy(gameObject);
+            } else {
+                gameObject.SetActive(false);
+            }
         }
 
         #region Events

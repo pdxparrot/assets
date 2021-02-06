@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.World;
@@ -19,6 +20,8 @@ namespace pdxpartyparrot.Game.Level
     {
         [SerializeField]
         private string _nextLevel;
+
+        public bool HasNextLevel => !string.IsNullOrWhiteSpace(_nextLevel);
 
         [Space(10)]
 
@@ -45,6 +48,8 @@ namespace pdxpartyparrot.Game.Level
             GameStateManager.Instance.GameManager.GameStartServerEvent += GameStartServerEventHandler;
             GameStateManager.Instance.GameManager.GameStartClientEvent += GameStartClientEventHandler;
             GameStateManager.Instance.GameManager.GameReadyEvent += GameReadyEventHandler;
+            GameStateManager.Instance.GameManager.GameUnReadyEvent += GameUnReadyEventHandler;
+            GameStateManager.Instance.GameManager.LevelTransitioningEvent += LevelTransitioningEventHandler;
             GameStateManager.Instance.GameManager.GameOverEvent += GameOverEventHandler;
         }
 
@@ -52,6 +57,8 @@ namespace pdxpartyparrot.Game.Level
         {
             if(GameStateManager.HasInstance && null != GameStateManager.Instance.GameManager) {
                 GameStateManager.Instance.GameManager.GameOverEvent -= GameOverEventHandler;
+                GameStateManager.Instance.GameManager.LevelTransitioningEvent -= LevelTransitioningEventHandler;
+                GameStateManager.Instance.GameManager.GameUnReadyEvent -= GameUnReadyEventHandler;
                 GameStateManager.Instance.GameManager.GameReadyEvent -= GameReadyEventHandler;
                 GameStateManager.Instance.GameManager.GameStartClientEvent -= GameStartClientEventHandler;
                 GameStateManager.Instance.GameManager.GameStartServerEvent -= GameStartServerEventHandler;
@@ -64,6 +71,8 @@ namespace pdxpartyparrot.Game.Level
 
         protected void TransitionLevel()
         {
+            GameStateManager.Instance.GameManager.GameUnReady();
+
             // load the next level if we have one
             if(!string.IsNullOrWhiteSpace(_nextLevel)) {
                 if(null != _levelExitEffect) {
@@ -78,21 +87,37 @@ namespace pdxpartyparrot.Game.Level
 
         private void DoLevelTransition()
         {
-            GameStateManager.Instance.GameManager.GameUnReady();
+            GameStateManager.Instance.GameManager.LevelTransitioning();
+
             GameStateManager.Instance.GameManager.TransitionScene(_nextLevel, null);
         }
+
+#if USE_NAVMESH
+        public IEnumerator BuildNavMesh()
+        {
+            Debug.Log("[Level] Building nav mesh...");
+
+            // https://github.com/Unity-Technologies/NavMeshComponents/issues/97
+            _navMeshSurface.RemoveData();
+            _navMeshSurface.navMeshData = new NavMeshData(_navMeshSurface.agentTypeID) {
+                name = _navMeshSurface.gameObject.name,
+                position = _navMeshSurface.transform.position,
+                rotation = _navMeshSurface.transform.rotation
+            };
+            _navMeshSurface.AddData();
+
+            AsyncOperation asyncOp = _navMeshSurface.UpdateNavMesh(_navMeshSurface.navMeshData);
+            while(!asyncOp.isDone) {
+                yield return null;
+            }
+        }
+#endif
 
         #region Event Handlers
 
         protected virtual void GameStartServerEventHandler(object sender, EventArgs args)
         {
             Debug.Log("[Level] Server start...");
-
-            // TODO: better to do this before we drop the loading screen and spawn stuff
-#if USE_NAVMESH
-            Debug.Log("[Level] Building nav mesh...");
-            _navMeshSurface.BuildNavMesh();
-#endif
 
             SpawnManager.Instance.Initialize();
         }
@@ -112,10 +137,26 @@ namespace pdxpartyparrot.Game.Level
 
         protected virtual void GameReadyEventHandler(object sender, EventArgs args)
         {
+            Debug.Log("[Level] Game ready...");
+
+            GameStateManager.Instance.PlayerManager.RespawnPlayers();
+        }
+
+        protected virtual void GameUnReadyEventHandler(object sender, EventArgs args)
+        {
+            Debug.Log("[Level] Game unready...");
+        }
+
+        protected virtual void LevelTransitioningEventHandler(object sender, EventArgs args)
+        {
+            Debug.Log("[Level] Level transitioning...");
+
+            GameStateManager.Instance.PlayerManager.DespawnPlayers();
         }
 
         protected virtual void GameOverEventHandler(object sender, EventArgs args)
         {
+            Debug.Log("[Level] Game over...");
         }
 
         #endregion

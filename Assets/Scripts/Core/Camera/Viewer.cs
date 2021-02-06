@@ -8,6 +8,7 @@ using pdxpartyparrot.Core.UI;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Camera
 {
@@ -15,7 +16,7 @@ namespace pdxpartyparrot.Core.Camera
     {
         [SerializeField]
         [ReadOnly]
-        private int _id;
+        private int _id = -1;
 
         public int Id => _id;
 
@@ -82,7 +83,7 @@ namespace pdxpartyparrot.Core.Camera
             _uiCamera.clearFlags = CameraClearFlags.Nothing;
             _uiCamera.backgroundColor = Color.black;
             _uiCamera.orthographic = true;
-            _uiCamera.cullingMask = UIManager.Instance.Data.UILayer;
+            _uiCamera.cullingMask = 1 << UIManager.Instance.Data.UILayer;
             _uiCamera.useOcclusionCulling = false;
 
             if(null != _globalPostProcessVolume) {
@@ -100,6 +101,8 @@ namespace pdxpartyparrot.Core.Camera
 
         public virtual void Initialize(int id)
         {
+            Assert.IsTrue(_id == -1 && id >= 0);
+
             _id = id;
 
             name = $"Viewer {Id}";

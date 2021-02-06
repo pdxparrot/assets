@@ -25,7 +25,11 @@ namespace pdxpartyparrot.Game.Players
 
         IReadOnlyCollection<IPlayer> Players { get; }
 
+        void RespawnPlayers();
+
         void DespawnPlayers();
+
+        void DestroyPlayers();
     }
 
     public abstract class PlayerManager<T> : SingletonBehavior<T>, IPlayerManager where T : PlayerManager<T>
@@ -109,7 +113,6 @@ namespace pdxpartyparrot.Game.Players
 
         #endregion
 
-
         private void SpawnPlayer(NetworkConnection conn, short controllerId)
         {
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
@@ -139,29 +142,93 @@ namespace pdxpartyparrot.Game.Players
 
         public bool RespawnPlayer(IPlayer player)
         {
+            return RespawnPlayer(player, SpawnManager.Instance.GetPlayerSpawnPoint(player.NetworkPlayer.playerControllerId));
+        }
+
+        public bool RespawnPlayerRandom(IPlayer player)
+        {
+            return RespawnPlayer(player, SpawnManager.Instance.GetRandomPlayerSpawnPoint(player.NetworkPlayer.playerControllerId));
+        }
+
+        public bool RespawnPlayerNearest(IPlayer player)
+        {
+            return RespawnPlayer(player, SpawnManager.Instance.GetNearestPlayerSpawnPoint(player.NetworkPlayer.playerControllerId, player.Movement.Position));
+        }
+
+        public bool RespawnPlayer(IPlayer player, string tag)
+        {
+            return RespawnPlayer(player, SpawnManager.Instance.GetPlayerSpawnPoint(tag));
+        }
+
+        public bool RespawnPlayerRandom(IPlayer player, string tag)
+        {
+            return RespawnPlayer(player, SpawnManager.Instance.GetRandomPlayerSpawnPoint(tag));
+        }
+
+        public bool RespawnPlayerNearest(IPlayer player, string tag)
+        {
+            return RespawnPlayer(player, SpawnManager.Instance.GetNearestPlayerSpawnPoint(tag, player.Movement.Position));
+        }
+
+        private bool RespawnPlayer(IPlayer player, SpawnPoint spawnPoint)
+        {
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
 
             Debug.Log($"Respawning player {player.Id}");
 
-            SpawnPoint spawnPoint = SpawnManager.Instance.GetPlayerSpawnPoint(player.NetworkPlayer.playerControllerId);
             if(null == spawnPoint) {
                 Debug.LogError("Failed to get player spawnpoint!");
                 return false;
             }
-
             return spawnPoint.ReSpawn((Actor)player);
         }
 
-        // TODO: despawning is never touching the NetworkManager, which is probably wrong
-        // but there's no way to despawn a single player for a connection, it's all or nothing
+        public void RespawnPlayers()
+        {
+            foreach(IPlayer player in _players) {
+                RespawnPlayer(player);
+            }
+        }
+
+        public void RespawnPlayers(string tag)
+        {
+            foreach(IPlayer player in _players) {
+                RespawnPlayer(player, tag);
+            }
+        }
+
+        // TODO: despawning / destroying is never touching the NetworkManager, which is probably wrong
+        // but there's no way to despawn / destroy a single player for a connection, it's all or nothing
         // so... not sure what to do here
 
-        // TODO: figure out how to work this in when players disconnect
-        public void DespawnPlayer(IPlayer player, bool remove = true)
+        public void DespawnPlayer(IPlayer player)
         {
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
 
             Debug.Log($"Despawning player {player.Id}");
+
+            player.GameObject.SetActive(false);
+        }
+
+        public void DespawnPlayers()
+        {
+            if(PlayerCount < 1) {
+                return;
+            }
+
+            Assert.IsTrue(NetworkManager.Instance.IsServerActive());
+
+            foreach(IPlayer player in _players) {
+                DespawnPlayer(player);
+            }
+        }
+
+        // TODO: figure out how to work this in when players disconnect
+        public void DestroyPlayer(IPlayer player, bool remove = true)
+        {
+            Assert.IsTrue(NetworkManager.Instance.IsServerActive());
+
+            Debug.Log($"Destroying player {player.Id}");
 
 #if !USE_NETWORKING
             Destroy(player.GameObject);
@@ -172,8 +239,7 @@ namespace pdxpartyparrot.Game.Players
             }
         }
 
-        // TODO: figure out how to even do this
-        public void DespawnPlayers()
+        public void DestroyPlayers()
         {
             if(PlayerCount < 1) {
                 return;
@@ -182,10 +248,15 @@ namespace pdxpartyparrot.Game.Players
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
 
             foreach(IPlayer player in _players) {
-                DespawnPlayer(player, false);
+                DestroyPlayer(player, false);
             }
 
             _players.Clear();
+        }
+
+        public void ReclaimPlayer(IPlayer player)
+        {
+            player.GameObject.transform.SetParent(_playerContainer.transform);
         }
 
         #region Event Handlers

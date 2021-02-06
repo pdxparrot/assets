@@ -11,6 +11,9 @@ namespace pdxpartyparrot.Core.Camera
 {
     // https://blogs.unity3d.com/2018/07/17/cinemachine-for-2d-tips-and-tricks/
 
+    // TODO: the way we have a Mode here but also separate Set2D(size) / Set3D(fov)
+    // methods is really confusing and seems like it could be error prone
+
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     [RequireComponent(typeof(CinemachineImpulseListener))]
     public class CinemachineViewer : Viewer
@@ -103,6 +106,7 @@ namespace pdxpartyparrot.Core.Camera
         public void Follow(Transform target)
         {
             if(null != _virtualCamera) {
+                Debug.Log($"Following {target.gameObject.name}");
                 _virtualCamera.Follow = target;
             }
         }
@@ -110,6 +114,7 @@ namespace pdxpartyparrot.Core.Camera
         public void LookAt(Transform target)
         {
             if(null != _virtualCamera) {
+                Debug.Log($"Looking at {target.gameObject.name}");
                 _virtualCamera.LookAt = target;
             }
         }

@@ -13,9 +13,9 @@ namespace pdxpartyparrot.Core.World
     public class SpawnPoint : MonoBehaviour
     {
         [SerializeField]
-        private string _tag;
+        private string[] _tags;
 
-        public string Tag => _tag;
+        public string[] Tags => _tags;
 
         [SerializeField]
         private FloatRangeConfig _spawnRange;
@@ -61,7 +61,7 @@ namespace pdxpartyparrot.Core.World
             }
         }
 
-        private void InitActor(Actor actor)
+        protected virtual void InitActor(Actor actor)
         {
             Transform actorTransform = actor.transform;
             Transform thisTransform = transform;
@@ -78,6 +78,8 @@ namespace pdxpartyparrot.Core.World
 
         private void InitActor(Actor actor, Guid id, ActorBehaviorComponentData behaviorData)
         {
+            actor.Initialize(id);
+
             InitActor(actor);
 
             if(null != actor.Behavior && null != behaviorData) {
@@ -86,7 +88,13 @@ namespace pdxpartyparrot.Core.World
         }
 
         [CanBeNull]
-        public virtual Actor SpawnFromPrefab(Actor prefab, Guid id, ActorBehaviorComponentData behaviorData, Transform parent = null, bool activate = true)
+        public Actor SpawnFromPrefab(Actor prefab, ActorBehaviorComponentData behaviorData, Transform parent = null, bool activate = true)
+        {
+            return SpawnFromPrefab(prefab, Guid.NewGuid(), behaviorData, parent, activate);
+        }
+
+        [CanBeNull]
+        public Actor SpawnFromPrefab(Actor prefab, Guid id, ActorBehaviorComponentData behaviorData, Transform parent = null, bool activate = true)
         {
 #if USE_NETWORKING
             Debug.LogWarning("You probably meant to use NetworkManager.SpawnNetworkPrefab");
@@ -105,24 +113,29 @@ namespace pdxpartyparrot.Core.World
         [CanBeNull]
         public Actor SpawnNPCPrefab(Actor prefab, ActorBehaviorComponentData behaviorData, Transform parent = null, bool active = true)
         {
-            return SpawnFromPrefab(prefab, Guid.NewGuid(), behaviorData, parent, active);
+            return SpawnFromPrefab(prefab, behaviorData, parent, active);
         }
 
-        public virtual bool Spawn(Actor actor, Guid id, ActorBehaviorComponentData behaviorData)
+        public bool Spawn(Actor actor, Guid id, ActorBehaviorComponentData behaviorData)
         {
             InitActor(actor, id, behaviorData);
 
             return actor.OnSpawn(this);
         }
 
-        public virtual bool SpawnPlayer(Actor actor)
+        public bool SpawnPlayer(Actor actor)
         {
             InitActor(actor);
 
-            return actor.OnSpawn(this);
+            // players spawn and then deactivate
+            // so that the level can respawn them as it needs to
+
+            bool ret = actor.OnSpawn(this);
+            actor.gameObject.SetActive(false);
+            return ret;
         }
 
-        public virtual bool ReSpawn(Actor actor)
+        public bool ReSpawn(Actor actor)
         {
             InitActor(actor);
 

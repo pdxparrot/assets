@@ -16,9 +16,9 @@ namespace pdxpartyparrot.Core.Data
     public class UIData : ScriptableObject
     {
         [SerializeField]
-        private LayerMask _uiLayer;
+        private string _uiLayer = "UI";
 
-        public LayerMask UILayer => _uiLayer;
+        public LayerMask UILayer => LayerMask.NameToLayer(_uiLayer);
 
         [SerializeField]
         private TMP_FontAsset _defaultFont;
@@ -33,7 +33,6 @@ namespace pdxpartyparrot.Core.Data
         public EffectTrigger DefaultButtonHoverEffectTriggerPrefab => _defaultButtonHoverEffectPrefab;
 
         [SerializeField]
-        [FormerlySerializedAs("_defaultButtonClickEffectPrefab")]
         [CanBeNull]
         private EffectTrigger _defaultButtonSubmitEffectPrefab;
 

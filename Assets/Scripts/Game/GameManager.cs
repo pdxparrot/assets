@@ -2,6 +2,7 @@ using System;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data;
@@ -24,6 +25,8 @@ namespace pdxpartyparrot.Game
         event EventHandler<EventArgs> GameUnReadyEvent;
         event EventHandler<EventArgs> GameOverEvent;
 
+        event EventHandler<EventArgs> LevelTransitioningEvent;
+
         #endregion
 
         GameData GameData { get; }
@@ -36,6 +39,9 @@ namespace pdxpartyparrot.Game
 
         bool TransitionToHighScores { get; }
 
+        [CanBeNull]
+        LevelHelper LevelHelper { get; }
+
         void Initialize();
 
         void Shutdown();
@@ -44,9 +50,15 @@ namespace pdxpartyparrot.Game
 
         void UnRegisterLevelHelper(LevelHelper levelHelper);
 
+        void StartGameServer();
+
+        void StartGameClient();
+
         void GameReady();
 
         void GameUnReady();
+
+        void LevelTransitioning();
 
         void GameOver();
 
@@ -63,6 +75,8 @@ namespace pdxpartyparrot.Game
         public event EventHandler<EventArgs> GameReadyEvent;
         public event EventHandler<EventArgs> GameUnReadyEvent;
         public event EventHandler<EventArgs> GameOverEvent;
+
+        public event EventHandler<EventArgs> LevelTransitioningEvent;
 
         #endregion
 
@@ -153,7 +167,7 @@ namespace pdxpartyparrot.Game
             DestroyObjectPools();
 
             if(Core.Network.NetworkManager.Instance.IsServerActive() && null != GameStateManager.Instance.PlayerManager) {
-                GameStateManager.Instance.PlayerManager.DespawnPlayers();
+                GameStateManager.Instance.PlayerManager.DestroyPlayers();
             }
         }
 
@@ -204,6 +218,8 @@ namespace pdxpartyparrot.Game
 
         public virtual void GameReady()
         {
+            Assert.IsFalse(IsGameOver);
+
             Debug.Log("Game Ready");
 
             IsGameReady = true;
@@ -220,8 +236,20 @@ namespace pdxpartyparrot.Game
             GameUnReadyEvent?.Invoke(this, EventArgs.Empty);
         }
 
+        public virtual void LevelTransitioning()
+        {
+            Assert.IsFalse(IsGameReady);
+            Assert.IsFalse(IsGameOver);
+
+            Debug.Log("Level Transitioning");
+
+            LevelTransitioningEvent?.Invoke(this, EventArgs.Empty);
+        }
+
         public virtual void GameOver()
         {
+            Assert.IsFalse(IsGameReady);
+
             Debug.Log("Game Over");
 
             IsGameOver = true;
@@ -229,9 +257,24 @@ namespace pdxpartyparrot.Game
             GameOverEvent?.Invoke(this, EventArgs.Empty);
         }
 
+        // TODO: this isn't handled by networking *at all*
         public virtual void TransitionScene(string nextScene, Action onComplete)
         {
-            GameStateManager.Instance.CurrentState.ChangeSceneAsync(nextScene, onComplete);
+            PartyParrotManager.Instance.LoadingManager.ShowTransitionScreen(true);
+
+            // TODO: do we need an event here to tell the level to cleanup?
+
+            GameStateManager.Instance.CurrentState.ChangeSceneAsync(nextScene, () => {
+                onComplete?.Invoke();
+
+                // TODO: this might be wrong, not sure
+                // basically this is trying to tell the new
+                // LevelHelper that we're ready to start
+                StartGameServer();
+                StartGameClient();
+
+                PartyParrotManager.Instance.LoadingManager.ShowTransitionScreen(false);
+            });
         }
     }
 }
