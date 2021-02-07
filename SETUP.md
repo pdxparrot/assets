@@ -1,22 +1,28 @@
 # TODO
 
-* https://docs.unity3d.com/ScriptReference/PrefabUtility.html
-* https://github.com/Unity-Technologies/NavMeshComponents
+* For creating prefabs through code - https://docs.unity3d.com/ScriptReference/PrefabUtility.html
 * Tear these apart for ideas
   * https://www.youtube.com/watch?v=qsU4nM0L_n0
     * https://learn.unity.com/project/3d-game-kit
     * https://learn.unity.com/project/2d-game-kit
+* MLAPI for networking
+  * https://blogs.unity3d.com/2020/12/03/accelerating-unitys-new-gameobjects-multiplayer-networking-framework/
+  * https://github.com/Unity-Technologies/com.unity.multiplayer.mlapi
+  * https://mlapi.network/
+  * https://www.youtube.com/watch?v=-nS1gqSk458
+  * https://www.youtube.com/watch?v=qJMXv5J4wf4
 * Fix assets.csproj to enable OmniSharp on this project
 * Show a progress bar when initializing a project
 * Add a button to the project settings window to run initialization
 * Use the settings manager package
+  * https://docs.unity3d.com/Packages/com.unity.settings-manager@1.0/manual/index.html
 * Use addressables
+  * https://docs.unity3d.com/Packages/com.unity.addressables@0.4/manual/index.html
 * Add feature selection for things like 2D vs 3D, XR, Mobile, ECS, etc
   * This would add and remove the required package bundles as necessary
 * Add features for ENABLE_VR and ENABLE_GVR and ENABLE_SERVER_SPECTATOR
 * Need to create InputSystem settings asset
 * Need to import TextMesh Pro Essentials
-* Use Mirror for networking unless Unity's high level update comes out first
 * Create Data/Animation/empty.controller Animation Controller in project setup
 * Create Data/Audio/main.mixer Mixer in project setup
 * Create the EventSystem prefab at project setup ?
@@ -53,12 +59,14 @@
   * https://raw.githubusercontent.com/pdxparrot/assets/master/.editorconfig
 * Create README.md
 * Delete the Assets/Scenes directory and its .meta file
-* git init, commit, and push
+* git init, add, commit, and push
 * Close the project and do not save it
 
 # Pre-Setup
 
 * Copy engine setup from common GitHub repo
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Network/UnityWebRequesetExtensions.cs
+    * **TODO:** this requirement sucks, get rid of it (just copy paste the extension method contents)
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Project/
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Window/
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Util.cs
@@ -84,7 +92,6 @@
 * Create Assembly Definitions
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
     * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, ~~Kino.Postprocessing~~
-    * Reference com.unity.multiplayer-hlapi.Runtime if using networking
     * Uncheck Auto Referenced
   * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
@@ -160,6 +167,13 @@
     * **TODO:** this should already be done in the common .gitignore
   * The Assembly Definition will need to be force added to source control
     * If the Assembly Definition does not exist, your version is too old!
+  * Make sure to enable Spine in the PDX Party Parrot Project Settings
+* If using networking, following the MLAPI installation instructions
+  * https://mlapi.network/wiki/installation/
+  * Make sure to enable Networking in the PDX Party Parrot Project Settings
+* **TODO:** If using NavMesh, ...
+  * https://github.com/Unity-Technologies/NavMeshComponents
+  * Make sure to enable NavMesh in the PDX Party Parrot Project Settings
 
 # Engine Source
 
@@ -171,11 +185,10 @@
 * Create the Assembly Definitions
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro
-    * Reference com.unity.multiplayer-hlapi.Runtime if using networking
     * Uncheck Auto Referenced
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
     * Editor platform only
-    * References: com.pdxpartyparrot.core.asmdef, com.pdxpartyparrot.Core.Editor.asmdef, com.pdxpartyparrot.Game.asmdef
+    * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Core.Editor.asmdef, com.pdxpartyparrot.Game.asmdef
     * Uncheck Auto Referenced
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
@@ -183,11 +196,13 @@
 ## Initial Project Scripts
 
 * Create Loading Manager
-  * Create a new project LoadingManager script that overrides Game LoadingManager
+  * Create a new project LoadingManager script that overrides Game LoadingManager and implement the required interface
+* Create Scene Tester
+  * Create a new project SceneTester script that overrides the Game SceneTester and implement the required interface
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
-    * Reference Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, and Unity.TextMeshPro as required
+    * Reference Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.TextMeshPro, etc as required
     * Uncheck Auto Referenced
 
 ## Set Script Execution Order
@@ -201,7 +216,7 @@
 * Cinemachine PixelPerfect
 * Default Time
 * Unity ToggleGroup
-* Cinemachine Brain
+* Cinemachine Brain / ImpulseListener
 * pdxpartyparrot.Core.Debug.DebugMenuManager
   * This must be run last
 
@@ -273,7 +288,7 @@
 
 * Managers go in Data/Prefabs/Managers
 * LoadingManager
-  * Create an empty Prefab and add the LoadingManager component to it
+  * Create an empty Prefab and add the project LoadingManager component to it
   * Create a LoadingTipData in Data/Data and attach it to the manager
 * ActorManager
   * Create an empty Prefab and add the ActorManager component to it
@@ -307,9 +322,8 @@
     * Set the MainMenuState as the Main Menu State Prefab in the GameStateManager
   * Create an empty Prefab in Data/Prefabs/State and add the NetworkConnectState component to it
     * Set the NetworkConnectState as the Network Connect State Prefab in the GameStateManager
-  * Create an empty Prefab in Data/Prefabs/State and add the SceneTester component to it
+  * Create an empty Prefab in Data/Prefabs/State and add the project SceneTester component to it
     * Check Make Initial Scene Active
-    * **TODO:** This actually needs to be overriden now with InitViewer() implemented
     * Set the SceneTester as the Scene Tester Prefab in the GameStateManager
 * InputManager
   * Create an empty Prefab and add the InputManager component to it
@@ -319,8 +333,12 @@
   * Create an empty Prefab and add the LocalizationManager component to it
   * Create a LocalizationData in Data/Data and attach it to the manager
 * NetworkManager
-  * Create an empty Prefab and add the (not Unity) NetworkManager component to it
-  * Uncheck Don't Destroy on Load if networking is enabled
+  * Create an empty Prefab and add the (not Unity / MLAPI) NetworkManager component to it
+  * Configure MLAPI settings if networking is enabled
+    * Uncheck Don't Destroy
+    * Run In Background should be checked
+    * Set the Transport to UnetTransport
+    * **TODO:** Can this not add every scene to its list of networked scenes?
 * ObjectPoolManager
   * Create an empty Prefab and add the ObjectPoolManager component to it
 * SaveGameManager
@@ -354,33 +372,29 @@
       * Attach to the UIData
 * ViewerManager
   * Create an empty Prefab and add the ViewerManager component to it
-* Connect all of the managers to the LoadingManager prefab
 
 ## GameManager
 
-* Create a new GameData script that overrides the Game GameData
+* Create a new GameData script that overrides the Game GameData and implement the required interface
   * Add the CreateAssetMenu and Serializable attributes
-* Create a new GameManager script that overrides the Game GameManager
+* Create a new GameManager script that overrides the Game GameManager and implement the required interface
 * Add a connection to the project GameManager in the project LoadingManager
   * Override CreateManagers() in the loading manager to create the GameManager prefab
 * Create an empty Prefab and add the GameManager component to it
 * Create a GameData in Data/Data and attach it to the manager
-  * Set the World Layer to the World layer
+  * Set the World Layer to World
   * Configure as necessary
   * Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
     * **TODO:** what else goes into this (ggj2019 uses it)?
     * Attach to the GameData
 * Create a CreditsData in Data/Data and attach it to the GameManager
-* Attach the manager to the LoadingManager prefab
 
 # Initial Scene Setup
 
-* Create a new Lighting Settings Assets/Rendering/ui.lighting
-  * Attach to a throw away scene and configure
-    * Environment Lighting Source: Color
-    * Disable Realtime Global Illumination
-    * Disable Baked Global Illumination
-    * Disable Auto Generate lighting
+* Create a new Lighting Settings Assets/Data/Rendering/ui.lighting
+  * Disable Auto Generate
+  * Disable Realtime Global Illumination
+  * Disable Baked Global Illumination
 
 ## Splash Scene Setup
 
@@ -399,6 +413,7 @@
   * Add the UICameraAspectRatio component to the camera
 * Attach the UI lighting settings
   * Remove the Environment Skybox Material
+  * Environment Lighting Source: Color
 * Add the scene to the Build Settings and ensure that it is Scene 0
 * Add a new GameObject to the scene (SplashScreen) and add the SplashScreen component to it
 * Attach the camera to the Camera field of the SplashScreen component
@@ -423,6 +438,7 @@
   * Add the UICameraAspectRatio component to the camera
 * Attach the UI lighting settings
   * Remove the Environment Skybox Material
+  * Environment Lighting Source: Color
 * Add the scene to the Build Settings
 
 ### Loading Screen Setup
@@ -477,19 +493,21 @@
   * Center the text
   * Disable Raycast Target
 * Attach the Text to the LoadingScreen component
-* Add a Text - TextMeshPro (LoadingTips) under the Progress Bar
-  * Position: (0, -250, 0)
-  * Size: (750, 50)
-  * Text: "Tip of the Day"
-  * Center the text
-  * Disable Raycast Target
-* Attach the Text to the LoadingScreen component
+* Optionall, add loading tips
+  * Add a Text - TextMeshPro (LoadingTips) under the Progress Bar
+    * Position: (0, -250, 0)
+    * Size: (750, 50)
+    * Text: "Tip of the Day"
+    * Center the text
+    * Disable Raycast Target
+  * Attach the Text to the LoadingScreen component
 
 ### Loader Setup
 
 * Add the LoadingManager prefab to the scene
 * Attach the Main Camera
 * Attach the LoadingScreen to the Loader
+* Attach all of the manager prefabs to the scene LoadingManager
 
 # Main Menu Setup
 
@@ -503,7 +521,7 @@
     * Remove the Canvas and EventSystem that get added
     * Reset the Rect Transform
     * Disable Raycast Target on the Text
-    * Stretch the container
+    * Stretch the container (Button)
     * Center the text
   * Normal Color: (255, 0, 255, 255)
   * Highlight Color: (0, 255, 0, 255)
@@ -511,7 +529,7 @@
 
 ## Main Menu
 
-* Create a new MainMenu script that overrides the Game MainMenu
+* Create a new MainMenu script that overrides the Game MainMenu and implement the required interface
 * Create a MainMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
   * Add a Canvas under the prefab
@@ -526,14 +544,15 @@
     * Add the MainMenu script to the panel
       * Set Owner to the Menu object
       * Set the Main Panel on the Menu object to the Main panel
-    * Add a Text - Text Mesh Pro (Credit)
-      * Text: "A {...} Game"
-        * Pos Y: 200
-        * Width: 500
-        * Height: 50
-        * Center the text
-        * Disable Raycast Target
-      * Attach to the Credit Title Text
+    * Optionally, add credits text
+      * Add a Text - Text Mesh Pro (Credit)
+        * Text: "A {...} Game"
+          * Pos Y: 200
+          * Width: 500
+          * Height: 50
+          * Center the text
+          * Disable Raycast Target
+        * Attach to the Credit Title Text
     * Add an empty GameObject under the Panel (Container)
       * Stretch the container
       * Add a Vertical Layout Group
@@ -551,12 +570,13 @@
       * Add the MenuButton under the container (High Scores) if desired
         * Text: "High Scores"
         * Add an On Click handler that calls the MainMenu OnHighScores method
-      * Add the MenuButton under the container (Credits)
+      * Add the MenuButton under the container (Credits) if desired
         * Text: "Credits"
         * Add an On Click handler that calls the MainMenu OnCredits method
       * Add the MenuButton under the container (Quit)
         * Text: "Quit"
         * Add an On Click handler that calls the MainMenu OnQuitGame method
+        * Check Is Back Button
 * Attach the MainMenu prefab to the MainMenuState Menu Prefab
 
 ### Multiplayer (optional)
@@ -579,7 +599,7 @@
       * No Child Force Expand
   * **TODO**: finish this
 
-### Credits
+### Credits (optional)
 
 * Add a Panel under the Canvas (Credits)
   * Remove the Image component
@@ -616,11 +636,12 @@
     * Add the MenuButton under the container (Start)
       * Text: "Back"
       * Add an On Click handler that calls the CreditsMenu OnBack method
+      * Check Is Back Button
     * Set the Back button as the Initial Selection of the Credits Menu
 
 ### Character Select
 
-* **TODO:** Not sure what game jam actually used this ?
+* **TODO:** Not sure what game jam actually used this ? ssj2018?
 
 ## Title Screen
 
@@ -636,7 +657,7 @@
   * Add a Panel under the Canvas
     * Disable Raycast Target
     * Color: (255, 0, 0, 255)
-  * Add a TextMeshPro - Text (Title)
+  * Add a TextMeshPro - Text (Title) under the Panel
     * Pos Y: 256
     * Text: "Placeholder"
     * Center the text
@@ -667,12 +688,14 @@
   * Add the UICameraAspectRatio component to the camera
 * Attach the UI lighting settings
   * Remove the Environment Skybox Material
+  * Environment Lighting Source: Color
 * Add the scene to the Build Settings
 * The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
+  * **NOTE:** The main menu won't initialize until the Game UI step is completed
 
 # Game UI
 
-* Create a new GameUI script that overrides the Game GameUI
+* Create a new GameUI script that overrides the Game GameUI and implement the required interface
 * Create a GameUI Prefab in Prefabs/UI and add the GameUI component to it
   * Layer: UI
   * Add a Canvas under the prefab
@@ -683,17 +706,17 @@
     * Remove the Graphic Raycaster
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
 * Set the Canvas on the GameUI object
-* **TODO:** Port the ggj2020 "IntoUI" concept to something more generic
+* **TODO:** Port the ggj2020 "IntroUI" concept to something more generic
   * This is essentially a set of timed slides shown before the game starts to explain how to play
 * Create a new GameUIManager script that overrides the Game GameUIManager
   * Implement the required interface
 * Add a connection to the project GameUIManager in the project LoadingManager
   * Create the GameUIManager prefab in the overloaded CreateManagers() in the project LoadingManager
 * Create an empty Prefab and add the GameUIManager component to it
-* Attach the GameUI prefab to he manager
+* Attach the GameUI prefab to the manager
 * The game should now load to the main menu
 
-## Simple Player HUD
+## Simple Player HUD (optional)
 
 * Create a new PlayerHUD script that overrides the Game HUD
 * Add a Panel under the GameUI Canvas and add the PlayerHUD component to it
@@ -701,7 +724,7 @@
 * Create a new prefab from the PlayerHUD object
 * Add a connection to the PlayerHUD to the project GameUI
 
-# Pause Menu
+## Pause Menu (optional)
 
 * Create a PauseMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
@@ -746,7 +769,7 @@
     * Set the Main Menu Initial Selection to the Settings Button if used, otherwise set it to the Resume button
 * Attach the PauseMenu prefab to the GameUIManager Prefab
 
-### Settings (optional)
+## Settings (optional)
 
 * Add a Panel under the Canvas (Settings)
   * Remove the Image component
@@ -767,6 +790,7 @@
     * Add the MenuButton under the container (Start)
       * Text: "Back"
       * Add an On Click handler that calls the SettingsMenu OnBack method
+      * Check Is Back Button
     * Set the Back button as the Initial Selection of the Settings Menu
 
 ## Game Over Menu (optional)
