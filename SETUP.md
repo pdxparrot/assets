@@ -502,6 +502,31 @@
     * Disable Raycast Target
   * Attach the Text to the LoadingScreen component
 
+### Network Connection UI (optional)
+
+* Create a NetworkConnectUI prefab in Prefabs/UI and add the NetworkConnectUI component to it
+  * Layer: UI
+  * Add a Canvas under the prefab
+    * Render Mode: Screen Space - Overlay
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Set the Canvas on the Menu object
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
+  * Add a Panel under the Canvas
+    * Disable Raycast Target
+    * Color: (255, 0, 0, 255)
+  * Add a Text - TextMeshPro (Status) under the Panel
+    * Position: (0, -150, 0)
+    * Size: (750, 50)
+    * Text: "Network status..."
+    * Center the text
+    * Disable Raycast Target
+  * Attach the Text to the NetworkConnectUI component
+  * **TODO:** Button container with a vertical layout group at y: -250
+    * **TODO:** Cancel button
+* Attach the NetworkConnectUI prefab to the NetworkConnectState prefab
+
 ### Loader Setup
 
 * Add the LoadingManager prefab to the scene
