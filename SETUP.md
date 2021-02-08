@@ -513,7 +513,7 @@
     * Match Width Or Height: 0.5
     * Set the Canvas on the Menu object
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
-  * Add a Panel under the Canvas
+  * Add a Panel under the Canvas (Main)
     * Disable Raycast Target
     * Color: (255, 0, 0, 255)
   * Add a Text - TextMeshPro (Status) under the Panel
@@ -523,8 +523,17 @@
     * Center the text
     * Disable Raycast Target
   * Attach the Text to the NetworkConnectUI component
-  * **TODO:** Button container with a vertical layout group at y: -250
-    * **TODO:** Cancel button
+  * Add an empty GameObject under the Panel (Container)
+    * Stretch the container
+    * Add a Vertical Layout Group
+      * Spacing: 10
+      * Alignment: Lower Center
+      * Child Controls Width / Height
+      * No Child Force Expand
+    * Add the MenuButton under the container (Cancel)
+      * Text: "Cancel"
+      * Add an On Click handler that calls the NetworkConnectUI OnCancel method
+      * Check Is Back Button
 * Attach the NetworkConnectUI prefab to the NetworkConnectState prefab
 
 ### Loader Setup
@@ -606,7 +615,10 @@
 
 ### Multiplayer (optional)
 
-* **TODO:** ssj2018 used this maybe?
+* **TODO:** host local (optional)
+* **TODO:** dedicated server (optional)
+* **TODO:** connect client (optional)
+  * **TODO:** this will need a way to find / input a host
 
 ### High Scores (optional)
 
@@ -788,9 +800,11 @@
       * Add the MenuButton under the container (Main Menu)
         * Text: "Main Menu"
         * Add an On Click handler that calls the PauseMenu OnExitMainMenu method
+        * Check Is Back Button
       * Add the MenuButton under the container (Quit)
         * Text: "Quit"
         * Add an On Click handler that calls the PauseMenu OnQuitGame method
+        * Check Is Back Button
     * Set the Main Menu Initial Selection to the Settings Button if used, otherwise set it to the Resume button
 * Attach the PauseMenu prefab to the GameUIManager Prefab
 
@@ -846,14 +860,8 @@
 # Viewer
 
 * Create a new Player / GameViewer script that overrides one of the Game Viewers that implements the IPlayerViewer interface
-  * Set the CinemachineVirtualCamera settings as necessary
-    * The Body is probably the most useful setting to adjust
-      * 3rd Person Follow is good for follow cameras (Transposer is a lesser version of this)
-      * Framing Transposer is good for keeping multiple objects in a fixed view
-  * If necessary, add a CinemachineTargetGroup to a subobject for group targeting (ggj2020)
 * Create an empty Prefab and add the project Viewer script to it
   * Layer: Viewer
-  * Configure any additional settings as required
   * Add a camera under the prefab (Camera)
     * Clear Flags: Solid Color (or Skybox for a skybox)
     * Background: Opaque Black (or Default for a skybox)
@@ -875,11 +883,22 @@
   * **TODO:** wtf is this stuff:
     * Create a new layer for each potential viewer
     * **TODO:** Need to make sure we put each viewer on its own layer
+  * Set the CinemachineVirtualCamera settings as necessary
+    * The Body is probably the most useful setting to adjust
+      * 3rd Person Follow is good for follow cameras (Transposer is a lesser version of this)
+      * Framing Transposer is good for keeping multiple objects in a fixed view
+  * If necessary, add a CinemachineTargetGroup to a subobject for group targeting (ggj2020)
+  * Configure any additional settings as required
 * Attach the Viewer prefab to the GameData
 * Vieweport Size (2D) and FoV (3D) can be adjusted on the GameData
+
+## Viewer Initialization
+
+* It can be useful to have the project GameManager and GameData expose the project viewer prefab
 * The MainGameState's InitializeServer() method should call GameManager.Instance.StartGameServer();
 * The MainGameState's InitializeClient() method should call GameManager.Instance.StartGameClient();
-  * This is also a good place to Allocate() and Acquire() the viewer in a simple game
+  * This is also a good place to Allocate(), Acquire(), and Initialize() the viewer in a simple game
+  * This is also a good place to initialize the game UI
 
 # Player
 
@@ -941,10 +960,11 @@
     * Default Map should be set to Player
     * Change Behavior to Invoke Unity Events
     * Hook up the main device events (lost, regained, changed)
+      * **TODO:** where are these event handlers?? ggj2021 had them?
     * Hook up any events as necessary
       * For example OnMoveAction is necessary to move, OnPauseAction is necessary to pause, etc
   * Attach the Player to the Owner on the PlayerInputHandler component
-  * Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
+  * Create a PlayerInputData in Data/Data/Players and attach it to the PlayerInput component
 
 ## PlayerManager
 
