@@ -41,6 +41,10 @@
   * Hooking everything up with these in mind makes it easier to slot in effects later
 * Get art / animations / audio / UI placeholders in early to start working with triggers and events
   * Art, like code, can be refined as we go but late jam hookups are expensive and likely to be dropped
+* Fading levels in and out could be better than showing a transition screen
+  * Just in general, making more use of fades would be good
+* Fullscreen effects is something we never use that could be really cool
+* Producing WebGL builds instead of native builds would make it easier for a larger audience to play the game
 
 # Engine Update
 
@@ -144,6 +148,9 @@
     * Fix up any Grahics API issues that this might cause (generally this means disabling Auto Graphics APIs on certain platforms)
   * Enable Static and Dynamic Batching if they aren't already
   * Verify that the Bundle Identifer is set correctly
+  * Ensure that Graphics Jobs are enabled
+    * WebGL often has this disabled by default
+  * WebGL builds should be Gzip compressed
 * TextMesh Pro
   * Import TMP Essentials if not already done
   * Optionally import TMP Examples & Extras if desired
