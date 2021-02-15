@@ -20,7 +20,7 @@
   * https://docs.unity3d.com/Packages/com.unity.addressables@0.4/manual/index.html
 * Add feature selection for things like 2D vs 3D, XR, Mobile, ECS, etc
   * This would add and remove the required package bundles as necessary
-* Add features for ENABLE_VR and ENABLE_GVR and ENABLE_SERVER_SPECTATOR
+* Add features for ENABLE_VR and ENABLE_GVR
 * Need to create InputSystem settings asset
 * Need to import TextMesh Pro Essentials
 * Create Data/Animation/empty.controller Animation Controller in project setup
@@ -263,33 +263,31 @@
 
 ## Server Spectator
 
-* **TODO:** This is all wrong now and should be skipped until fixed
-* Create Data/Input/ServerSpectator.inputactions
-  * Generate C# Class
-    * File: Assets/Scripts/Game/Input/ServerSpectatorControls.cs
-      * Need to create containing directory first
-    * Class Name: ServerSpectatorControls
-    * Namespace: pdxpartyparrot.Game.Input
-  * Action Maps
-    * ServerSpectator
-      * Actions
-        * move forward button
-          * press and release w
-        * move backward button
-          * press and release s
-        * move left button
-          * press and release a
-        * move right button
-          * press and release d
-        * move up button
-          * press and release space
-        * move down button
-          * press and release left shift
-        * look axis
-          * mouse delta
-  * Add ENABLE_SERVER_SPECTATOR to the Scripting Define Symbols
-* **TODO:** ServerSpectator prefab and viewer
-  * These would attach to the GameStateManager
+* Enable Server Spectator in the project settings
+* Duplicate the input actions asset as ServerSpectator.inputactions
+  * Rename the asset to ServerSpectator.inputactions
+  * Setup the action maps as necessary for moving and looking
+* Create an empty Prefab and add the ServerSpectator script to it
+  * **TODO:** input (copy from player)
+* Attach the ServerSpectator prefab to the GameStateManager
+* Create an empty Prefab and add the ServerSpectatorViewer script to it
+  * Layer: Viewer
+  * Add a camera under the prefab (Camera)
+    * Clear Flags: Solid Color (or Skybox for a skybox)
+    * Background: Opaque Black (or Default for a skybox)
+    * Remove the Audio Listener
+    * Add CinemachineBrain to Camera
+  * Attach the Camera to the ServerSpectatorViewer component
+  * Add another camera under the prefab (UI Camera)
+    * Clear Flags: Solid Color
+    * Background: Opaque Black
+    * Remove the AudioListener
+    * Add the UICameraAspectRatio component to the UI Camera
+  * Attach the UI Camera to the ServerSpectatorViewer component
+  * Set the CinemachineVirtualCamera settings as necessary
+    * Set the Body to 3rd Person Follow
+  * Configure any additional settings as required
+* Attach the ServerSpectatorViewer prefab to the GameStateManager
 
 ## Engine Managers
 
