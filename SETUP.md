@@ -252,7 +252,7 @@
   * Replace Standalone Input Module with InputSystemUIInputModule
   * Add EventSystemHelper script to this
   * Copy the DefaultInputActions asset (linked to the Actions Asset by default) to Assets/Data/Input
-    * Rename the asset to avoid confusion with the default
+    * Rename the asset to Player.inputactions avoid confusion with the default
     * Replace the EventSystem Actions Asset with this copy
     * UI actions may need to be reset to Pass Through to fix warnings
     * Pause action usually has to be added to this
@@ -264,11 +264,17 @@
 ## Server Spectator
 
 * Enable Server Spectator in the project settings
-* Duplicate the input actions asset as ServerSpectator.inputactions
+* Duplicate the Player input actions asset as ServerSpectator.inputactions
   * Rename the asset to ServerSpectator.inputactions
   * Setup the action maps as necessary for moving and looking
 * Create an empty Prefab and add the ServerSpectator script to it
-  * **TODO:** input (copy from player)
+  * Layer: Default
+  * Add a new empty GameObject under the ServerSpectator Prefab (Input) and add the ServerSpectatorInputHandler component to it
+    * Attach the ServerSpectatorInputHandler to the ServerSpectator component
+    * Attach the ServerSpectator input actions asset to the Unity PlayerInput
+    * Default Map should be set to Player
+    * Change Behavior to Invoke Unity Events
+    * Hook up the Move and Look actions
 * Attach the ServerSpectator prefab to the GameStateManager
 * Create an empty Prefab and add the ServerSpectatorViewer script to it
   * Layer: Viewer
@@ -961,7 +967,7 @@
   * **TODO:** Animator on the Player Behavior ???
 * Add a new empty GameObject under the Player Prefab (Input) and add the project PlayerInputHandler component to it
   * Attach the PlayerInputHandler to the Player component
-  * Attach the input actions asset to the Unity PlayerInput
+  * Attach the Player input actions asset to the Unity PlayerInput
     * Default Map should be set to Player
     * Change Behavior to Invoke Unity Events
     * Hook up the main device events (lost, regained, changed)
