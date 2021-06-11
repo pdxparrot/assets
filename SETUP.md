@@ -38,7 +38,7 @@
   * Show controls in UI
 * Physical feedback - rumble, etc
 * Aural feedback - sound effects, stingers, etc
-* Visual feedback - animations, camera shake, etc
+* Visual feedback - animations, tweens, camera shake, etc
 * Setup Effect Triggers for events early on, even if they do nothing
   * Hooking everything up with these in mind makes it easier to slot in effects later
 * Get art / animations / audio / UI placeholders in early to start working with triggers and events
@@ -56,7 +56,9 @@
 
 # Project Creation
 
-* Create a new Unity Project
+* Create a new Unity project
+  * Close the project and do not save it
+* Create the GitHub repo for the project
 * Copy .gitignore from common GitHub repo
   * https://raw.githubusercontent.com/pdxparrot/assets/master/.gitignore
 * Copy LICENSE from common GitHub repo
@@ -66,7 +68,6 @@
 * Create README.md
 * Delete the Assets/Scenes directory and its .meta file
 * git init, add, commit, and push
-* Close the project and do not save it
 
 # Pre-Setup
 
