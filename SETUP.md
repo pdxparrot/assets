@@ -1,6 +1,8 @@
 # TODO
 
 * For creating prefabs through code - https://docs.unity3d.com/ScriptReference/PrefabUtility.html
+* Visual Scripting - https://unity.com/products/unity-visual-scripting
+* UI Builder - https://docs.unity3d.com/Packages/com.unity.ui.builder@1.0/manual/index.html
 * Tear these apart for ideas
   * https://www.youtube.com/watch?v=qsU4nM0L_n0
     * https://learn.unity.com/project/3d-game-kit
@@ -84,6 +86,7 @@
 * Open the new Unity Project and the project should automatically initialize
   * This process can take a while and currently is not very responsive
   * Say **No** to enabling the new Input System backend (initializing will set this up instead)
+    * **TODO:** This popup is no longer occurring
 * ~~Add Keijiro Kino~~ **TODO:** this required the HDRP so we probably don't want to always use it
   * https://github.com/keijiro/Kino
     * Add registry to scopedRegistries in Packages/manifest.json
@@ -114,7 +117,7 @@
   * Create the Input System Settings asset if not already done
     * Process events in Fixed Update
 * Package Manager
-  * Enable Preview Packages
+  * Enable Pre-release Packages
   * Show Dependencies
 * Tags and Layers
   * Add the following layers if they don't exist:
@@ -193,7 +196,7 @@
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro
     * Uncheck Auto Referenced
-  * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
+  * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor.asmdef
     * Editor platform only
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Core.Editor.asmdef, com.pdxpartyparrot.Game.asmdef
     * Uncheck Auto Referenced
@@ -203,9 +206,9 @@
 ## Initial Project Scripts
 
 * Create Loading Manager
-  * Create a new project LoadingManager script that overrides Game LoadingManager and implement the required interface
+  * Create a new project Loading/LoadingManager script that overrides Game LoadingManager and implement the required interface
 * Create Scene Tester
-  * Create a new project SceneTester script that overrides the Game SceneTester and implement the required interface
+  * Create a new project State/SceneTester script that overrides the Game SceneTester and implement the required interface
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
@@ -229,7 +232,7 @@
 
 # Engine Asset Setup
 
-* Create Data/Animation/empty.controller Animation Controller
+* Create Data/Animation/empty.controller Animator Controller
 * Create Data/Audio/main.mixer Mixer
   * 3 Master child groups
     * Music
@@ -261,7 +264,7 @@
       * Escape [Keyboard] (Keyboard & Mouse scheme)
     * Unused actions may be removed
 
-## Server Spectator
+## Server Spectator (Multiplayer Only)
 
 * Enable Server Spectator in the project settings
 * Duplicate the Player input actions asset as ServerSpectator.inputactions
@@ -326,6 +329,7 @@
   * Create an empty Prefab and add the PartyParrotManager component to it
   * Create an EngineData in Data/Data and attach it to the manager
   * Attach the frictionless physics materials
+    * **TODO:** Why are these attaching backwards?
 * GameStateManager
   * Create an empty Prefab and add the GameStateManager component to it
   * Create an empty Prefab in Data/Prefabs/State and add the MainMenuState component to it
@@ -395,6 +399,7 @@
 * Create a GameData in Data/Data and attach it to the manager
   * Set the World Layer to World
   * Configure as necessary
+    * Checking "Gamepads Are Players" is often a good idea
   * Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
     * **TODO:** what else goes into this (ggj2019 uses it)?
     * Attach to the GameData
