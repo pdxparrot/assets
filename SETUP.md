@@ -263,6 +263,7 @@
       * Action Type: Button
       * Start [Gamepad] (Gamepad scheme)
       * Escape [Keyboard] (Keyboard & Mouse scheme)
+    * Adding an Invert Vector2 Processor to the Look action can allow for inverting the look axes
     * Unused actions may be removed
 
 ## Server Spectator (Multiplayer Only)
