@@ -560,7 +560,7 @@
 * Attach the LoadingScreen to the Loader
 * Attach all of the manager prefabs to the scene LoadingManager
 
-At this point, the main scene should be runnable
+At this point, the main scene should be runnable but will error out until the main_menu scene is completed.
 
 # Main Menu Setup
 
@@ -579,10 +579,11 @@ At this point, the main scene should be runnable
   * Normal Color: (255, 0, 255, 255)
   * Highlight Color: (0, 255, 0, 255)
   * Add a Button Helper to the button
+    * Attach the default button effects to the helper
 
 ## Main Menu
 
-* Create a new MainMenu script that overrides the Game MainMenu and implement the required interface
+* Create a new Menu/MainMenu script that overrides the Game MainMenu and implement the required interface
 * Create a MainMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
   * Add a Canvas under the prefab
@@ -689,7 +690,7 @@ At this point, the main scene should be runnable
       * Text: "Credits..."
       * Disable Raycast Target
     * Attach the text to the Credits Menu component
-    * Add the MenuButton under the container (Start)
+    * Add the MenuButton under the container (Back)
       * Text: "Back"
       * Add an On Click handler that calls the CreditsMenu OnBack method
       * Check Is Back Button
@@ -764,7 +765,7 @@ At this point, the main scene should be runnable
 * Set the Canvas on the GameUI object
 * **TODO:** Port the ggj2020 "IntroUI" concept to something more generic
   * This is essentially a set of timed slides shown before the game starts to explain how to play
-* Create a new GameUIManager script that overrides the Game GameUIManager
+* Create a new UI/GameUIManager script that overrides the Game GameUIManager
   * Implement the required interface
 * Add a connection to the project GameUIManager in the project LoadingManager
   * Create the GameUIManager prefab in the overloaded CreateManagers() in the project LoadingManager
@@ -824,7 +825,7 @@ At this point, the main scene should be runnable
         * Text: "Quit"
         * Add an On Click handler that calls the PauseMenu OnQuitGame method
         * Check Is Back Button
-    * Set the Main Menu Initial Selection to the Settings Button if used, otherwise set it to the Resume button
+    * Set the Pause Menu Initial Selection to the Settings Button if used, otherwise set it to the Resume button
 * Attach the PauseMenu prefab to the GameUIManager Prefab
 
 ## Settings (optional)
@@ -859,7 +860,7 @@ At this point, the main scene should be runnable
 
 ## MainGameState
 
-* Create a new MainGameState script that overrides the Game MainGameState
+* Create a new State/MainGameState script that overrides the Game MainGameState
   * Implement the required interface
 * Create an empty Prefab and add the MainGameState component to it
 * **TODO:** setup the initial level and set the intial scene name
@@ -869,7 +870,7 @@ At this point, the main scene should be runnable
 
 ## GameOverState (optional)
 
-* Create a new GameOverState script that overrides the Game GameOverState
+* Create a new State/GameOverState script that overrides the Game GameOverState
   * Implement the required interface
 * Create an empty Prefab and add the GameOverState component to it
 * **TODO:** game over menu hookup
@@ -923,20 +924,20 @@ At this point, the main scene should be runnable
 
 ## Player
 
-* Create a new PlayerData script that overrides the Game PlayerData
-* Create a new Player script that overrides one of the Game Players
+* Create a new Data/Players/PlayerData script that overrides the Game PlayerData
+* Create a new Players/Player script that overrides one of the Game Players
   * Implement the required interface
 
 ## PlayerBehavior
 
-* Create a new PlayerBehaviorData script that overrides one of the Game PlayerBehaviorData
-* Create a new PlayerBehavior script that overrides one of the Game PlayerBehavior
+* Create a new Data/Players/PlayerBehaviorData script that overrides one of the Game PlayerBehaviorData
+* Create a new Players/PlayerBehavior script that overrides one of the Game PlayerBehavior
   * Implement the required interface
 
 ## PlayerInput
 
-* Create a new PlayerInputData script that overrides the Game PlayerInputData
-* Create a new PlayerInputHandler script that overrides one of the Game PlayerInputHandlers
+* Create a new Data/Players/PlayerInputData script that overrides the Game PlayerInputData
+* Create a new Players/PlayerInputHandler script that overrides one of the Game PlayerInputHandlers
   * Implement the required interface
 * Gamepads Are Players can be set on GameData to automatically assign players to gamepads
 
@@ -1016,7 +1017,7 @@ At this point, the main scene should be runnable
 * Attach the desired lighting settings
 * Add the scene to the Build Settings
 * Add the scene, by name, to the SceneTester
-* Create an empty GameObject in the scene and add the TestSceneHelper component to it
+* Create an empty GameObject (Level) in the scene and add the TestSceneHelper component to it
   * This script can be extended for more advanced functionality
 * Test levels may be loaded through the debug menu
   * Game.GameStateManager.TestScenes
@@ -1035,6 +1036,7 @@ At this point, the main scene should be runnable
 * Add a level helper prefab to each level as they're created
 * If using players, create new empty GameObjects and attach Spawnpoint components to them
   * Set the tag to 'Player' on these
+* The first level should be set, by name, as the MainGameState Initial Scene
 * **TODO:** finish this
 * **TODO:** Document how to transition levels
 
