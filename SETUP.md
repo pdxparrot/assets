@@ -488,14 +488,14 @@
 * Attach the ProgressBar component to the LoadingScreen component
 * Add an Image under the Progress Bar (Background)
   * Position: (0, -200, 0)
-  * Color: (0, 0, 0, 255)
   * Size: (500, 25)
+  * Color: (0, 0, 0, 255)
   * Source Image: Core Progress Image
   * Disable Raycast Target
 * And an Image under the Background Image (Foreground)
   * Position: (0, 0, 0)
-  * Color: (255, 255, 255, 255)
   * Size: (500, 25)
+  * Color: (255, 255, 255, 255)
   * Source Image: Core Progress Image
   * Disable Raycast Target
   * Image Type: Filled
@@ -510,7 +510,7 @@
   * Center the text
   * Disable Raycast Target
 * Attach the Text to the LoadingScreen component
-* Optionall, add loading tips
+* Optionally, add loading tips (these can oftentimes not show up if loading levels is too fast)
   * Add a Text - TextMeshPro (LoadingTips) under the Progress Bar
     * Position: (0, -250, 0)
     * Size: (750, 50)
@@ -519,7 +519,7 @@
     * Disable Raycast Target
   * Attach the Text to the LoadingScreen component
 
-### Network Connection UI (optional)
+### Network Connection UI (Multiplayer Only)
 
 * Create a NetworkConnectUI prefab in Prefabs/UI and add the NetworkConnectUI component to it
   * Layer: UI
@@ -559,6 +559,8 @@
 * Attach the Main Camera
 * Attach the LoadingScreen to the Loader
 * Attach all of the manager prefabs to the scene LoadingManager
+
+At this point, the main scene should be runnable
 
 # Main Menu Setup
 
