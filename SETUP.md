@@ -908,6 +908,7 @@ At this point, the main scene should be runnable but will error out until the ma
   * Set the CinemachineVirtualCamera settings as necessary
     * The Body is probably the most useful setting to adjust
       * 3rd Person Follow is good for follow cameras (Transposer is a lesser version of this)
+        * Collision filters can be setup here
       * Framing Transposer is good for keeping multiple objects in a fixed view
   * If necessary, add a CinemachineTargetGroup to a subobject for group targeting (ggj2020)
   * Configure any additional settings as required
@@ -957,6 +958,9 @@ At this point, the main scene should be runnable but will error out until the ma
   * This will require a collider to be added first
     * Adjust the size and position of the collider
   * Layer: Player
+  * Tag: Player
+    * **TODO:** Not sure if we need to do some adjustments here for multiplayer?
+    * This tag is needed for 3rd Person Follow camera collision detection
   * Connect the NetworkPlayer component to the Player component
     * This is required even if not using networking
   * Setup networking if using it (**TODO:** this is all probably wrong now)
