@@ -832,11 +832,12 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Settings (optional)
 
+* Create a new Menu/SettingsMenu script that overrides the Game SettingsMenu and implement the required interface
 * Add a Panel under the Canvas (Settings)
   * Remove the Image component
   * Add the Settings Menu component to the panel
     * Set Owner to the Menu object
-    * Set the Settings Panel on the Settings Menu
+    * Set the Settings Panel on the Pause Menu
   * Add an empty GameObject under the Panel (Container)
     * Stretch the container
     * Add a Vertical Layout Group
@@ -848,7 +849,7 @@ At this point, the main scene should be runnable but will error out until the ma
       * Text: "Settings"
         * Center the text
         * Disable Raycast Target
-    * Add the MenuButton under the container (Start)
+    * Add the MenuButton under the container (Back)
       * Text: "Back"
       * Add an On Click handler that calls the SettingsMenu OnBack method
       * Check Is Back Button
