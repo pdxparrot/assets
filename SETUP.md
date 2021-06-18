@@ -754,7 +754,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 # Game UI
 
-* Create a new GameUI script that overrides the Game GameUI and implement the required interface
+* Create a new UI/GameUI script that overrides the Game GameUI and implement the required interface
 * Create a GameUI Prefab in Prefabs/UI and add the GameUI component to it
   * Layer: UI
   * Add a Canvas under the prefab
@@ -777,11 +777,13 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Simple Player HUD (optional)
 
-* Create a new PlayerHUD script that overrides the Game HUD
-* Add a Panel under the GameUI Canvas and add the PlayerHUD component to it
+* Create a new UI/PlayerHUD script that overrides the Game HUD
+* Add a Panel (HUD) under the GameUI Canvas
+  * Remove the Image component
+  * Add the PlayerHUD component to it
   * Set the UIObject Id to "hud"
 * Create a new prefab from the PlayerHUD object
-* Add a connection to the PlayerHUD to the project GameUI
+* Add a connection to the PlayerHUD to the project GameUI and expose it as a field
 
 ## Pause Menu (optional)
 
