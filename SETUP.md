@@ -879,6 +879,8 @@ At this point, the main scene should be runnable but will error out until the ma
   * Implement the required interface
 * Create an empty Prefab and add the GameOverState component to it
 * **TODO:** game over menu hookup
+  * Add to GameUI (if it makes sense to do so)
+  * Use Enter / Exit triggers on the game states to enable / disable the UI objects (by name)
 * Attach to the MainGameState
 * Attach to the SceneTester
 
