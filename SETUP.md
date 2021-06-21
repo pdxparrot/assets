@@ -580,6 +580,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * Center the text
   * Normal Color: (255, 0, 255, 255)
   * Highlight Color: (0, 255, 0, 255)
+  * Select Color: (0, 255, 0, 255)
   * Add a Button Helper to the button
     * Attach the default button effects to the helper
 
