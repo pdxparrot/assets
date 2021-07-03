@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -79,6 +80,15 @@ namespace pdxpartyparrot.Game.Interactables
         public T GetRandomInteractable<T>() where T : class, IInteractable
         {
             return GetInteractables<T>().GetRandomEntry() as T;
+        }
+
+        [CanBeNull]
+        public T GetFirstInteractable<T>() where T : class, IInteractable
+        {
+            if(!HasInteractables<T>()) {
+                return null;
+            }
+            return GetInteractables<T>().ElementAt(0) as T;
         }
 
         public void GetInteractables<T>(ICollection<T> interactables) where T : class, IInteractable

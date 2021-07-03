@@ -174,13 +174,30 @@ namespace pdxpartyparrot.Game.Players
         {
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
 
-            Debug.Log($"Respawning player {player.Id}");
+            Debug.Log($"Respawning player {player.Id} at spawn point {spawnPoint?.name ?? "Invalid spawnpoint"}");
 
             if(null == spawnPoint) {
                 Debug.LogError("Failed to get player spawnpoint!");
                 return false;
             }
             return spawnPoint.ReSpawn((Actor)player);
+        }
+
+        public bool RespawnPlayerPosition(IPlayer player, Vector3 position)
+        {
+            Assert.IsTrue(NetworkManager.Instance.IsServerActive());
+
+            Debug.Log($"Respawning player {player.Id} at position {position}");
+
+            Actor actor = (Actor)player;
+
+            Transform actorTransform = actor.transform;
+
+            actorTransform.position = position;
+
+            actor.gameObject.SetActive(true);
+
+            return actor.OnReSpawn(null);
         }
 
         public void RespawnPlayers()

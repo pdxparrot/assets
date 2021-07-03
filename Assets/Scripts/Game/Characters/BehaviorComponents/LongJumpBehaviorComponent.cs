@@ -56,8 +56,13 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
                 if(CanLongJump) {
                     Behavior.CharacterMovement.Jump(_data.LongJumpHeight);
+
                     if(null != _longJumpEffect) {
                         _longJumpEffect.Trigger();
+                    }
+
+                    if(null != Behavior.Animator) {
+                        Behavior.Animator.SetTrigger(_data.LongJumpParam);
                     }
 
                     _didLongJump = true;

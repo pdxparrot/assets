@@ -19,6 +19,7 @@ namespace pdxpartyparrot.Game.Effects
         private bool _localPosition = true;
 
         [SerializeField]
+        [Tooltip("Randomize the starting angle on enable")]
         private bool _randomizeOnEnable = true;
 
         [SerializeField]

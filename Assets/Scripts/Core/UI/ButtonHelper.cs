@@ -4,7 +4,6 @@ using pdxpartyparrot.Core.Effects;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace pdxpartyparrot.Core.UI

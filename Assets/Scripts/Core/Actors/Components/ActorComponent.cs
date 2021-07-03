@@ -54,12 +54,12 @@ namespace pdxpartyparrot.Core.Actors.Components
             return false;
         }
 
-        public virtual bool OnSpawn(SpawnPoint spawnpoint)
+        public virtual bool OnSpawn([CanBeNull] SpawnPoint spawnpoint)
         {
             return false;
         }
 
-        public virtual bool OnReSpawn(SpawnPoint spawnpoint)
+        public virtual bool OnReSpawn([CanBeNull] SpawnPoint spawnpoint)
         {
             return false;
         }

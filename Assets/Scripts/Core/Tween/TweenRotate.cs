@@ -37,6 +37,10 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private bool _useLocalRotation = true;
 
+        [SerializeField]
+        [Tooltip("Randomize the starting angle on enable")]
+        private bool _randomizeOnAwake;
+
         #region Unity Lifecycle
 
         protected override void Awake()
@@ -46,6 +50,9 @@ namespace pdxpartyparrot.Core.Tween
             }
 
             _from = _useLocalRotation ? _target.localEulerAngles : _target.eulerAngles;
+            if(_randomizeOnAwake) {
+                _from = Vector3.Lerp(_from, _to, PartyParrotManager.Instance.Random.NextSingle());
+            }
 
             base.Awake();
         }

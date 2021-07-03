@@ -24,11 +24,11 @@ namespace pdxpartyparrot.Core.UI
     {
         [SerializeField]
         [Tooltip("Delay before starting to scroll")]
-        private float _delay = 1.0f;
+        private float _delay = 3.0f;
 
         [SerializeField]
         [Tooltip("Units per-second to scroll")]
-        private float _scrollRate = 100.0f;
+        private float _scrollRate = 48.0f;
 
         [SerializeField]
         private bool _resetOnEnable = true;

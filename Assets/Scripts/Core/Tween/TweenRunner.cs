@@ -68,6 +68,7 @@ namespace pdxpartyparrot.Core.Tween
         #region Looping
 
         [SerializeField]
+        [Tooltip("-1 for infinite looping")]
         private int _loops;
 
         public int Loops

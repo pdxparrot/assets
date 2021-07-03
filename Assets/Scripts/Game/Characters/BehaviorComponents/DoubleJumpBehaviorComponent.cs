@@ -62,8 +62,13 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             }
 
             Behavior.CharacterMovement.Jump(_data.DoubleJumpHeight);
+
             if(null != _doubleJumpEffect) {
                 _doubleJumpEffect.Trigger();
+            }
+
+            if(null != Behavior.Animator) {
+                Behavior.Animator.SetTrigger(_data.DoubleJumpParam);
             }
 
             _doubleJumpCount++;

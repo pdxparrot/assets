@@ -28,6 +28,7 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         private void SlopeLimitEventHandler(object sender, EventArgs args)
         {
             // prevent moving up slopes we can't move up
+            // TODO: this might need to be using MoveDirection.z and not MoveDirection.y ?
             PlayerBehavior.SetMoveDirection(new Vector3(0.0f, PlayerBehavior.MoveDirection.y, 0.0f));
         }
 

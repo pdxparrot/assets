@@ -744,6 +744,8 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
 
         }
 
+        // TODO: this might need to be using MoveDirection.z and not MoveDirection.y ?
+
         private bool CheckClimbUp()
         {
             if(PlayerBehavior.MoveDirection.y <= 0.0f) {

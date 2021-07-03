@@ -9,6 +9,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Game.World
 {
     // TODO: use a WaypointFollower instead of having this handle that
+    // NOTE: platforms need a separate physics collider on a sub-object
     [RequireComponent(typeof(Collider))]
     public abstract class Platform : MonoBehaviour
     {
@@ -25,6 +26,11 @@ namespace pdxpartyparrot.Game.World
         [SerializeReference]
         [ReadOnly]
         private ITimer _cooldown;
+
+        [SerializeField]
+        private Transform _actorContainer;
+
+        protected Transform ActorContainer => _actorContainer;
 
         #region Unity Lifecycle
 
@@ -89,8 +95,15 @@ namespace pdxpartyparrot.Game.World
             }
         }
 
-        protected abstract void OnEnterPlatform(GameObject gameObject);
+        protected virtual void OnEnterPlatform(GameObject gameObject)
+        {
+            Debug.Log($"{gameObject.name} entered platform {name}");
+        }
 
-        protected abstract void OnExitPlatform(GameObject gameObject);
+        protected virtual void OnExitPlatform(GameObject gameObject)
+        {
+            Debug.Log($"{gameObject.name} exited platform {name}");
+
+        }
     }
 }
