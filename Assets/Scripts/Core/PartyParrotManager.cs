@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 
 using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.Loading;
@@ -18,6 +20,18 @@ namespace pdxpartyparrot.Core
         public event EventHandler<EventArgs> PauseEvent;
 
         #endregion
+
+        // initializes the default cultures to be invariant
+        // https://twitter.com/OwenGoss/status/1413576850715156484
+        public static void InitCulture()
+        {
+            // this "should" be safe because Unity is single threaded
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+        }
 
         [SerializeField]
         private EngineData _data;

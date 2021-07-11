@@ -417,6 +417,7 @@
 
 ## Splash Scene Setup
 
+* **NOTE:** Anything that happens in the splash screen needs to be aware that the CultureInfo is not setup to be invariant
 * Create and save a new Basic scene (Assets/Scenes/splash.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene

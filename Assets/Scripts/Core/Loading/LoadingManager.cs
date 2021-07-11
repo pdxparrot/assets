@@ -120,6 +120,8 @@ namespace pdxpartyparrot.Core.Loading
 
         protected virtual void Awake()
         {
+            PartyParrotManager.InitCulture();
+
             _mainCamera.clearFlags = CameraClearFlags.SolidColor;
             _mainCamera.backgroundColor = Color.black;
             _mainCamera.orthographic = true;
