@@ -46,7 +46,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
             if(null != Animator) {
                 Animator.SetFloat(CharacterBehaviorData.MoveXAxisParam, CanMove ? Mathf.Abs(moveDirection.x) : 0.0f);
-                Animator.SetFloat(CharacterBehaviorData.MoveZAxisParam, CanMove ? Mathf.Abs(moveDirection.y) : 0.0f);
+                Animator.SetFloat(CharacterBehaviorData.MoveZAxisParam, CanMove ? Mathf.Abs(moveDirection.z) : 0.0f);
             }
 
             base.AnimationUpdate(dt);

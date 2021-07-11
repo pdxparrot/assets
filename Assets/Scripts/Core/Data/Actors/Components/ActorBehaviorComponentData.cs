@@ -48,6 +48,7 @@ namespace pdxpartyparrot.Core.Data.Actors.Components
 
         [Header("Actor Animations")]
 
+        // TODO: this controls 3D actor facing and that's really confusing
         [SerializeField]
         [Tooltip("Whether or not to animate the model object directly if it's set")]
         private bool _animateModel;

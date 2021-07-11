@@ -28,19 +28,17 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [SerializeField]
         private DashBehaviorComponentData _data;
 
-        public DashBehaviorComponentData DashBehaviorComponentData
-        {
-            get => _data;
-            set => _data = value;
-        }
-
         #region Effects
 
         [Header("Effects")]
 
         [SerializeField]
         [CanBeNull]
-        private EffectTrigger _dashEffect;
+        private EffectTrigger _dashStartEffect;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _dashStopEffect;
 
         #endregion
 
@@ -97,7 +95,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             }
 
             Vector3 moveDirection = Behavior.Owner.FacingDirection;
-            Vector3 velocity = moveDirection * DashBehaviorComponentData.DashSpeed;
+            Vector3 velocity = moveDirection * _data.DashSpeed;
 
             Behavior.Owner.Movement.Move(velocity * dt);
 
@@ -119,26 +117,38 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         {
             Behavior.CharacterMovement.IsComponentControlling = true;
 
-            if(DashBehaviorComponentData.DisableGravity) {
+            if(_data.DisableGravity) {
                 _wasUseGravity = Behavior.Owner.Movement.UseGravity;
                 Behavior.Owner.Movement.UseGravity = false;
             }
             Behavior.CharacterMovement.EnableDynamicCollisionDetection(true);
 
-            _dashTimer.Start(DashBehaviorComponentData.DashTimeSeconds);
+            _dashTimer.Start(_data.DashTimeSeconds);
 
-            if(null != _dashEffect) {
-                _dashEffect.Trigger();
+            if(null != _dashStartEffect) {
+                _dashStartEffect.Trigger();
+            }
+
+            if(null != Behavior.Animator) {
+                Behavior.Animator.SetTrigger(_data.DashStartParam);
             }
         }
 
         private void StopDashing()
         {
-            _cooldownTimer.Start(DashBehaviorComponentData.DashCooldownSeconds);
+            if(null != Behavior.Animator) {
+                Behavior.Animator.SetTrigger(_data.DashStopParam);
+            }
+
+            if(null != _dashStopEffect) {
+                _dashStopEffect.Trigger();
+            }
+
+            _cooldownTimer.Start(_data.DashCooldownSeconds);
 
             Behavior.CharacterMovement.EnableDynamicCollisionDetection(false);
 
-            if(DashBehaviorComponentData.DisableGravity) {
+            if(_data.DisableGravity) {
                 Behavior.Owner.Movement.UseGravity = _wasUseGravity;
             }
 

@@ -61,9 +61,16 @@ namespace pdxpartyparrot.Game.Data
         public int MaxLocalPlayers => _maxLocalPlayers;
 
         [SerializeField]
+        [Tooltip("Spawn a player for each connected game pad, up to the max")]
         private bool _gamepadsArePlayers;
 
         public bool GamepadsArePlayers => _gamepadsArePlayers;
+
+        [SerializeField]
+        [Tooltip("Should the main game state attempt to spawn players as soon as the main scene loads?")]
+        private bool _spawnPlayersOnLoad = true;
+
+        public bool SpawnPlayersOnLoad => _spawnPlayersOnLoad;
 
         [Space(10)]
 

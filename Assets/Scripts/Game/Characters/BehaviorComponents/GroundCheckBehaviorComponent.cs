@@ -53,9 +53,15 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [ReadOnly]
         private float _groundSlope;
 
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _lastGroundedPosition;
+
+        public Vector3 LastGroundedPosition => _lastGroundedPosition;
+
         private float GroundCheckRadius => null == Behavior ? 0.0f : Behavior.Owner.Radius - 0.1f;
 
-        private Vector3 GroundCheckCenter => null == Behavior ? Vector3.zero : Behavior.Owner.Movement.Position + (GroundCheckRadius * Vector3.up);
+        private Vector3 GroundCheckCenter => null == Behavior ? Vector3.zero : Behavior.Owner.Movement.Position + ((Behavior.Owner.Height * 0.5f - 0.1f) * Vector3.down);
 
         private Coroutine _raycastCoroutine;
 
@@ -149,6 +155,10 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                     // something else is handling this case?
                 } else {
                     Behavior.IsGrounded = _didGroundCheckCollide && _groundCheckMinDistance < _data.GroundedEpsilon;
+                }
+
+                if(Behavior.IsGrounded) {
+                    _lastGroundedPosition = Behavior.Owner.Movement.Position;
                 }
 
                 // if we're on a slope, we're sliding down it

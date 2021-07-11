@@ -21,12 +21,6 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [SerializeField]
         private JumpBehaviorComponentData _data;
 
-        public JumpBehaviorComponentData JumpBehaviorComponentData
-        {
-            get => _data;
-            set => _data = value;
-        }
-
         [Space(10)]
 
         #region Effects
@@ -52,8 +46,13 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             }
 
             Behavior.CharacterMovement.Jump(_data.JumpHeight);
+
             if(null != _jumpEffect) {
                 _jumpEffect.Trigger();
+            }
+
+            if(null != Behavior.Animator) {
+                Behavior.Animator.SetTrigger(_data.JumpParam);
             }
 
             return true;

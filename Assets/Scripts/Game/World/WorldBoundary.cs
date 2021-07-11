@@ -4,11 +4,6 @@ namespace pdxpartyparrot.Game.World
 {
     public abstract class WorldBoundary : MonoBehaviour
     {
-        [SerializeField]
-        private bool _deadly;
-
-        public bool Deadly => _deadly;
-
         protected void HandleCollisionEnter(GameObject go)
         {
             IWorldBoundaryCollisionListener listener = go.GetComponent<IWorldBoundaryCollisionListener>();

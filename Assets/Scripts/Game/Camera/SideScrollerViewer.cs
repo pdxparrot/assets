@@ -9,7 +9,8 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Camera
 {
-    [RequireComponent(typeof(CinemachineFramingTransposer))]
+    // this has to be set as the Body in order to work correctly
+    //[RequireComponent(typeof(CinemachineFramingTransposer))]
     [RequireComponent(typeof(CinemachineConfiner))]
     public class SideScrollerViewer : CinemachineViewer, IPlayerViewer
     {

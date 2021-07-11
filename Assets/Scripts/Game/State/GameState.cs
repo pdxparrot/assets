@@ -49,10 +49,20 @@ namespace pdxpartyparrot.Game.State
 
         protected virtual void Awake()
         {
-            _currentSceneName = _initialSceneName;
+            CurrentSceneName = _initialSceneName;
         }
 
         #endregion
+
+        // this is only effective if called before the current scene is loaded
+        public void OverrideCurrentScene(string sceneName)
+        {
+            if(HasScene) {
+                Debug.LogWarning($"Overriding potentially loaded scene {CurrentSceneName}");
+            }
+
+            CurrentSceneName = sceneName;
+        }
 
         public IEnumerator<float> LoadSceneRoutine()
         {

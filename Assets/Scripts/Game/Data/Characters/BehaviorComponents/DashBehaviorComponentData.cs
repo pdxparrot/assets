@@ -33,5 +33,21 @@ namespace pdxpartyparrot.Game.Data.Characters.BehaviorComponents
         private bool _disableGravity = true;
 
         public bool DisableGravity => _disableGravity;
+
+        #region Animations
+
+        [Header("Character Animations")]
+
+        [SerializeField]
+        private string _dashStartParam = "OnDashStart";
+
+        public string DashStartParam => _dashStartParam;
+
+        [SerializeField]
+        private string _dashStopParam = "OnDashStop";
+
+        public string DashStopParam => _dashStopParam;
+
+        #endregion
     }
 }

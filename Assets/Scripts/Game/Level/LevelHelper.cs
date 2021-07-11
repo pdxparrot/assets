@@ -177,6 +177,8 @@ namespace pdxpartyparrot.Game.Level
             Debug.Log("[Level] Game ready...");
 
             GameStateManager.Instance.PlayerManager.RespawnPlayers();
+
+            GameStateManager.Instance.GameManager.LevelEntered();
         }
 
         protected virtual void GameUnReadyEventHandler(object sender, EventArgs args)

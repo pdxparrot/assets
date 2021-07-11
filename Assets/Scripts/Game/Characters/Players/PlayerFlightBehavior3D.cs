@@ -16,6 +16,8 @@ namespace pdxpartyparrot.Game.Characters.Players
             base.Initialize(behaviorData);
         }
 
+        // TODO: this might need to be using MoveDirection.z and not MoveDirection.y ?
+
         protected override void AnimationUpdate(float dt)
         {
             if(!CanMove || null == Owner.Model) {

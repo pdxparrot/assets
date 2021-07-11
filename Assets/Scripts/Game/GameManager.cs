@@ -33,6 +33,8 @@ namespace pdxpartyparrot.Game
 
         CreditsData CreditsData { get; }
 
+        Settings Settings { get; }
+
         bool IsGameReady { get; }
 
         bool IsGameOver { get; }
@@ -58,6 +60,8 @@ namespace pdxpartyparrot.Game
 
         void GameUnReady();
 
+        void LevelEntered();
+
         void LevelTransitioning();
 
         void GameOver();
@@ -76,6 +80,7 @@ namespace pdxpartyparrot.Game
         public event EventHandler<EventArgs> GameUnReadyEvent;
         public event EventHandler<EventArgs> GameOverEvent;
 
+        public event EventHandler<EventArgs> LevelEnterEvent;
         public event EventHandler<EventArgs> LevelTransitioningEvent;
 
         #endregion
@@ -89,6 +94,11 @@ namespace pdxpartyparrot.Game
         private CreditsData _creditsData;
 
         public CreditsData CreditsData => _creditsData;
+
+        [SerializeField]
+        private /*readonly*/ Settings _settings = new Settings();
+
+        public Settings Settings => _settings;
 
         [Space(10)]
 
@@ -152,6 +162,7 @@ namespace pdxpartyparrot.Game
 
         public virtual void Initialize()
         {
+            // NOTE: don't call Reset() here
             IsGameOver = false;
             IsGameReady = false;
             TransitionToHighScores = false;
@@ -169,6 +180,15 @@ namespace pdxpartyparrot.Game
             if(Core.Network.NetworkManager.Instance.IsServerActive() && null != GameStateManager.Instance.PlayerManager) {
                 GameStateManager.Instance.PlayerManager.DestroyPlayers();
             }
+        }
+
+        public virtual void Reset()
+        {
+            IsGameOver = false;
+            IsGameReady = false;
+            TransitionToHighScores = false;
+
+            Settings.Reset();
         }
 
         #region Level Helper
@@ -234,6 +254,11 @@ namespace pdxpartyparrot.Game
             IsGameReady = false;
 
             GameUnReadyEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual void LevelEntered()
+        {
+            LevelEnterEvent?.Invoke(this, null);
         }
 
         public virtual void LevelTransitioning()

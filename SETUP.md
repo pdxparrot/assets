@@ -581,6 +581,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * Center the text
   * Normal Color: (255, 0, 255, 255)
   * Highlight Color: (0, 255, 0, 255)
+  * Select Color: (0, 255, 0, 255)
   * Add a Button Helper to the button
     * Attach the default button effects to the helper
 
@@ -755,7 +756,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 # Game UI
 
-* Create a new GameUI script that overrides the Game GameUI and implement the required interface
+* Create a new UI/GameUI script that overrides the Game GameUI and implement the required interface
 * Create a GameUI Prefab in Prefabs/UI and add the GameUI component to it
   * Layer: UI
   * Add a Canvas under the prefab
@@ -778,11 +779,13 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Simple Player HUD (optional)
 
-* Create a new PlayerHUD script that overrides the Game HUD
-* Add a Panel under the GameUI Canvas and add the PlayerHUD component to it
+* Create a new UI/PlayerHUD script that overrides the Game HUD
+* Add a Panel (HUD) under the GameUI Canvas
+  * Remove the Image component
+  * Add the PlayerHUD component to it
   * Set the UIObject Id to "hud"
 * Create a new prefab from the PlayerHUD object
-* Add a connection to the PlayerHUD to the project GameUI
+* Add a connection to the PlayerHUD to the project GameUI and expose it as a field
 
 ## Pause Menu (optional)
 
@@ -833,11 +836,12 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Settings (optional)
 
+* Create a new Menu/SettingsMenu script that overrides the Game SettingsMenu and implement the required interface
 * Add a Panel under the Canvas (Settings)
   * Remove the Image component
   * Add the Settings Menu component to the panel
     * Set Owner to the Menu object
-    * Set the Settings Panel on the Settings Menu
+    * Set the Settings Panel on the Pause Menu
   * Add an empty GameObject under the Panel (Container)
     * Stretch the container
     * Add a Vertical Layout Group
@@ -849,7 +853,7 @@ At this point, the main scene should be runnable but will error out until the ma
       * Text: "Settings"
         * Center the text
         * Disable Raycast Target
-    * Add the MenuButton under the container (Start)
+    * Add the MenuButton under the container (Back)
       * Text: "Back"
       * Add an On Click handler that calls the SettingsMenu OnBack method
       * Check Is Back Button
@@ -877,6 +881,8 @@ At this point, the main scene should be runnable but will error out until the ma
   * Implement the required interface
 * Create an empty Prefab and add the GameOverState component to it
 * **TODO:** game over menu hookup
+  * Add to GameUI (if it makes sense to do so)
+  * Use Enter / Exit triggers on the game states to enable / disable the UI objects (by name)
 * Attach to the MainGameState
 * Attach to the SceneTester
 

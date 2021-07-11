@@ -171,28 +171,8 @@ namespace pdxpartyparrot.Game.State
 
             Core.Network.NetworkManager.Instance.LocalClientReady(GameStateManager.Instance.NetworkClient?.connection);
 
-            // TODO: this probably isn't the right place to handle "gamepads are players"
-            // instead it probably should be done in whatever initializes the main game state
-            if(GameStateManager.Instance.GameManager.GameData.GamepadsArePlayers) {
-                int count = Math.Min(Math.Max(InputManager.Instance.GetGamepadCount(), 1), GameStateManager.Instance.GameManager.GameData.MaxLocalPlayers);
-                if(count < 1) {
-                    Debug.LogWarning("No player controllers available!");
-                } else {
-                    Debug.Log($"Will spawn a player for each controller ({count})...");
-                }
-
-                for(short i = 0; i < count; ++i) {
-                    Core.Network.NetworkManager.Instance.AddLocalPlayer(i);
-                }
-            } else {
-                if(_playerControllers.Count < 1) {
-                    Debug.LogWarning("No player controllers available!");
-                }
-
-                foreach(short playerControllerId in _playerControllers) {
-                    Debug.Log($"Spawning local player with controller {playerControllerId}...");
-                    Core.Network.NetworkManager.Instance.AddLocalPlayer(playerControllerId);
-                }
+            if(GameStateManager.Instance.GameManager.GameData.SpawnPlayersOnLoad) {
+                SpawnPlayers();
             }
 
             return true;
@@ -269,6 +249,33 @@ namespace pdxpartyparrot.Game.State
             _playerControllers.Add(playerControllerId);
 
             return true;
+        }
+
+        public void SpawnPlayers()
+        {
+            // TODO: this probably isn't the right place to handle "gamepads are players"
+            // instead it probably should be done in whatever initializes the main game state
+            if(GameStateManager.Instance.GameManager.GameData.GamepadsArePlayers) {
+                int count = Math.Min(Math.Max(InputManager.Instance.GetGamepadCount(), 1), GameStateManager.Instance.GameManager.GameData.MaxLocalPlayers);
+                if(count < 1) {
+                    Debug.LogWarning("No player controllers available!");
+                } else {
+                    Debug.Log($"Will spawn a player for each controller ({count})...");
+                }
+
+                for(short i = 0; i < count; ++i) {
+                    Core.Network.NetworkManager.Instance.AddLocalPlayer(i);
+                }
+            } else {
+                if(_playerControllers.Count < 1) {
+                    Debug.LogWarning("No player controllers available!");
+                }
+
+                foreach(short playerControllerId in _playerControllers) {
+                    Debug.Log($"Spawning local player with controller {playerControllerId}...");
+                    Core.Network.NetworkManager.Instance.AddLocalPlayer(playerControllerId);
+                }
+            }
         }
 
         #region Event Handlers

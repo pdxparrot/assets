@@ -221,6 +221,8 @@ namespace pdxpartyparrot.Core.Actors.Components
                 SpriteAnimationHelper.SetFacing(direction);
             }
 
+            // TODO: the facing of 3D actors being tied to the AnimateModel
+            // flag is really confusing and awkward
             if(null != Owner && null != Owner.Model && BehaviorData.AnimateModel) {
                 Owner.Model.transform.forward = direction;
             }

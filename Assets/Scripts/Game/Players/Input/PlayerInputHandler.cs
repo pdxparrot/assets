@@ -6,6 +6,7 @@ using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.Players;
+using pdxpartyparrot.Game.Cinematics;
 using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.State;
 
@@ -55,17 +56,32 @@ namespace pdxpartyparrot.Game.Players.Input
 
         private CircularBuffer<Vector3> _lookBuffer;
 
-        public Vector3 LastLook => _moveBuffer.Tail;
+        public Vector3 LastLook => _lookBuffer.Tail;
 
         #endregion
 
-        protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor && GameStateManager.Instance.GameManager.IsGameReady && !GameStateManager.Instance.GameManager.IsGameOver;
+        protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused
+        && Player.IsLocalActor
+        && GameStateManager.Instance.GameManager.IsGameReady
+        && !GameStateManager.Instance.GameManager.IsGameOver
+        && !CinematicsManager.Instance.IsRunningCinematic
+        && !DialogueManager.Instance.IsShowingDialogue;
 
         [SerializeField]
         [ReadOnly]
         private bool _inputEnabled;
 
-        protected bool EnableMouseLook { get; private set; } = !Application.isEditor;
+        // TODO: we need to modify the InputAction action for this
+        //protected bool EnableMouseLook { get; private set; } = !Application.isEditor;
+
+        [SerializeField]
+        private bool _invertLookVertical;
+
+        public bool InvertLookVertical
+        {
+            get => _invertLookVertical;
+            set => _invertLookVertical = value;
+        }
 
         public PlayerInputHelper InputHelper { get; private set; }
 
@@ -177,21 +193,25 @@ namespace pdxpartyparrot.Game.Players.Input
                     _mouseSensitivity = GUIUtils.FloatField(_mouseSensitivity);
                 GUILayout.EndHorizontal();*/
 
-                if(Application.isEditor) {
+                /*if(Application.isEditor) {
                     EnableMouseLook = GUILayout.Toggle(EnableMouseLook, "Enable Mouse Look");
-                }
+                }*/
 
-                GUILayout.BeginVertical("Move Buffer", GUI.skin.box);
+                InvertLookVertical = GUILayout.Toggle(InvertLookVertical, "Invert Look Vertical");
+
+                // TODO: we buffer way too much movement / look to render them here
+
+                /*GUILayout.BeginVertical("Move Buffer", GUI.skin.box);
                 foreach(var move in _moveBuffer) {
                     GUILayout.Label(move.ToString());
                 }
-                GUILayout.EndVertical();
+                GUILayout.EndVertical();*/
 
-                GUILayout.BeginVertical("Look Buffer", GUI.skin.box);
+                /*GUILayout.BeginVertical("Look Buffer", GUI.skin.box);
                 foreach(var look in _lookBuffer) {
                     GUILayout.Label(look.ToString());
                 }
-                GUILayout.EndVertical();
+                GUILayout.EndVertical();*/
             };
         }
 
