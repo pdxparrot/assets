@@ -37,6 +37,7 @@ ExportedObj/
 
 # Unity3D files
 *.meta
+*.asmdef
 
 # swap files
 *.swo
