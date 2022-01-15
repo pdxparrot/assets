@@ -2,6 +2,7 @@
 using System.Text;
 
 using UnityEditor;
+using UnityEditor.Build;
 
 using UnityEngine;
 
@@ -57,8 +58,12 @@ namespace pdxpartyparrot.Core.Editor.Project
 
             // TODO: use a try / catch here instead of pre-checking for the file
             if(File.Exists(ProjectManifest.FileName)) {
+                Debug.Log("Reading existing project manifest...");
+
                 manifest.Read();
             } else {
+                Debug.Log("Creating new project manifest...");
+
                 // for whatever reason if we initialize on the first load of a fresh project,
                 // something will come along and overwrite it all back to defaults
                 // so create a v0 manifest that will get picked up on the second load
@@ -68,6 +73,8 @@ namespace pdxpartyparrot.Core.Editor.Project
             }
 
             if(UpdateFromVersion(manifest.Version)) {
+                Debug.Log("Project updated, saving manifest");
+
                 manifest.Version = Version;
                 manifest.Write();
             }
@@ -89,7 +96,7 @@ namespace pdxpartyparrot.Core.Editor.Project
             EditorUtility.DisplayDialog(version == 0 ? "Initialize Project" : "Update Project", version == 0 ? "Project must be initialized" : "Project must be updated", "Ok");
 #endif
 
-            Debug.Log(version == 0 ? "Initializing project..." : "Updating project...");
+            Debug.Log(version == 0 ? $"Initializing project to {Version}..." : $"Updating project from {version} to {Version}...");
 
             InitializeFileSystem(version);
 
@@ -236,7 +243,7 @@ namespace pdxpartyparrot.Core.Editor.Project
             Util.AddPackage("com.unity.editorcoroutines");
             Util.AddPackage("com.unity.inputsystem");
             Util.AddPackage("com.unity.mathematics");
-            Util.AddPackage("com.unity.multiplayer-hlapi");
+            //Util.AddPackage("com.unity.multiplayer-hlapi");
             Util.AddPackage("com.unity.polybrush");
             Util.AddPackage("com.unity.postprocessing");
             Util.AddPackage("com.unity.probuilder");
@@ -310,7 +317,7 @@ namespace pdxpartyparrot.Core.Editor.Project
         private static void SetDefaultIcon()
         {
             Texture2D defaultIcon = AssetDatabase.LoadAssetAtPath(DefaultIconPath, typeof(Texture2D)) as Texture2D;
-            PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown, new[] { defaultIcon });
+            PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { defaultIcon }, IconKind.Application);
         }
 
         private static void EnableExclusiveInputSystem()
@@ -349,8 +356,8 @@ namespace pdxpartyparrot.Core.Editor.Project
             SetDefaultIcon();
 
             // multithreaded rendering
-            PlayerSettings.SetMobileMTRendering(BuildTargetGroup.Android, true);
-            PlayerSettings.SetMobileMTRendering(BuildTargetGroup.iOS, true);
+            PlayerSettings.SetMobileMTRendering(NamedBuildTarget.Android, true);
+            PlayerSettings.SetMobileMTRendering(NamedBuildTarget.iOS, true);
 
             // TODO: need to enable static and dynamic batching but seems like we have to open the asset itself to do it
 
@@ -365,20 +372,20 @@ namespace pdxpartyparrot.Core.Editor.Project
 #endif
 
             // scripting backend
-            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, ScriptingImplementation.IL2CPP);
-            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
-            PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
+            PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone, ScriptingImplementation.IL2CPP);
+            PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
+            PlayerSettings.SetScriptingBackend(NamedBuildTarget.iOS, ScriptingImplementation.IL2CPP);
 
             // api compatability level
-            PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.Standalone, ApiCompatibilityLevel.NET_Standard_2_0);
-            PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.Android, ApiCompatibilityLevel.NET_Standard_2_0);
-            PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.iOS, ApiCompatibilityLevel.NET_Standard_2_0);
-            PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.WebGL, ApiCompatibilityLevel.NET_Standard_2_0);
+            PlayerSettings.SetApiCompatibilityLevel(NamedBuildTarget.Standalone, ApiCompatibilityLevel.NET_Standard_2_0);
+            PlayerSettings.SetApiCompatibilityLevel(NamedBuildTarget.Android, ApiCompatibilityLevel.NET_Standard_2_0);
+            PlayerSettings.SetApiCompatibilityLevel(NamedBuildTarget.iOS, ApiCompatibilityLevel.NET_Standard_2_0);
+            PlayerSettings.SetApiCompatibilityLevel(NamedBuildTarget.WebGL, ApiCompatibilityLevel.NET_Standard_2_0);
 
             // IL2CPP compiler config
-            PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Standalone, Il2CppCompilerConfiguration.Release);
-            PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, Il2CppCompilerConfiguration.Release);
-            PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Release);
+            PlayerSettings.SetIl2CppCompilerConfiguration(NamedBuildTarget.Standalone, Il2CppCompilerConfiguration.Release);
+            PlayerSettings.SetIl2CppCompilerConfiguration(NamedBuildTarget.Android, Il2CppCompilerConfiguration.Release);
+            PlayerSettings.SetIl2CppCompilerConfiguration(NamedBuildTarget.iOS, Il2CppCompilerConfiguration.Release);
 
             EnableExclusiveInputSystem();
 

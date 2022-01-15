@@ -84,11 +84,10 @@
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Editor
   * **TODO:** simplify this
 * Open and close the project once for the build process to setup
-  * **TODO:** this shouldn't be necessary...
+  * **TODO:** this shouldn't be necessary but even when it isn't it still is to avoid something going weird
 * Open the new Unity Project and the project should automatically initialize
   * This process can take a while and currently is not very responsive
   * Say **No** to enabling the new Input System backend (initializing will set this up instead)
-    * **TODO:** This popup is no longer occurring
 * ~~Add Keijiro Kino~~ **TODO:** this required the HDRP so we probably don't want to always use it
   * https://github.com/keijiro/Kino
     * Add registry to scopedRegistries in Packages/manifest.json

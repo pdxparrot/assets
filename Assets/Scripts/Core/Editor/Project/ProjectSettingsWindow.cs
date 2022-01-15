@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using System;
+
+using UnityEditor;
+using UnityEditor.Build;
 using UnityEditor.UIElements;
 
 using UnityEngine;
@@ -76,9 +79,9 @@ namespace pdxpartyparrot.Core.Editor.Project
 
         #endregion
 
-        private void SetScriptingDefineSymbols(BuildTargetGroup targetGroup)
+        private void SetScriptingDefineSymbols(NamedBuildTarget buildTarget)
         {
-            ScriptingDefineSymbols scriptingDefineSymbols = new ScriptingDefineSymbols(PlayerSettings.GetScriptingDefineSymbolsForGroup(targetGroup));
+            ScriptingDefineSymbols scriptingDefineSymbols = new ScriptingDefineSymbols(PlayerSettings.GetScriptingDefineSymbols(buildTarget));
 
             if(_useSpine.value) {
                 scriptingDefineSymbols.AddSymbol("USE_SPINE");
@@ -104,7 +107,7 @@ namespace pdxpartyparrot.Core.Editor.Project
                 scriptingDefineSymbols.RemoveSymbol("USE_NAVMESH");
             }
 
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, scriptingDefineSymbols.ToString());
+            PlayerSettings.SetScriptingDefineSymbols(buildTarget, scriptingDefineSymbols.ToString());
         }
 
         #region Events
@@ -133,10 +136,9 @@ namespace pdxpartyparrot.Core.Editor.Project
             refreshAssetDatabase |= manifest.UseNavMesh != _useNavMesh.value;
             manifest.UseNavMesh = _useNavMesh.value;
 
-            SetScriptingDefineSymbols(BuildTargetGroup.Standalone);
-            SetScriptingDefineSymbols(BuildTargetGroup.Android);
-            SetScriptingDefineSymbols(BuildTargetGroup.iOS);
-            SetScriptingDefineSymbols(BuildTargetGroup.WebGL);
+            foreach(NamedBuildTarget buildTarget in Enum.GetValues(typeof(NamedBuildTarget))) {
+                SetScriptingDefineSymbols(buildTarget);
+            }
 
             manifest.Write();
 
