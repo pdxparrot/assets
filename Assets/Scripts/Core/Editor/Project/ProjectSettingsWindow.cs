@@ -137,7 +137,11 @@ namespace pdxpartyparrot.Core.Editor.Project
             manifest.UseNavMesh = _useNavMesh.value;
 
             foreach(NamedBuildTarget buildTarget in Enum.GetValues(typeof(NamedBuildTarget))) {
-                SetScriptingDefineSymbols(buildTarget);
+                try {
+                    SetScriptingDefineSymbols(buildTarget);
+                } catch(Exception e) {
+                    Debug.LogError($"Failed to set scripting define symbols for build target {buildTarget}: {e}");
+                }
             }
 
             manifest.Write();

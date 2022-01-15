@@ -316,8 +316,10 @@ namespace pdxpartyparrot.Core.Editor.Project
 
         private static void SetDefaultIcon()
         {
-            Texture2D defaultIcon = AssetDatabase.LoadAssetAtPath(DefaultIconPath, typeof(Texture2D)) as Texture2D;
-            PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { defaultIcon }, IconKind.Application);
+            // TODO: how do we set the damn default icon now??
+            /*Texture2D defaultIcon = AssetDatabase.LoadAssetAtPath(DefaultIconPath, typeof(Texture2D)) as Texture2D;
+            PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { defaultIcon }, IconKind.Application);*/
+            Debug.LogError("Default player icon must be set manually");
         }
 
         private static void EnableExclusiveInputSystem()
