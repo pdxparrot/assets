@@ -1,4 +1,4 @@
-namespace pdxpartyparrot.ggj2022.State
+namespace pdxpartyparrot.Example2D.State
 {
     public class SceneTester : Game.State.SceneTester
     {

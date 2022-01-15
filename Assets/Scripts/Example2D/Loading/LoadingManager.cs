@@ -2,7 +2,7 @@ using UnityEngine;
 
 using pdxpartyparrot.Game.Loading;
 
-namespace pdxpartyparrot.ggj2022.Loading
+namespace pdxpartyparrot.Example2D.Loading
 {
     public sealed class LoadingManager : LoadingManager<LoadingManager>
     {

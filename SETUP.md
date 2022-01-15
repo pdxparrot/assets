@@ -210,7 +210,7 @@
 ## TODO: working on Example project that can just be copied over
 
 * Copy example game scripts
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Example
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Example{2D/3D}
   * **TODO:** simplify this
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
