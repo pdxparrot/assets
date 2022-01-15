@@ -112,7 +112,7 @@
 # Project Settings
 
 * Graphics Settings
-  * Set the Render Pipeline Asset if desired (https://github.com/Unity-Technologies/ScriptableRenderPipeline)
+  * Set the Render Pipeline Asset if desired (not usually needed)
     * This will require creating the asset first, which itself may be configured as desired
 * Input System Package
   * Create the Input System Settings asset if not already done
@@ -147,10 +147,12 @@
     * NPC -> Weather, World (and NPC if that's the desired behavior)
     * World -> Weather
 * Player Settings
+  * Default icon needs to be set here for now
   * Set any desired Splash Images/Logos
   * Color Space: Linear (or Gamma if targeting old mobile/console platforms)
     * Fix up any Grahics API issues that this might cause (generally this means disabling Auto Graphics APIs on certain platforms)
   * Enable Static and Dynamic Batching if they aren't already
+  * Set Dedicated Server to use IL2CPP if desired
   * Verify that the Bundle Identifer is set correctly
   * Ensure that Graphics Jobs are enabled
     * WebGL often has this disabled by default
