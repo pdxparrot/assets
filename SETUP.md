@@ -154,6 +154,7 @@
   * Enable Static and Dynamic Batching if they aren't already
   * Set Dedicated Server to use IL2CPP if desired
   * Verify that the Bundle Identifer is set correctly
+    * com.pdxpartyparrot.{project}
   * Ensure that Graphics Jobs are enabled
     * WebGL often has this disabled by default
   * WebGL builds should be Gzip compressed
@@ -206,6 +207,17 @@
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
 
+## TODO: working on Example project that can just be copied over
+
+* Copy example game scripts
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Example
+  * **TODO:** simplify this
+* Create the Assembly Definitions
+  * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
+    * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
+    * Reference Unity.InputSystem, Unity.TextMeshPro, etc as required
+    * Uncheck Auto Referenced
+
 ## Initial Project Scripts
 
 * Create Loading Manager
@@ -215,7 +227,7 @@
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
-    * Reference Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.TextMeshPro, etc as required
+    * Reference Unity.InputSystem, Unity.TextMeshPro, etc as required
     * Uncheck Auto Referenced
 
 ## Set Script Execution Order
