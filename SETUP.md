@@ -264,7 +264,7 @@
   * Add a Lowpass filter to the Master group
   * Rename the default Snapshot to Unpaused
   * Create a new Snapshot and name it to Paused
-    * Set the Lowpass filter to 350Hz
+    * Set the Lowpass filter cutoff to 350Hz
 * Data/Prefabs/Input/EventSystem.prefab
   * Create using default EventSystem that gets added automatically when adding a UI object
   * Replace Standalone Input Module with InputSystemUIInputModule
@@ -334,12 +334,10 @@
   * Attach each audio source to an audio source on the AudioManager component
 * CinematicsManager
   * Create an empty Prefab and add the CinematicsManager component to it
-  * Create a CinematicsData in Data/Data and attach it to the manager
 * DebugMenuManager
   * Create an empty Prefab and add the DebugMenuManager component to it
 * DialogueManager
   * Create an empty Prefab and add the DialogueManager component to it
-  * Create a DialogueData in Data/Data and attach it to the manager
 * EffectsManager
   * Create an empty Prefab and add the EffectsManager component to it
 * EngineManager
