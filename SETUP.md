@@ -428,7 +428,7 @@
 ## Splash Scene Setup
 
 * **NOTE:** Anything that happens in the splash screen needs to be aware that the CultureInfo is not setup to be invariant
-* Create and save a new Basic scene (Assets/Scenes/splash.unity)
+* Create and save a new Basic (URP) scene (Assets/Scenes/splash.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged
@@ -453,7 +453,7 @@
 
 ## Main Scene Setup
 
-* Create and save a new Basic scene (Scenes/main.unity)
+* Create and save a new Basic (URP) scene (Scenes/main.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged
@@ -497,7 +497,7 @@
   * Center the text
   * Disable Raycast Target
 * Add an Empty GameObject (Progress) under the Panel and add the ProgressBar component to it
-  * Pos Y: -125
+  * Pos Y: -75
 * Attach the ProgressBar component to the LoadingScreen component
 * Add an Image under the Progress Bar (Background)
   * Position: (0, -200, 0)
@@ -744,7 +744,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Main Menu Scene Setup
 
-* Create and save a new Basic scene (Scenes/main_menu.unity)
+* Create and save a new Basic (URP) scene (Scenes/main_menu.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged

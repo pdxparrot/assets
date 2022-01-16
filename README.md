@@ -18,7 +18,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 
 ## Scene Tester
 
-* Create and save a new scene
+* Create and save a new Basic (URP) scene
   * Remove the camera and light from the scene
 * Add the scene to the build settings
 * Add the scene to the SceneTester prefab (by name)
