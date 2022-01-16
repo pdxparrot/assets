@@ -61,7 +61,7 @@
 * Create a new Unity project
   * Close the project and do not save it
 * Create the GitHub repo for the project
-* Copy .gitignore from common GitHub repo
+* Copy gitignore.project from common GitHub repo to .gitignore
   * https://raw.githubusercontent.com/pdxparrot/assets/master/.gitignore
 * Copy LICENSE from common GitHub repo
   * https://raw.githubusercontent.com/pdxparrot/assets/master/LICENSE
