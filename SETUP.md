@@ -54,6 +54,7 @@
 * **TODO:** Copy the last game jam's engine code back to the common GitHub repo
   * **TODO:** Would all of this make more sense as forks of a common engine base repo?
 * **TODO:** Copy any changes to editorconfig, etc back to the common GitHub repo
+* **TODO:** Update 2D and 3D example projects as necessary
 
 # Project Creation
 
