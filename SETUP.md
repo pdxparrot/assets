@@ -415,9 +415,6 @@
   * Set the World Layer to World
   * Configure as necessary
     * Checking "Gamepads Are Players" is often a good idea
-  * Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
-    * **TODO:** what else goes into this (ggj2019 uses it)?
-    * Attach to the GameData
 * Create a CreditsData in Data/Data and attach it to the GameManager
 
 # Initial Scene Setup

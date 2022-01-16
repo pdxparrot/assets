@@ -1,10 +1,20 @@
 # Assets
 
-Minimum Unity Version: **2020.2.2**
-Last Sync: **7/3/2021** from **ggj2021**
+Minimum Unity Version: **2021.2**
+Last Sync: **7/3/2021** from **ssjjune2021**
 
-* Commonly Used Game Jam Assets.
-* Core engine scripts.
+* Commonly Used Game Jam Assets
+* Core engine scripts
+* Example projects
+
+## VSCode on Linux
+
+* Install .net Core SDK - https://docs.microsoft.com/en-us/dotnet/core/install/linux
+* Install Mono - https://www.mono-project.com/download/stable/
+* Need the C# extension installed
+  * "omnisharp.enableRoslynAnalyzers": true
+  * "omnisharp.enableEditorConfigSupport": true
+  * "omnisharp.useGlobalMono": "always"
 
 ## Scene Tester
 
@@ -14,11 +24,16 @@ Last Sync: **7/3/2021** from **ggj2021**
 * Add the scene to the SceneTester prefab (by name)
 * From the debug menu in game, select the test scene to load
 
-## VSCode on Linux
+## Floating Text
 
-* Install .net Core SDK - https://docs.microsoft.com/en-us/dotnet/core/install/linux
-* Install Mono - https://www.mono-project.com/download/stable/
-* Need the C# extension installed
-  * "omnisharp.enableRoslynAnalyzers": true,
-  * "omnisharp.enableEditorConfigSupport": true,
-  * "omnisharp.useGlobalMono": "always",
+* Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
+  * **TODO:** what else goes into this (ggj2019 uses it)?
+  * Attach to the GameData
+
+## Cinematics
+
+* **TODO:**
+
+## Dialogues
+
+* **TODO:**
