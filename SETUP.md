@@ -213,6 +213,7 @@
 * Copy example game scripts
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Example{2D/3D}
   * **TODO:** simplify this
+  * **TODO:** remove any steps later on that require creation of the files this brings in
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
@@ -561,6 +562,7 @@
       * Child Controls Width / Height
       * No Child Force Expand
     * Add the MenuButton under the container (Cancel)
+      * **TODO:** this is created later in the process ...
       * Text: "Cancel"
       * Add an On Click handler that calls the NetworkConnectUI OnCancel method
       * Check Is Back Button
@@ -583,7 +585,7 @@ At this point, the main scene should be runnable but will error out until the ma
   * Add a Layout Element
     * Preferred Width: 200
     * Preferred Height: 50
-  * Add a Button - TextMeshPro (Button)
+  * Add a Button child - TextMeshPro (Button)
     * Remove the Canvas and EventSystem that get added
     * Reset the Rect Transform
     * Disable Raycast Target on the Text
@@ -613,8 +615,8 @@ At this point, the main scene should be runnable but will error out until the ma
       * Set Owner to the Menu object
       * Set the Main Panel on the Menu object to the Main panel
     * Optionally, add credits text
-      * Add a Text - Text Mesh Pro (Credit)
-        * Text: "A {...} Game"
+      * Add a Text - Text Mesh Pro under the Panel (Credit)
+        * Text: "A PDX PartyParrot Game"
           * Pos Y: 200
           * Width: 500
           * Height: 50
@@ -699,7 +701,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * Add a Scroll Rect Auto Scroll to the Scroll View
       * Delay: 3
       * Scroll Rate: 48
-    * Add a Text - TextMeshPro under the Scroll View Content
+    * Add a Text - TextMeshPro under the Scroll View Viewport Content
       * Top Center the text
       * Text: "Credits..."
       * Disable Raycast Target
