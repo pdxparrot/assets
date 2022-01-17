@@ -1,6 +1,6 @@
 using pdxpartyparrot.Game.State;
 
-namespace pdxpartyparrot.Example2D.Menu
+namespace pdxpartyparrot.Example.Menu
 {
     public sealed class MainMenu : Game.Menu.MainMenu
     {

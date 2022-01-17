@@ -1,6 +1,6 @@
 using pdxpartyparrot.Game.Camera;
 
-namespace pdxpartyparrot.Example2D.Camera
+namespace pdxpartyparrot.Example.Camera
 {
     public sealed class GameViewer : SideScrollerViewer
     {

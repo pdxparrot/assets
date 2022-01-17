@@ -2,10 +2,10 @@ using UnityEngine;
 
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Game;
-using pdxpartyparrot.Example2D.Camera;
-using pdxpartyparrot.Example2D.Data;
+using pdxpartyparrot.Example.Camera;
+using pdxpartyparrot.Example.Data;
 
-namespace pdxpartyparrot.Example2D
+namespace pdxpartyparrot.Example
 {
     public sealed class GameManager : GameManager<GameManager>
     {

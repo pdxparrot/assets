@@ -1,7 +1,7 @@
 using pdxpartyparrot.Core.Camera;
-using pdxpartyparrot.Example2D.UI;
+using pdxpartyparrot.Example.UI;
 
-namespace pdxpartyparrot.Example2D.State
+namespace pdxpartyparrot.Example.State
 {
     public class SceneTester : Game.State.SceneTester
     {

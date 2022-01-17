@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace pdxpartyparrot.Example2D.UI
+namespace pdxpartyparrot.Example.UI
 {
     public sealed class GameUI : Game.UI.GameUI
     {

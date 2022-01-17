@@ -2,11 +2,11 @@ using System;
 
 using UnityEngine;
 
-using pdxpartyparrot.Example2D.Camera;
+using pdxpartyparrot.Example.Camera;
 
-namespace pdxpartyparrot.Example2D.Data
+namespace pdxpartyparrot.Example.Data
 {
-    [CreateAssetMenu(fileName = "GameData", menuName = "pdxpartyparrot/Example2D/Data/Game Data")]
+    [CreateAssetMenu(fileName = "GameData", menuName = "pdxpartyparrot/Example/Data/Game Data")]
     [Serializable]
     public sealed class GameData : Game.Data.GameData
     {

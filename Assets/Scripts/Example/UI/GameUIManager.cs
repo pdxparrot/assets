@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Game.UI;
 
-namespace pdxpartyparrot.Example2D.UI
+namespace pdxpartyparrot.Example.UI
 {
     public sealed class GameUIManager : GameUIManager<GameUIManager>
     {

@@ -211,9 +211,10 @@
 ## TODO: working on Example project that can just be copied over
 
 * Copy example game scripts
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Example{2D/3D}
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Example
   * **TODO:** simplify this
   * **TODO:** remove any steps later on that require creation of the files this brings in
+  * Use the right Player / PlayerInputHandler types
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
@@ -988,7 +989,6 @@ At this point, the main scene should be runnable but will error out until the ma
     * Attach the empty animator controller to the Animator
       * This will stop potential animator error spam
     * Attach the Animator to the Network Animator
-  * Attach the NetworkPlayer to the Network Player on the Player component
 * Add a new empty GameObject under the Player prefab (Model)
   * Attach this to the Model on the Player component
   * The actual model for the player should go under this container
@@ -1007,7 +1007,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * Change Behavior to Invoke Unity Events
     * Hook up the main device events (lost, regained, changed)
       * **TODO:** where are these event handlers?? ggj2021 had them?
-    * Hook up any events as necessary
+    * Hook up any events as necessary to the input handler
       * For example OnMoveAction is necessary to move, OnPauseAction is necessary to pause, etc
   * Attach the Player to the Owner on the PlayerInputHandler component
   * Create a PlayerInputData in Data/Data/Players and attach it to the PlayerInput component

@@ -1,9 +1,10 @@
 using UnityEngine;
 
 using pdxpartyparrot.Game.Loading;
-using pdxpartyparrot.Example2D.UI;
+using pdxpartyparrot.Example.Players;
+using pdxpartyparrot.Example.UI;
 
-namespace pdxpartyparrot.Example2D.Loading
+namespace pdxpartyparrot.Example.Loading
 {
     public sealed class LoadingManager : LoadingManager<LoadingManager>
     {
@@ -19,6 +20,9 @@ namespace pdxpartyparrot.Example2D.Loading
         [SerializeField]
         private GameUIManager _gameUiManagerPrefab;
 
+        [SerializeField]
+        private PlayerManager _playerManager;
+
         #endregion
 
         protected override void CreateManagers()
@@ -27,6 +31,7 @@ namespace pdxpartyparrot.Example2D.Loading
 
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             GameUIManager.CreateFromPrefab(_gameUiManagerPrefab, ManagersContainer);
+            PlayerManager.CreateFromPrefab(_playerManager, ManagersContainer);
         }
     }
 }
