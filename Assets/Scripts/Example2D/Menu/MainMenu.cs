@@ -10,7 +10,7 @@ namespace pdxpartyparrot.Example2D.Menu
         {
             base.OnStart();
 
-            // TODO: transition to the next step
+            GameStateManager.Instance.StartLocal(GameManager.Instance.GameData.MainGameStatePrefab);
         }
 
         #endregion

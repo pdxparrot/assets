@@ -595,7 +595,6 @@ At this point, the main scene should be runnable but will error out until the ma
   * Highlight Color: (0, 255, 0, 255)
   * Select Color: (0, 255, 0, 255)
   * Add a Button Helper to the button
-    * Attach the default button effects to the helper
 
 ## Main Menu
 
@@ -883,6 +882,8 @@ At this point, the main scene should be runnable but will error out until the ma
   * Implement the required interface
 * Create an empty Prefab and add the MainGameState component to it
 * **TODO:** setup the initial level and set the intial scene name
+  * Remove the camera
+  * Add to build settings
   * Check Make Initial Scene Active
 * Attach to the GameData
 * For a simple local game, adding ```GameStateManager.Instance.StartLocal(GameManager.Instance.GameData.MainGameStatePrefab);``` to the MainMenu override OnStart() will start the game in the main game state
@@ -900,7 +901,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 # Viewer
 
-* Create a new Player / GameViewer script that overrides one of the Game Viewers that implements the IPlayerViewer interface
+* Create a new Camera/{Player / GameViewer} script that overrides one of the Game Viewers that implements the IPlayerViewer interface
 * Create an empty Prefab and add the project Viewer script to it
   * Layer: Viewer
   * Add a camera under the prefab (Camera)
@@ -912,7 +913,7 @@ At this point, the main scene should be runnable but will error out until the ma
       * Set the Layer to PostProcessing
       * Make sure Directly to Camera Target is unchecked
   * Attach the Camera to the Viewer component
-  * Add another camera under the prefab (UI Camera)
+  * Add another camera under the prefab (UICamera)
     * Clear Flags: Solid Color
     * Background: Opaque Black
     * Remove the AudioListener

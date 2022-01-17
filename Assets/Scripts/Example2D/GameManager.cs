@@ -1,27 +1,26 @@
 using UnityEngine;
 
-using pdxpartyparrot.Game.Loading;
+using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Game;
+using pdxpartyparrot.Example2D.Camera;
+using pdxpartyparrot.Example2D.Data;
 
-namespace pdxpartyparrot.Example2D.Loading
+namespace pdxpartyparrot.Example2D
 {
-    public sealed class LoadingManager : LoadingManager<LoadingManager>
+    public sealed class GameManager : GameManager<GameManager>
     {
-        [Space(10)]
+        public GameData GameGameData => (GameData)GameData;
 
-        #region Manager Prefabs
+        public GameViewer Viewer { get; private set; }
 
-        [Header("Project Manager Prefabs")]
-
-        [SerializeField]
-        private GameManager _gameManagerPrefab;
-
-        #endregion
-
-        protected override void CreateManagers()
+        public void InitViewer()
         {
-            base.CreateManagers();
-
-            GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
+            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer>();
+            if(null == Viewer) {
+                Debug.LogWarning("Unable to acquire game viewer!");
+                return;
+            }
+            Viewer.Initialize(GameGameData);
         }
     }
 }
