@@ -19,10 +19,16 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 ## Scene Tester
 
 * Create and save a new Basic (URP) scene
-  * Remove the camera and light from the scene
-* Add the scene to the build settings
-* Add the scene to the SceneTester prefab (by name)
-* From the debug menu in game, select the test scene to load
+  * Remove the camera from the scene
+* Attach the desired lighting settings
+* Add the scene to the Build Settings
+* Add the scene, by name, to the SceneTester
+* Create an empty GameObject (Level) in the scene and add the TestSceneHelper component to it
+  * This script can be extended for more advanced functionality
+* Test levels may be loaded through the debug menu
+  * Game.GameStateManager.TestScenes
+* **TODO:** finish this
+* **TODO:** Test Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
 
 ## Floating Text
 

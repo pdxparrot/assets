@@ -1037,22 +1037,10 @@ At this point, the main scene should be runnable but will error out until the ma
 * Create a new empty GameObject and attach the SpawnPoint component to it
   * Player spawns must be tagged with one of the Player Spawn Point Tags in the Spawn Data
 
-## Test Levels
-
-* Create and save a new Empty scene
-* Attach the desired lighting settings
-* Add the scene to the Build Settings
-* Add the scene, by name, to the SceneTester
-* Create an empty GameObject (Level) in the scene and add the TestSceneHelper component to it
-  * This script can be extended for more advanced functionality
-* Test levels may be loaded through the debug menu
-  * Game.GameStateManager.TestScenes
-* **TODO:** finish this
-* **TODO:** Test Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
-
 ## Levels
 
-* Create and save a new Empty scene
+* Create and save a new Basic (URP) scene
+  * Remove the camera from the scene
 * Attach the desired lighting settings
 * Add the scene to the Build Settings
 * Create a new level helper script that overrides the Game LevelHelper
@@ -1063,15 +1051,13 @@ At this point, the main scene should be runnable but will error out until the ma
 * If using players, create new empty GameObjects and attach Spawnpoint components to them
   * Set the tag to 'Player' on these
 * The first level should be set, by name, as the MainGameState Initial Scene
+* World objects should be on the World layer and any static objects should be marked as static
 * **TODO:** finish this
 * **TODO:** Document how to transition levels
 
 # TODO
 
 * **TODO:** More GameStates
-* **TODO:** Player UI
-* **TODO:** Pause / Pause Menu
-* **TODO:** Creating Data
 
 # Performance Notes
 
