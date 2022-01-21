@@ -870,10 +870,11 @@ At this point, the main scene should be runnable but will error out until the ma
       * Add an On Click handler that calls the SettingsMenu OnBack method
       * Check Is Back Button
     * Set the Back button as the Initial Selection of the Settings Menu
+  * **TODO:** Setup the available options (ssjJune2021 had this for inverting the Y-axis)
 
 ## Game Over Menu (optional)
 
-* **TODO:**
+* **TODO:** what jam had this?
 
 # Game States
 
