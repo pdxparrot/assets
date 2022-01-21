@@ -583,6 +583,7 @@ At this point, the main scene should be runnable but will error out until the ma
 ## Menu Button
 
 * Create an empty Prefab at Prefabs/UI/MenuButton
+  * Layer: UI
   * Add a Layout Element
     * Preferred Width: 200
     * Preferred Height: 50
@@ -865,12 +866,40 @@ At this point, the main scene should be runnable but will error out until the ma
       * Text: "Settings"
         * Center the text
         * Disable Raycast Target
+    * **TODO:** Setup the available options (ssjJune2021 had this for inverting the Y-axis)
+    * Add a Spacer under the container
+      * Flexible Height
     * Add the MenuButton under the container (Back)
       * Text: "Back"
       * Add an On Click handler that calls the SettingsMenu OnBack method
       * Check Is Back Button
     * Set the Back button as the Initial Selection of the Settings Menu
-  * **TODO:** Setup the available options (ssjJune2021 had this for inverting the Y-axis)
+
+## Game Over UI (optional)
+
+* Create a new UI/GameOverUI script that overrides the Game GameOverUI and implement the required interface
+* Create a GameOverUI Prefab in Prefabs/UI and add the GameOverUI component to it
+  * Layer: UI
+  * Add a Canvas under the prefab
+    * Render Mode: Screen Space - Overlay
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Remove the Graphic Raycaster
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
+* Add a Panel under the Canvas (Main)
+  * Set the Image Color Alpha to 25
+  * Add an empty GameObject under the Panel (Container)
+    * Stretch the container
+    * Add a Vertical Layout Group
+      * Spacing: 0
+      * Alignment: Middle Center
+      * Child Controls Width / Height
+      * No Child Force Expand
+    * Add a Text - Text Mesh Pro under the container
+      * Text: "Game Over"
+        * Center the text
+        * Disable Raycast Target
 
 ## Game Over Menu (optional)
 
@@ -895,9 +924,7 @@ At this point, the main scene should be runnable but will error out until the ma
 * Create a new State/GameOverState script that overrides the Game GameOverState
   * Implement the required interface
 * Create an empty Prefab and add the GameOverState component to it
-* **TODO:** game over menu hookup
-  * Add to GameUI (if it makes sense to do so)
-  * Use Enter / Exit triggers on the game states to enable / disable the UI objects (by name)
+* Attach the Game Over UI or Game Over Menu prefabs as desired
 * Attach to the MainGameState
 * Attach to the SceneTester
 
