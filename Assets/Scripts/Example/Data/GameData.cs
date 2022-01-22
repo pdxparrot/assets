@@ -11,11 +11,5 @@ namespace pdxpartyparrot.Example.Data
     public sealed class GameData : Game.Data.GameData
     {
         public GameViewer GameViewerPrefab => (GameViewer)ViewerPrefab;
-
-        #region Project Game States
-
-        //[Header("Project Game States")]
-
-        #endregion
     }
 }
