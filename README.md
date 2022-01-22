@@ -75,6 +75,12 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * NavMesh baking uses 2x the agent radius plus some amount of padding, so small surfaces will often fail to be recognized as walkable. Either make the agent less round or make walkable surfaces bigger to fix that.
 * NavAgent rotation can be disabled by setting Angular Move Speed to 0 in the behavior data
 
+# Effects (Triggers)
+* Create an empty GameObject and add an EffectTrigger to it
+* Add desired EffectTriggerComponent's to the GameObject and attach to the EffectTrigger's Components list
+* EffectTrigger's can be chained through the Trigger On Complete list
+* RumbleEffectTriggerComponent's need to have their PlayerInput initialized before they'll work correctly
+
 # Floating Text
 
 * Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
