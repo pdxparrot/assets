@@ -187,8 +187,10 @@
   * https://mlapi.network/wiki/installation/
   * Make sure to enable Networking in the PDX Party Parrot Project Settings
 * **TODO:** If using NavMesh, ...
-  * https://github.com/Unity-Technologies/NavMeshComponents
-  * Make sure to enable NavMesh in the PDX Party Parrot Project Settings
+  * Add com.unity.ai.navigation package
+    * Project should add this but if it fails it needs to be added by name until it stops being hidden
+  * Add Unity.AI.Navigation to asmdefs
+  * Enable NavMesh in the PDX Party Parrot Project Settings
 
 # Engine Source
 

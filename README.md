@@ -7,7 +7,12 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * Core engine scripts
 * Example projects
 
-## VSCode on Linux
+# Import Notes
+
+* OnDestroy() is not called for disabled objects and isn't reliable for cleanup
+  * OnEnable() / OnDisable() are safer
+
+# VSCode on Linux
 
 * Install .net Core SDK - https://docs.microsoft.com/en-us/dotnet/core/install/linux
 * Install Mono - https://www.mono-project.com/download/stable/
@@ -16,7 +21,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * "omnisharp.enableEditorConfigSupport": true
   * "omnisharp.useGlobalMono": "always"
 
-## Scene Tester
+# Scene Tester
 
 * Create and save a new Basic (URP) scene
   * Remove the camera from the scene
@@ -30,7 +35,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * **TODO:** finish this
 * **TODO:** Test Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
 
-## NPC Prefabs
+# NPC Prefabs
 
 * Create an empty Prefab and add the NPC type component to it
   * This will require a collider to be added first
@@ -56,16 +61,35 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * This is also where collision listening happens
   * **TODO:** should we also be doing this with Player prefabs?
 
-## Floating Text
+# AI (NavMesh)
+
+* Configure the NavMeshSurface attached to the level
+  * Agent Type: Humanoid
+  * Collect Objects: All
+  * Include Layers: World
+  * Use Geometry: Physics Colliders
+  * Default Area: Walkable
+* NavMeshModifier can be used to ignore colliders that shouldn't be part of the mesh
+* All walkable surfaces and obstacles need to be marked as Navigation Static under the Object tab of the Navigation inspector
+* Bake settings should be adjusted to match the agent size
+* NavMesh baking uses 2x the agent radius plus some amount of padding, so small surfaces will often fail to be recognized as walkable. Either make the agent less round or make walkable surfaces bigger to fix that.
+* NavAgent rotation can be disabled by setting Angular Move Speed to 0 in the behavior data
+
+# Floating Text
 
 * Create empty Prefabs/UI/FloatingText and add the FloatingText component to it
   * **TODO:** what else goes into this (ggj2019 uses it)?
   * Attach to the GameData
 
-## Cinematics
+# Cinematics
 
 * **TODO:**
 
-## Dialogues
+# Dialogues
 
 * **TODO:**
+
+# Misc Notes
+
+* SpawnPoint can be overriden to pass additional context to actors as they're spawned
+* In general for things that need to trigger but also have physics collisions, putting the physics collider on a child object and the trigger on the main object solves the problem fairly well
