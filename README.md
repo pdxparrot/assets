@@ -35,6 +35,31 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * **TODO:** finish this
 * **TODO:** Test Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
 
+# Audio Importing
+
+* Music
+  * Load In Background: False
+  * Load Type: Streaming
+  * Compression: Vorbis
+  * Quality: 100
+* Stinger
+  * Load In Background: False
+  * Load Type: Decompress On Load
+  * Preload Audio Data: True
+  * Compression: Vorbis
+  * Quality: 100
+* Effects (this includes UI effects)
+  * Load In Background: False
+  * Load Type: Decompress On Load
+  * Preload Audio Data: True
+  * Compression: PCM
+
+# Viewers
+
+* SideScroller25D
+  * 2.5D side scoller view
+  * Camera Distance on the
+
 # NPC Prefabs
 
 * Create an empty Prefab and add the NPC type component to it
@@ -76,10 +101,16 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * NavAgent rotation can be disabled by setting Angular Move Speed to 0 in the behavior data
 
 # Effects (Triggers)
+
 * Create an empty GameObject and add an EffectTrigger to it
 * Add desired EffectTriggerComponent's to the GameObject and attach to the EffectTrigger's Components list
 * EffectTrigger's can be chained through the Trigger On Complete list
 * RumbleEffectTriggerComponent's need to have their PlayerInput initialized before they'll work correctly
+
+# Interactables
+
+* Interactable objects implement IInteractable
+* Interactables*D component required for things that want to interact with Interactables
 
 # Floating Text
 
