@@ -42,6 +42,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * Load Type: Streaming
   * Compression: Vorbis
   * Quality: 100
+  * These should not be MP3s as Unity can't loop MP3s correctly (Ogg works better)
 * Stinger
   * Load In Background: False
   * Load Type: Decompress On Load
@@ -53,6 +54,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * Load Type: Decompress On Load
   * Preload Audio Data: True
   * Compression: PCM
+  * These should be WAVs if possible
 
 # Viewers
 
