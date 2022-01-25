@@ -15,6 +15,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 # VSCode on Linux
 
 * Install .net Core SDK - https://docs.microsoft.com/en-us/dotnet/core/install/linux
+  * Run all of the apt instructions, don't use snap
 * Install Mono - https://www.mono-project.com/download/stable/
 * Need the C# extension installed
   * "omnisharp.enableRoslynAnalyzers": true
@@ -126,7 +127,13 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 
 # Dialogues
 
-* **TODO:**
+## TODO: prefab setup
+
+## Usage
+
+* Call DialogueManager.Instance.ShowDialogue() with the prefab
+* Alternatively DialogueEffectTriggerComponent can be used
+* Dialogue UIObject can be used for interactions
 
 # Misc Notes
 
