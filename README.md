@@ -63,7 +63,9 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * 2.5D side scoller view
   * Camera Distance on the
 
-# NPC Prefabs
+# NPCs
+
+## Prefab setup
 
 * Create an empty Prefab and add the NPC type component to it
   * This will require a collider to be added first
@@ -127,7 +129,16 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 
 # Dialogues
 
-## TODO: prefab setup
+## Prefab setup
+
+* Create an empty prefab in Prefabs/Dialogues and add the Dialogue component to it
+  * Set the UIObject Id to something unique
+  * Add a Canvas
+    * **TODO:** should we remove the Graphic Raycaster?
+  * Add a Panel below the Canvas
+  * Add whatever UI elements make sense for the dialogue
+* NextDialogue can be set to chain dialogues together
+* Allow Cancel can be checked to allow a dialogue to be cancelled in addition to being advanced
 
 ## Usage
 
