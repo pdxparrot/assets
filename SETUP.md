@@ -29,6 +29,7 @@
 * Create Data/Animation/empty.controller Animation Controller in project setup
 * Create Data/Audio/main.mixer Mixer in project setup
 * Create the EventSystem prefab at project setup ?
+* Setup a generic "alert" message box
 
 # Game Jam Notes
 

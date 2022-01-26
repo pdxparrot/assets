@@ -132,9 +132,15 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 ## Prefab setup
 
 * Create an empty prefab in Prefabs/Dialogues and add the Dialogue component to it
+  * Layer: UI
   * Set the UIObject Id to something unique
-  * Add a Canvas
-    * **TODO:** should we remove the Graphic Raycaster?
+  * Add a new Canvas object below the Dialogue
+    * Render Mode: Screen Space - Overlay
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Remove the Graphic Raycaster
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
   * Add a Panel below the Canvas
   * Add whatever UI elements make sense for the dialogue
 * NextDialogue can be set to chain dialogues together
