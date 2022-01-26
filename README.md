@@ -143,6 +143,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
   * Add a Panel below the Canvas
   * Add whatever UI elements make sense for the dialogue
+  * Attach the prefab to the DialogueData
 * NextDialogue can be set to chain dialogues together
 * Allow Cancel can be checked to allow a dialogue to be cancelled in addition to being advanced
 
