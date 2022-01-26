@@ -343,6 +343,9 @@
   * Create an empty Prefab and add the DebugMenuManager component to it
 * DialogueManager
   * Create an empty Prefab and add the DialogueManager component to it
+  * Create a new DialogueData script that overrides the Game DialogueData and implement the required interface
+    * Add the CreateAssetMenu and Serializable attributes
+  * Create a DialogueData in Data/Data and attach it to the manager
 * EffectsManager
   * Create an empty Prefab and add the EffectsManager component to it
 * EngineManager
