@@ -101,7 +101,7 @@
   * **TODO:** simplify this
 * Create Assembly Definitions
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
-    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, ~~Kino.Postprocessing~~
+    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Unity.VisualScripting.Core, Unity.VisualScripting.Flow, ~~Kino.Postprocessing~~
     * Uncheck Auto Referenced
   * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
@@ -202,7 +202,7 @@
   * **TODO:** simplify this
 * Create the Assembly Definitions
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
-    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro
+    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro, Unity.VisualScripting.Core, Unity.VisualScripting.Flow
     * Uncheck Auto Referenced
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor.asmdef
     * Editor platform only
@@ -233,7 +233,7 @@
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
-    * Reference Unity.InputSystem, Unity.TextMeshPro, etc as required
+    * Reference Unity.InputSystem, Unity.TextMeshPro, Unity.VisualScripting.*, etc as required
     * Uncheck Auto Referenced
 
 ## Set Script Execution Order
