@@ -27,6 +27,7 @@
 * Need to create InputSystem settings asset
 * Need to import TextMesh Pro Essentials
 * Create Data/Animation/empty.controller Animation Controller in project setup
+  * Add InputX and InputZ float parameters
 * Create Data/Audio/main.mixer Mixer in project setup
 * Create the EventSystem prefab at project setup ?
 * Setup a generic "alert" message box

@@ -63,6 +63,12 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * 2.5D side scoller view
   * Camera Distance on the
 
+# Actor Behaviors
+
+# Character Behaviors
+
+* **TODO:** behavior components that use Animator parameters need the expected parameters and triggers to exist or they will spam warnings when set
+
 # NPCs
 
 ## Prefab setup
