@@ -100,7 +100,7 @@
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core
   * Do **not** copy the core game scripts yet
   * **TODO:** simplify this
-* Create Assembly Definitions
+* Create the Assembly Definitions
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
     * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Unity.VisualScripting.Core, Unity.VisualScripting.Flow, ~~Kino.Postprocessing~~
     * Uncheck Auto Referenced
@@ -111,6 +111,7 @@
   * **TODO:** simplify this
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
+* Add the Core assembly to the Visual Scripting Node Library (Project Settings)
 
 # Project Settings
 
@@ -211,6 +212,7 @@
     * Uncheck Auto Referenced
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
+* Add the Game assembly to the Visual Scripting Node Library (Project Settings)
 
 ## TODO: working on Example project that can just be copied over
 
@@ -236,6 +238,7 @@
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
     * Reference Unity.InputSystem, Unity.TextMeshPro, Unity.VisualScripting.*, etc as required
     * Uncheck Auto Referenced
+* Add the project assembly to the Visual Scripting Node Library (Project Settings)
 
 ## Set Script Execution Order
 

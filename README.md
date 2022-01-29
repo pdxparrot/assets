@@ -118,6 +118,13 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * EffectTrigger's can be chained through the Trigger On Complete list
 * RumbleEffectTriggerComponent's need to have their PlayerInput initialized before they'll work correctly
 
+# Visual Scripting
+
+* Assembly definitions need to be added to the Node Library
+* Types for variables need to be added to the Type Library
+* Regenerate Nodes needs to be run any time a node type is added or updated
+* Object variables can be used to attach local objects to script variables
+
 # Interactables
 
 * Interactable objects implement IInteractable
