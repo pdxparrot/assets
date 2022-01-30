@@ -113,6 +113,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 
 # Effects (Triggers)
 
+* **TODO:** Deprecate this in favor of Visual Scripting
 * Create an empty GameObject and add an EffectTrigger to it
 * Add desired EffectTriggerComponent's to the GameObject and attach to the EffectTrigger's Components list
 * EffectTrigger's can be chained through the Trigger On Complete list
@@ -124,11 +125,20 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * Types for variables need to be added to the Type Library
 * Regenerate Nodes needs to be run any time a node type is added or updated
 * Object variables can be used to attach local objects to script variables
+  * For example, to attach the PlayerInputHelper to the Rumble node, an Object variable can be used to bring the component into the script
+* Subgraphs can be used to organize functionality
+  * These typically need a Trigger Input (Invoke) and Output (Exit) added to get into and out of them
 
 # Interactables
 
 * Interactable objects implement IInteractable
 * Interactables*D component required for things that want to interact with Interactables
+
+# World Boundary
+
+* Attach one of the WorldBoundary scripts to the world boundary object
+  * This will set the collider to be a trigger
+* Implement IWorldBoundaryCollisionListener on the object that will listen for collision triggers from the WorldBoundary
 
 # Floating Text
 
