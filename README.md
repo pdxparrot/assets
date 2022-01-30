@@ -44,6 +44,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * Just in general, making more use of fades would be good
 * Fullscreen effects is something we never use that could be really cool
 * Producing WebGL builds instead of native builds would make it easier for a larger audience to play the game
+* Add the Global Game Jam game site and itch.io game site to the README
 
 # Scene Tester
 
