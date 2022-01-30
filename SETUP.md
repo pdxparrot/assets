@@ -31,25 +31,6 @@
 * Create the EventSystem prefab at project setup ?
 * Setup a generic "alert" message box
 
-# Game Jam Notes
-
-* PIGSquad bumper
-* Tutorialize
-  * Either through gameplay or intro slides
-  * Having a card at the presentation table can help
-  * Show controls in UI
-* Physical feedback - rumble, etc
-* Aural feedback - sound effects, stingers, etc
-* Visual feedback - animations, tweens, camera shake, etc
-* Setup Effect Triggers for events early on, even if they do nothing
-  * Hooking everything up with these in mind makes it easier to slot in effects later
-* Get art / animations / audio / UI placeholders in early to start working with triggers and events
-  * Art, like code, can be refined as we go but late jam hookups are expensive and likely to be dropped
-* Fading levels in and out could be better than showing a transition screen
-  * Just in general, making more use of fades would be good
-* Fullscreen effects is something we never use that could be really cool
-* Producing WebGL builds instead of native builds would make it easier for a larger audience to play the game
-
 # Engine Update
 
 * **TODO:** Copy the last game jam's engine code back to the common GitHub repo

@@ -7,7 +7,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * Core engine scripts
 * Example projects
 
-# Import Notes
+# Important Notes
 
 * OnDestroy() is not called for disabled objects and isn't reliable for cleanup
   * OnEnable() / OnDisable() are safer
@@ -21,6 +21,29 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * "omnisharp.enableRoslynAnalyzers": true
   * "omnisharp.enableEditorConfigSupport": true
   * "omnisharp.useGlobalMono": "always"
+
+# Game Jam Notes
+
+* PIGSquad bumper
+* Get the credits rolling early
+  * At the very least, track contributors early
+* Produce builds early and frequently
+  * A lot of things can end up breaking in actual builds and it's good to find those things early
+* Tutorialize
+  * Either through gameplay or intro slides
+  * Having a card at the presentation table can help
+  * Show controls in UI
+* Physical feedback - rumble, etc
+* Aural feedback - sound effects, stingers, etc
+* Visual feedback - animations, tweens, camera shake, etc
+* Setup Effect Triggers for events early on, even if they do nothing
+  * Hooking everything up with these in mind makes it easier to slot in effects later
+* Get art / animations / audio / UI placeholders in early to start working with triggers and events
+  * Art, like code, can be refined as we go but late jam hookups are expensive and likely to be dropped
+* Fading levels in and out could be better than showing a transition screen
+  * Just in general, making more use of fades would be good
+* Fullscreen effects is something we never use that could be really cool
+* Producing WebGL builds instead of native builds would make it easier for a larger audience to play the game
 
 # Scene Tester
 
@@ -128,6 +151,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * For example, to attach the PlayerInputHelper to the Rumble node, an Object variable can be used to bring the component into the script
 * Subgraphs can be used to organize functionality
   * These typically need a Trigger Input (Invoke) and Output (Exit) added to get into and out of them
+* Currently, if builds fail with AotStubs.cs not being able to find a type, the Assembly Definition containing that type needs to have Auto Reference checked to work around it
 
 # Interactables
 
