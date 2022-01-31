@@ -24,6 +24,12 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 
 # Game Jam Notes
 
+* Production
+  * Asset tracking
+  * Task tracking (spreadsheet, trello, whatever makes sense)
+  * Game design doc
+  * Storyboarding the major loops, levels, etc
+    * Where possible, cut this up and drop it in as placeholder art
 * PIGSquad bumper
 * Get the credits rolling early
   * At the very least, track contributors early
@@ -134,6 +140,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * Bake settings should be adjusted to match the agent size
 * NavMesh baking uses 2x the agent radius plus some amount of padding, so small surfaces will often fail to be recognized as walkable. Either make the agent less round or make walkable surfaces bigger to fix that.
 * NavAgent rotation can be disabled by setting Angular Move Speed to 0 in the behavior data
+* NavMeshModifier can be used to exclude areas from the NavMesh bake
 
 # Effects (Triggers)
 
