@@ -86,7 +86,7 @@
     * Uncheck Auto Referenced
   * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
-    * References: com.pdxpartyparrot.Core.asmdef, Unity.TextMeshPro
+    * References: com.pdxpartyparrot.Core.asmdef, com.unity.cinemachine, Unity.TextMeshPro
     * Uncheck Auto Referenced
   * **TODO:** simplify this
 * Clean up TODOs as necessary
