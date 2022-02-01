@@ -855,6 +855,12 @@ At this point, the main scene should be runnable but will error out until the ma
         * Center the text
         * Disable Raycast Target
     * **TODO:** Setup the available options (ssjJune2021 had this for inverting the Y-axis)
+    * **TODO:** Audio
+      * **TODO:** Master volume
+      * **TODO:** SFX volume
+      * **TODO:** Music volume
+    * **TODO:** Controls
+      * **TODO:** Show keyboard and gamepad controls (just a replacable image here is fine)
     * Add a Spacer under the container
       * Flexible Height
     * Add the MenuButton under the container (Back)
