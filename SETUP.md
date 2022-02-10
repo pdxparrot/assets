@@ -668,16 +668,12 @@ At this point, the main scene should be runnable but will error out until the ma
 
 * Add a Panel under the Canvas (Credits)
   * Remove the Image component
+  * Stretch the Panel
   * Add the Credits Menu component to the panel
     * Set Owner to the Menu object
     * Set the Credits Panel on the Menu object to the Main panel
   * Add an empty GameObject under the Panel (Container)
     * Stretch the container
-    * Add a Vertical Layout Group
-      * Spacing: 0
-      * Alignment: Upper Center
-      * Child Controls Width / Height
-      * No Child Force Expand
     * Add a Text - Text Mesh Pro under the container
       * Text: "Credits"
         * Center the text
@@ -687,13 +683,13 @@ At this point, the main scene should be runnable but will error out until the ma
       * Uncheck Horizontal
       * Movement Type: Clamped
       * Delete the Scroll Bar objects
-    * Add a LayoutElement to the Scroll View
-      * Flexible Width: 1
-      * Flexible Height: 1
+    * Stretch the Scroll View
     * Add a Scroll Rect Auto Scroll to the Scroll View
-      * Delay: 3
-      * Scroll Rate: 48
+      * Delay: 2
+      * Scroll Rate: 125
+    * Stretch the Viewport Content
     * Add a Text - TextMeshPro under the Scroll View Viewport Content
+      * Stretch the text
       * Top Center the text
       * Text: "Credits..."
       * Disable Raycast Target
@@ -703,6 +699,7 @@ At this point, the main scene should be runnable but will error out until the ma
       * Add an On Click handler that calls the CreditsMenu OnBack method
       * Check Is Back Button
     * Set the Back button as the Initial Selection of the Credits Menu
+* **TODO:** this has to be manually sized in order to get the credits to scroll correctly. I'm not sure exactly how to describe what to do for this.
 
 ### Character Select
 
