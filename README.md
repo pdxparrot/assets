@@ -52,6 +52,21 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * Producing WebGL builds instead of native builds would make it easier for a larger audience to play the game
 * Add the Global Game Jam game site and itch.io game site to the README
 
+## WebGL
+
+* https://itch.io/docs/creators/html5
+* **NOTE:** The last time I tried this, the game crashed when Unity tried to render its own splash screen that can't be disabled in the free editor
+* Set Platform to WebGL
+  * DXT compression
+* Build
+* Create build zip
+  * $ cd Build/
+  * $ zip -r {filename}.zip *
+* Set itch.io project type to HTML
+  * Other platform builds can still be uploaded for direct download
+* Upload zip to itch.io and check "This file will be played in the browser"
+  * Set whatever Embed options make sense
+
 # Scene Tester
 
 * Create and save a new Basic (URP) scene
@@ -66,6 +81,12 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * **TODO:** finish this
 * **TODO:** Test Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
 
+# Level Enter Dialogue
+
+* Useful for tutorializing
+* gg2021 had a UI that was enabled on the first level's IntroEffect. Now a DialogueEffectTriggerComponent can be used instead.
+  * **TODO:** This currently cannot chain dialogues but it really needs to be able to
+
 # Audio Importing
 
 * Music
@@ -74,7 +95,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * Compression: Vorbis
   * Quality: 100
   * These should not be MP3s as Unity can't loop MP3s correctly (Ogg works better)
-* Stinger
+* Stinger / Dialogue
   * Load In Background: False
   * Load Type: Decompress On Load
   * Preload Audio Data: True

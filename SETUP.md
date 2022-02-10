@@ -246,6 +246,9 @@
     * SFX
       * Expose the Volume parameter and set it to 0db
         * Rename it to SFXVolume
+    * Dialogue
+      * Expose the Volume parameter and set it to 5db
+        * Rename it to DialogueVolume
     * Ambient
       * Expose the Volume parameter and set it to -10db
         * Rename it to AmbientVolume
@@ -318,7 +321,7 @@
   * Create an AudioData in Data/Data and attach it to the manager
     * Attach the main mixer to the data
     * Ensure all of the Parameters look correct
-  * Add 5 Audio Sources to the manager prefab
+  * Add 6 Audio Sources to the manager prefab
     * Ensure Spatial Blend is set to 0 (2D)
     * Disable Play on Awake
   * Attach each audio source to an audio source on the AudioManager component
@@ -858,6 +861,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * **TODO:** Audio
       * **TODO:** Master volume
       * **TODO:** SFX volume
+      * **TODO:** Dialogue volume
       * **TODO:** Music volume
     * **TODO:** Controls
       * **TODO:** Show keyboard and gamepad controls (just a replacable image here is fine)
