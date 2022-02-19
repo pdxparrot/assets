@@ -7,12 +7,8 @@
   * https://www.youtube.com/watch?v=qsU4nM0L_n0
     * https://learn.unity.com/project/3d-game-kit
     * https://learn.unity.com/project/2d-game-kit
-* MLAPI for networking
-  * https://blogs.unity3d.com/2020/12/03/accelerating-unitys-new-gameobjects-multiplayer-networking-framework/
-  * https://github.com/Unity-Technologies/com.unity.multiplayer.mlapi
-  * https://mlapi.network/
-  * https://www.youtube.com/watch?v=-nS1gqSk458
-  * https://www.youtube.com/watch?v=qJMXv5J4wf4
+* Netcode for GameObjects for networking
+  * https://docs-multiplayer.unity3d.com/
 * Fix assets.csproj to enable OmniSharp on this project
 * Show a progress bar when initializing a project
 * Add a button to the project settings window to run initialization
@@ -84,6 +80,7 @@
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
     * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Unity.VisualScripting.Core, Unity.VisualScripting.Flow, ~~Kino.Postprocessing~~
     * Uncheck Auto Referenced
+    * Add com.unity.netcode.runtime and com.unity.netcode.components if using networking
   * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
     * References: com.pdxpartyparrot.Core.asmdef, com.unity.cinemachine, Unity.TextMeshPro
@@ -166,9 +163,6 @@
   * The Assembly Definition will need to be force added to source control
     * If the Assembly Definition does not exist, your version is too old!
   * Make sure to enable Spine in the PDX Party Parrot Project Settings
-* If using networking, following the MLAPI installation instructions
-  * https://mlapi.network/wiki/installation/
-  * Make sure to enable Networking in the PDX Party Parrot Project Settings
 * **TODO:** If using NavMesh, ...
   * Add com.unity.ai.navigation package
     * Project should add this but if it fails it needs to be added by name until it stops being hidden
@@ -186,6 +180,7 @@
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro, Unity.VisualScripting.Core, Unity.VisualScripting.Flow
     * Uncheck Auto Referenced
+    * Add com.unity.netcode.runtime and com.unity.netcode.components if using networking
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor.asmdef
     * Editor platform only
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Core.Editor.asmdef, com.pdxpartyparrot.Game.asmdef
@@ -358,7 +353,7 @@
   * Create a LocalizationData in Data/Data and attach it to the manager
 * NetworkManager
   * Create an empty Prefab and add the (not Unity / MLAPI) NetworkManager component to it
-  * Configure MLAPI settings if networking is enabled
+  * Configure Netcode for GameObjects settings if networking is enabled
     * Uncheck Don't Destroy
     * Run In Background should be checked
     * Set the Transport to UnetTransport
