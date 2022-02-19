@@ -245,6 +245,7 @@ namespace pdxpartyparrot.Core.Editor.Project
         private static void InitializePackagesV1()
         {
             Util.AddPackage("com.unity.addressables");
+            Util.AddPackage("com.unity.ai.navigation");
             Util.AddPackage("com.unity.assetbundlebrowser");
             Util.AddPackage("com.unity.cinemachine");
             Util.AddPackage("com.unity.editorcoroutines");
@@ -266,6 +267,7 @@ namespace pdxpartyparrot.Core.Editor.Project
             Util.AddPackage("com.unity.timeline");
             Util.AddPackage("com.unity.ugui");
             Util.AddPackage("com.unity.visualeffectgraph");
+            Util.AddPackage("com.unity.visualscripting");
         }
 
         private static void InitializePackages(int version)

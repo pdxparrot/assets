@@ -22,13 +22,21 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         bool IsMoving { get; }
 
+        #region Actor
+
+        void DeSpawn(bool destroy);
+
+        #endregion
+
         #region Pathing
 
         bool HasPath { get; }
 
         Vector3 NextPosition { get; }
 
-        bool UpdatePath(Vector3 target);
+        Vector3 MoveDirection { get; }
+
+        bool UpdatePath(Vector3 target, float range);
 
         void ResetPath(bool idle);
 

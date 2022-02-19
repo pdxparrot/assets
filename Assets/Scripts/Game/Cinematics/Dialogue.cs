@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Input;
@@ -12,6 +13,7 @@ using pdxpartyparrot.Core.Util;
 namespace pdxpartyparrot.Game.Cinematics
 {
     [RequireComponent(typeof(UIObject))]
+    [RequireComponent(typeof(ScriptMachine))]
     public class Dialogue : MonoBehaviour
     {
         [SerializeField]
@@ -58,11 +60,13 @@ namespace pdxpartyparrot.Game.Cinematics
             InputManager.Instance.EventSystem.UIModule.submit.action.performed += OnSubmit;
             InputManager.Instance.EventSystem.UIModule.cancel.action.performed += OnCancel;
 
+            TriggerScriptEvent("OnEnable");
+
             if(null != _enableEffect) {
                 _enableEffect.Trigger();
             }
 
-            _showTimer.Start(DialogueManager.Instance.InputDelay);
+            _showTimer.Start(DialogueManager.Instance.DialogueData.InputDelay);
         }
 
         private void OnDisable()
@@ -70,6 +74,8 @@ namespace pdxpartyparrot.Game.Cinematics
             if(null != _disableEffect) {
                 _disableEffect.Trigger();
             }
+
+            TriggerScriptEvent("OnDisable");
 
             if(InputManager.HasInstance) {
                 InputManager.Instance.EventSystem.UIModule.submit.action.performed -= OnSubmit;
@@ -79,6 +85,18 @@ namespace pdxpartyparrot.Game.Cinematics
 
         #endregion
 
+        // this is called on the prefab so it must use GetComponent()
+        // rather than relying on a cached UIObject
+        public string GetId()
+        {
+            return GetComponent<UIObject>().Id;
+        }
+
+        private void TriggerScriptEvent(string name, params object[] args)
+        {
+            CustomEvent.Trigger(gameObject, name, args);
+        }
+
         #region Event Handlers
 
         private void OnSubmit(InputAction.CallbackContext context)
@@ -86,6 +104,8 @@ namespace pdxpartyparrot.Game.Cinematics
             if(_showTimer.IsRunning) {
                 return;
             }
+
+            TriggerScriptEvent("OnContinue");
 
             DialogueManager.Instance.AdvanceDialogue();
         }
@@ -99,6 +119,8 @@ namespace pdxpartyparrot.Game.Cinematics
             if(_showTimer.IsRunning) {
                 return;
             }
+
+            TriggerScriptEvent("OnCancel");
 
             DialogueManager.Instance.CancelDialogue();
         }

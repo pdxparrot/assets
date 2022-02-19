@@ -10,6 +10,7 @@ using pdxpartyparrot.Core.Data.Actors.Components;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.BehaviorComponents;
 using pdxpartyparrot.Game.Data.Characters;
 using pdxpartyparrot.Game.State;
@@ -43,7 +44,7 @@ namespace pdxpartyparrot.Game.Characters
         [CanBeNull]
         public CharacterBehaviorData CharacterBehaviorData => (CharacterBehaviorData)BehaviorData;
 
-        [Header("Components")]
+        [Header("Behavior Components")]
 
         [SerializeField]
         private CharacterBehaviorComponent[] _components;
@@ -74,7 +75,7 @@ namespace pdxpartyparrot.Game.Characters
             set => _isSliding = value;
         }
 
-        public bool IsFalling => Owner.Movement.UseGravity && (!IsGrounded && !IsSliding && Owner.Movement.Velocity.y < 0.0f);
+        public bool IsFalling => Owner.Movement.UseGravity && !IsGrounded && !IsSliding && Owner.Movement.Velocity.y < 0.0f;
 
         public virtual float MoveSpeed => CharacterBehaviorData.MoveSpeed;
 
@@ -130,11 +131,14 @@ namespace pdxpartyparrot.Game.Characters
 
         #region Unity Lifecycle
 
-        protected override void OnDestroy()
+        protected virtual void OnEnable()
+        {
+            InitDebugMenu();
+        }
+
+        protected virtual void OnDisable()
         {
             DestroyDebugMenu();
-
-            base.OnDestroy();
         }
 
         protected override void Update()
@@ -159,11 +163,14 @@ namespace pdxpartyparrot.Game.Characters
             foreach(CharacterBehaviorComponent component in _components) {
                 component.Initialize(this);
             }
-
-            InitDebugMenu();
         }
 
         #region Components
+
+        public bool HasBehaviorComponent<T>() where T : CharacterBehaviorComponent
+        {
+            return null != GetBehaviorComponent<T>();
+        }
 
         [CanBeNull]
         public T GetBehaviorComponent<T>() where T : CharacterBehaviorComponent
@@ -290,23 +297,43 @@ namespace pdxpartyparrot.Game.Characters
 
         #region Events
 
+        // NOTE: handlers that return true will stop processing for all other components
+        // so be careful doing that with handlers that are expected to run on all objects
+
         public virtual void OnIdle()
         {
             TriggerMoveEffect();
         }
 
-        protected override void OnSpawnComplete()
+        public override bool OnSpawn(SpawnPoint spawnpoint)
         {
-            base.OnSpawnComplete();
+            base.OnSpawn(spawnpoint);
+
+            RunOnComponents(c => c.OnSpawn(spawnpoint));
 
             OnIdle();
+
+            return false;
         }
 
-        protected override void OnReSpawnComplete()
+        public override bool OnReSpawn(SpawnPoint spawnpoint)
         {
-            base.OnReSpawnComplete();
+            base.OnReSpawn(spawnpoint);
+
+            RunOnComponents(c => c.OnReSpawn(spawnpoint));
 
             OnIdle();
+
+            return false;
+        }
+
+        public override bool OnDeSpawn()
+        {
+            base.OnDeSpawn();
+
+            RunOnComponents(c => c.OnDeSpawn());
+
+            return false;
         }
 
         public override bool OnMoveStateChanged()

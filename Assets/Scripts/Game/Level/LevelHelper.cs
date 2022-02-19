@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
+using Unity.VisualScripting;
 
 #if USE_NAVMESH
 using UnityEngine.AI;
+using Unity.AI.Navigation;
 #endif
 
 namespace pdxpartyparrot.Game.Level
@@ -18,12 +22,15 @@ namespace pdxpartyparrot.Game.Level
 #if USE_NAVMESH
     [RequireComponent(typeof(NavMeshSurface))]
 #endif
+    [RequireComponent(typeof(ScriptMachine))]
     public abstract class LevelHelper : MonoBehaviour
     {
         [SerializeField]
         private string _nextLevel;
 
         public bool HasNextLevel => !string.IsNullOrWhiteSpace(_nextLevel);
+
+        #region Effects
 
         [Space(10)]
 
@@ -32,24 +39,62 @@ namespace pdxpartyparrot.Game.Level
         private EffectTrigger _levelEnterEffect;
 
         [CanBeNull]
-        protected EffectTrigger LevelEnterEfect => _levelEnterEffect;
+        protected virtual EffectTrigger LevelEnterEffect => _levelEnterEffect;
 
         [SerializeField]
         private bool _levelEnterIsBlocking = true;
 
         protected bool LevelEnterIsBlocking => _levelEnterIsBlocking;
 
+        [Space(10)]
+
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _levelExitEffect;
 
         [CanBeNull]
-        protected EffectTrigger LevelExitEffect => _levelExitEffect;
+        protected virtual EffectTrigger LevelExitEffect => _levelExitEffect;
 
         [SerializeField]
         private bool _levelExitIsBlocking = true;
 
         protected bool LevelExitIsBlocking => _levelExitIsBlocking;
+
+        [Space(10)]
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _levelRestartEnterEffect;
+
+        [CanBeNull]
+        protected virtual EffectTrigger LevelRestartEnterEffect => _levelRestartEnterEffect;
+
+        [SerializeField]
+        private bool _levelRestartEnterIsBlocking = true;
+
+        protected bool LevelRestartEnterIsBlocking => _levelRestartEnterIsBlocking;
+
+        [Space(10)]
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _levelRestartExitEffect;
+
+        [CanBeNull]
+        protected virtual EffectTrigger LevelRestartExitEffect => _levelRestartExitEffect;
+
+        [SerializeField]
+        private bool _levelRestartExitIsBlocking = true;
+
+        protected bool LevelRestartExitIsBlocking => _levelRestartExitIsBlocking;
+
+        #endregion
+
+        [SerializeField]
+        private List<SetImageColorEffectTriggerComponent> _setImageColorEffects;
+
+        [SerializeField]
+        private List<FadeEffectTriggerComponent> _fadeEffects;
 
 #if USE_NAVMESH
         private NavMeshSurface _navMeshSurface;
@@ -71,11 +116,13 @@ namespace pdxpartyparrot.Game.Level
             GameStateManager.Instance.GameManager.GameUnReadyEvent += GameUnReadyEventHandler;
             GameStateManager.Instance.GameManager.LevelTransitioningEvent += LevelTransitioningEventHandler;
             GameStateManager.Instance.GameManager.GameOverEvent += GameOverEventHandler;
+            GameStateManager.Instance.GameManager.RestartLevelEvent += RestartLevelEventHandler;
         }
 
         protected virtual void OnDestroy()
         {
             if(GameStateManager.HasInstance && null != GameStateManager.Instance.GameManager) {
+                GameStateManager.Instance.GameManager.RestartLevelEvent -= RestartLevelEventHandler;
                 GameStateManager.Instance.GameManager.GameOverEvent -= GameOverEventHandler;
                 GameStateManager.Instance.GameManager.LevelTransitioningEvent -= LevelTransitioningEventHandler;
                 GameStateManager.Instance.GameManager.GameUnReadyEvent -= GameUnReadyEventHandler;
@@ -96,22 +143,54 @@ namespace pdxpartyparrot.Game.Level
 
         #endregion
 
+        public void TriggerScriptEvent(string name, params object[] args)
+        {
+            CustomEvent.Trigger(gameObject, name, args);
+        }
+
+        private void TriggerLevelEffect(EffectTrigger effectTrigger, bool isBlocking, Action action)
+        {
+            if(null != effectTrigger) {
+                if(isBlocking) {
+                    effectTrigger.Trigger(() => {
+                        action?.Invoke();
+                    });
+                } else {
+                    effectTrigger.Trigger();
+                    action?.Invoke();
+                }
+            } else {
+                action?.Invoke();
+            }
+        }
+
+        private void TriggerEnterLevelEffect(Action action)
+        {
+            TriggerLevelEffect(_levelEnterEffect, _levelEnterIsBlocking, action);
+        }
+
+        private void TriggerExitLevelEffect(Action action)
+        {
+            TriggerLevelEffect(_levelExitEffect, _levelExitIsBlocking, action);
+        }
+
+        private void TriggerRestartEnterLevelEffect(Action action)
+        {
+            TriggerLevelEffect(_levelRestartEnterEffect, _levelRestartEnterIsBlocking, action);
+        }
+
+        private void TriggerRestartExitLevelEffect(Action action)
+        {
+            TriggerLevelEffect(_levelRestartExitEffect, _levelRestartExitIsBlocking, action);
+        }
+
         protected void TransitionLevel()
         {
             GameStateManager.Instance.GameManager.GameUnReady();
 
             // load the next level if we have one
             if(!string.IsNullOrWhiteSpace(_nextLevel)) {
-                if(null != _levelExitEffect) {
-                    if(_levelExitIsBlocking) {
-                        _levelExitEffect.Trigger(DoLevelTransition);
-                    } else {
-                        _levelExitEffect.Trigger();
-                        DoLevelTransition();
-                    }
-                } else {
-                    DoLevelTransition();
-                }
+                TriggerExitLevelEffect(DoLevelTransition);
             } else {
                 GameStateManager.Instance.GameManager.GameOver();
             }
@@ -129,7 +208,6 @@ namespace pdxpartyparrot.Game.Level
         {
             Debug.Log("[Level] Building nav mesh...");
 
-            // https://github.com/Unity-Technologies/NavMeshComponents/issues/97
             _navMeshSurface.RemoveData();
             _navMeshSurface.navMeshData = new NavMeshData(_navMeshSurface.agentTypeID) {
                 name = _navMeshSurface.gameObject.name,
@@ -145,6 +223,13 @@ namespace pdxpartyparrot.Game.Level
         }
 #endif
 
+        protected virtual void Reset()
+        {
+            GameStateManager.Instance.NPCManager.DespawnAllNPCs();
+
+            GameStateManager.Instance.PlayerManager.DespawnPlayers();
+        }
+
         #region Event Handlers
 
         protected virtual void GameStartServerEventHandler(object sender, EventArgs args)
@@ -158,18 +243,17 @@ namespace pdxpartyparrot.Game.Level
         {
             Debug.Log("[Level] Client start...");
 
+            foreach(SetImageColorEffectTriggerComponent setColorEffect in _setImageColorEffects) {
+                setColorEffect.Image = GameStateManager.Instance.GameUIManager.GameUI.FadeOverlay;
+            }
+
+            foreach(FadeEffectTriggerComponent fadeEffect in _fadeEffects) {
+                fadeEffect.Image = GameStateManager.Instance.GameUIManager.GameUI.FadeOverlay;
+            }
+
             // TODO: we really should communicate our ready state to the server
             // and then have it communicate back to us when everybody is ready
-            if(null != _levelEnterEffect) {
-                if(_levelEnterIsBlocking) {
-                    _levelEnterEffect.Trigger(GameStateManager.Instance.GameManager.GameReady);
-                } else {
-                    _levelEnterEffect.Trigger();
-                    GameStateManager.Instance.GameManager.GameReady();
-                }
-            } else {
-                GameStateManager.Instance.GameManager.GameReady();
-            }
+            TriggerEnterLevelEffect(GameStateManager.Instance.GameManager.GameReady);
         }
 
         protected virtual void GameReadyEventHandler(object sender, EventArgs args)
@@ -196,6 +280,19 @@ namespace pdxpartyparrot.Game.Level
         protected virtual void GameOverEventHandler(object sender, EventArgs args)
         {
             Debug.Log("[Level] Game over...");
+        }
+
+        protected virtual void RestartLevelEventHandler(object sender, EventArgs args)
+        {
+            Debug.Log("[Level] Restart...");
+
+            TriggerRestartExitLevelEffect(() => {
+                Reset();
+
+                // TODO: we really should communicate our ready state to the server
+                // and then have it communicate back to us when everybody is ready
+                TriggerRestartEnterLevelEffect(GameStateManager.Instance.GameManager.GameReady);
+            });
         }
 
         #endregion

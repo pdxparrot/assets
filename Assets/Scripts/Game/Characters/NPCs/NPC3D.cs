@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.State;
 using pdxpartyparrot.Game.UI;
 
@@ -41,6 +42,10 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         [SerializeField]
         [ReadOnly]
+        private Vector3 _destination;
+
+        [SerializeField]
+        [ReadOnly]
         private bool _pathPending;
 
         [SerializeField]
@@ -58,6 +63,19 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public bool HasPath => _agent.hasPath;
 
         public Vector3 NextPosition => _agent.nextPosition;
+
+        public Vector3 MoveDirection
+        {
+            get
+            {
+                if(!HasPath) {
+                    return Vector3.zero;
+                }
+
+                Vector3 nextPosition = NextPosition;
+                return (nextPosition - Movement.Position).normalized;
+            }
+        }
 
         #endregion
 
@@ -101,6 +119,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         protected override void Awake()
         {
             base.Awake();
+
+            Collider.isTrigger = true;
 
             _agent = GetComponent<NavMeshAgent>();
 
@@ -146,6 +166,16 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             if(null != NPCBehavior && !NPCBehavior.CanMove) {
                 Stop(false, false);
             }
+        }
+
+        protected virtual void OnDrawGizmos()
+        {
+            if(!Application.isPlaying || !HasPath) {
+                return;
+            }
+
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireCube(_destination, Vector3.one);
         }
 
         #endregion
@@ -196,12 +226,20 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         #region Pathing
 
-        public bool UpdatePath(Vector3 target)
+        public bool UpdatePath(Vector3 target, float range = 10.0f)
         {
+            // update the target to be on the navmesh if possible
+            if(NavMesh.SamplePosition(target, out NavMeshHit hit, range, NavMesh.AllAreas)) {
+                target = hit.position;
+            } else {
+                Debug.LogWarning($"Failed to sample NavMesh point from {target}:{range}");
+            }
+
             if(!_agent.SetDestination(target)) {
                 Debug.LogWarning($"Failed to set NPC {Id} destination: {target}");
                 return false;
             }
+            _destination = target;
 
             if(GameStateManager.Instance.NPCManager.DebugBehavior) {
                 DisplayDebugText($"Pathing to {target}", Color.green);
@@ -239,12 +277,18 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public void Stop(bool resetPath, bool idle)
         {
             _agent.velocity = Vector3.zero;
+            Movement.Velocity = Vector3.zero;
+            _agent.angularSpeed = 0.0f;
 
             if(resetPath) {
                 ResetPath(idle);
             } else if(idle) {
                 NPCBehavior.OnIdle();
             }
+        }
+
+        protected virtual void OnStuck()
+        {
         }
 
         #endregion
@@ -256,6 +300,39 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 _pooledObject.Recycle();
             }
         }
+
+        #region Spawn
+
+        public override bool OnSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnSpawn(spawnpoint)) {
+                return false;
+            }
+
+            GameStateManager.Instance.NPCManager.RegisterNPC(this);
+
+            return true;
+        }
+
+        public override bool OnReSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnReSpawn(spawnpoint)) {
+                return false;
+            }
+
+            GameStateManager.Instance.NPCManager.RegisterNPC(this);
+
+            return true;
+        }
+
+        public override void OnDeSpawn()
+        {
+            GameStateManager.Instance.NPCManager.UnregisterNPC(this);
+
+            base.OnDeSpawn();
+        }
+
+        #endregion
 
         private IEnumerator AgentStuckCheck()
         {
@@ -290,6 +367,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                     }
 
                     Stop(true, true);
+
+                    OnStuck();
                 }
 
                 yield return wait;

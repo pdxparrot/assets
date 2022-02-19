@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Cinematics;
@@ -9,7 +11,7 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
     public class DialogueEffectTriggerComponent : EffectTriggerComponent
     {
         [SerializeField]
-        private Dialogue _dialoguePrefab;
+        private string _dialogueId;
 
         public override bool WaitForComplete => true;
 
@@ -21,20 +23,26 @@ namespace pdxpartyparrot.Game.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
-            DialogueManager.Instance.ShowDialogue(_dialoguePrefab,
-            () => {
-                _isShowing = false;
-            },
-            () => {
-                _isShowing = false;
-            });
+            DialogueManager.Instance.ShowDialogue(_dialogueId, OnComplete, OnCancel);
 
             _isShowing = true;
         }
 
         public override void OnStop()
         {
-            DialogueManager.Instance.CancelDialogue();
+            if(DialogueManager.HasInstance) {
+                DialogueManager.Instance.CancelDialogue();
+            }
+        }
+
+        private void OnComplete()
+        {
+            _isShowing = false;
+        }
+
+        private void OnCancel()
+        {
+            _isShowing = false;
         }
     }
 }

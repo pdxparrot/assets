@@ -21,6 +21,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [SerializeField]
         private JumpBehaviorComponentData _data;
 
+        public virtual float JumpHeight => _data.JumpHeight;
+
         [Space(10)]
 
         #region Effects
@@ -30,6 +32,9 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _jumpEffect;
+
+        [CanBeNull]
+        protected virtual EffectTrigger JumpEffect => _jumpEffect;
 
         #endregion
 
@@ -42,13 +47,20 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
             }
 
             if(!Behavior.IsGrounded || Behavior.IsSliding) {
+                if(Core.Input.InputManager.Instance.EnableDebug) {
+                    Debug.LogWarning($"Jump failed, grounded: {Behavior.IsGrounded}, sliding: {Behavior.IsSliding}");
+                }
                 return false;
             }
 
-            Behavior.CharacterMovement.Jump(_data.JumpHeight);
+            if(Core.Input.InputManager.Instance.EnableDebug) {
+                Debug.Log($"Jump!");
+            }
 
-            if(null != _jumpEffect) {
-                _jumpEffect.Trigger();
+            Behavior.CharacterMovement.Jump(JumpHeight);
+
+            if(null != JumpEffect) {
+                JumpEffect.Trigger();
             }
 
             if(null != Behavior.Animator) {

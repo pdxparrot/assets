@@ -9,9 +9,11 @@ using pdxpartyparrot.Core.World;
 
 using UnityEngine;
 using UnityEngine.Assertions;
+using Unity.VisualScripting;
 
 namespace pdxpartyparrot.Core.Actors
 {
+    [RequireComponent(typeof(ScriptMachine))]
     public abstract class Actor : MonoBehaviour
     {
         [SerializeField]
@@ -168,7 +170,17 @@ namespace pdxpartyparrot.Core.Actors
             }
         }
 
+        public void TriggerScriptEvent(string name, params object[] args)
+        {
+            CustomEvent.Trigger(gameObject, name, args);
+        }
+
         #region Components
+
+        public bool HasActorComponent<T>() where T : ActorComponent
+        {
+            return null != GetActorComponent<T>();
+        }
 
         [CanBeNull]
         public T GetActorComponent<T>() where T : ActorComponent
@@ -254,6 +266,7 @@ namespace pdxpartyparrot.Core.Actors
         // TODO: would be better if we did radius (x) and height (y) separately
         public bool Collides(Actor other, float distance = float.Epsilon)
         {
+            // TODO: actors should cache their transform to use here
             Vector3 opos = null != other.Movement ? other.Movement.Position : other.transform.position;
             return Collides(opos, other.Radius, distance);
         }
@@ -261,6 +274,7 @@ namespace pdxpartyparrot.Core.Actors
         // TODO: would be better if we did radius (x) and height (y) separately
         public bool Collides(Vector3 opos, float radius, float distance = float.Epsilon)
         {
+            // TODO: actors should cache their transform to use here
             Vector3 pos = null != Movement ? Movement.Position : transform.position;
             Vector3 offset = opos - pos;
 
@@ -278,6 +292,8 @@ namespace pdxpartyparrot.Core.Actors
             OnDeSpawn();
 
             if(destroy) {
+                Debug.LogWarning($"Destroying actor {Id}");
+
                 Destroy(gameObject);
             } else {
                 gameObject.SetActive(false);

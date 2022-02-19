@@ -24,6 +24,9 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         [CanBeNull]
         private EffectTrigger _doubleJumpEffect;
 
+        [CanBeNull]
+        protected virtual EffectTrigger DoubleJumpEffect => _doubleJumpEffect;
+
         #endregion
 
         [SerializeField]
@@ -61,10 +64,14 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return false;
             }
 
+            if(Core.Input.InputManager.Instance.EnableDebug) {
+                Debug.Log($"Double jump!");
+            }
+
             Behavior.CharacterMovement.Jump(_data.DoubleJumpHeight);
 
-            if(null != _doubleJumpEffect) {
-                _doubleJumpEffect.Trigger();
+            if(null != DoubleJumpEffect) {
+                DoubleJumpEffect.Trigger();
             }
 
             if(null != Behavior.Animator) {

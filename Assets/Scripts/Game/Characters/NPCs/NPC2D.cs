@@ -4,6 +4,8 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.ObjectPool;
+using pdxpartyparrot.Core.World;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -32,6 +34,19 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         public Vector3 NextPosition => Vector3.zero;
 
+        public Vector3 MoveDirection
+        {
+            get
+            {
+                if(!HasPath) {
+                    return Vector3.zero;
+                }
+
+                Vector3 nextPosition = NextPosition;
+                return (nextPosition - Movement.Position).normalized;
+            }
+        }
+
         #endregion
 
         [CanBeNull]
@@ -42,6 +57,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         protected override void Awake()
         {
             base.Awake();
+
+            Collider.isTrigger = true;
 
             _pooledObject = GetComponent<PooledObject>();
             if(null != _pooledObject) {
@@ -75,7 +92,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         #region Pathing
 
-        public bool UpdatePath(Vector3 target)
+        public bool UpdatePath(Vector3 target, float range = 10.0f)
         {
             Debug.LogWarning("TODO: NPC2D.UpdatePath()");
 
@@ -111,6 +128,39 @@ namespace pdxpartyparrot.Game.Characters.NPCs
                 _pooledObject.Recycle();
             }
         }
+
+        #region Spawn
+
+        public override bool OnSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnSpawn(spawnpoint)) {
+                return false;
+            }
+
+            GameStateManager.Instance.NPCManager.RegisterNPC(this);
+
+            return true;
+        }
+
+        public override bool OnReSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnReSpawn(spawnpoint)) {
+                return false;
+            }
+
+            GameStateManager.Instance.NPCManager.RegisterNPC(this);
+
+            return true;
+        }
+
+        public override void OnDeSpawn()
+        {
+            GameStateManager.Instance.NPCManager.UnregisterNPC(this);
+
+            base.OnDeSpawn();
+        }
+
+        #endregion
 
         #region Event Handlers
 

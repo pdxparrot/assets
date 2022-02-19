@@ -25,6 +25,8 @@ namespace pdxpartyparrot.Game
         event EventHandler<EventArgs> GameUnReadyEvent;
         event EventHandler<EventArgs> GameOverEvent;
 
+        event EventHandler<EventArgs> RestartLevelEvent;
+
         event EventHandler<EventArgs> LevelTransitioningEvent;
 
         #endregion
@@ -66,6 +68,8 @@ namespace pdxpartyparrot.Game
 
         void GameOver();
 
+        void RestartLevel();
+
         void TransitionScene(string nextScene, Action onComplete);
     }
 
@@ -79,6 +83,8 @@ namespace pdxpartyparrot.Game
         public event EventHandler<EventArgs> GameReadyEvent;
         public event EventHandler<EventArgs> GameUnReadyEvent;
         public event EventHandler<EventArgs> GameOverEvent;
+
+        public event EventHandler<EventArgs> RestartLevelEvent;
 
         public event EventHandler<EventArgs> LevelEnterEvent;
         public event EventHandler<EventArgs> LevelTransitioningEvent;
@@ -184,6 +190,8 @@ namespace pdxpartyparrot.Game
 
         public virtual void Reset()
         {
+            Debug.Log("[Game] Resetting...");
+
             IsGameOver = false;
             IsGameReady = false;
             TransitionToHighScores = false;
@@ -224,14 +232,14 @@ namespace pdxpartyparrot.Game
 
         public virtual void StartGameServer()
         {
-            Debug.Log("Start Game (Server)");
+            Debug.Log("[Game] Server start...");
 
             GameStartServerEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void StartGameClient()
         {
-            Debug.Log("Start Game (Client)");
+            Debug.Log("[Game] Client start...");
 
             GameStartClientEvent?.Invoke(this, EventArgs.Empty);
         }
@@ -240,7 +248,7 @@ namespace pdxpartyparrot.Game
         {
             Assert.IsFalse(IsGameOver);
 
-            Debug.Log("Game Ready");
+            Debug.Log("[Game] Ready!");
 
             IsGameReady = true;
 
@@ -249,7 +257,7 @@ namespace pdxpartyparrot.Game
 
         public virtual void GameUnReady()
         {
-            Debug.Log("Game UnReady");
+            Debug.Log("[Game] UnReady...");
 
             IsGameReady = false;
 
@@ -258,6 +266,8 @@ namespace pdxpartyparrot.Game
 
         public virtual void LevelEntered()
         {
+            Debug.Log("[Game] Level entered...");
+
             LevelEnterEvent?.Invoke(this, null);
         }
 
@@ -266,23 +276,34 @@ namespace pdxpartyparrot.Game
             Assert.IsFalse(IsGameReady);
             Assert.IsFalse(IsGameOver);
 
-            Debug.Log("Level Transitioning");
+            Debug.Log("[Game] Level transitioning...");
 
             LevelTransitioningEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void GameOver()
         {
-            Debug.Log("Game Over");
+            Debug.Log("[Game] Over!");
 
             IsGameOver = true;
 
             GameOverEvent?.Invoke(this, EventArgs.Empty);
         }
 
+        public virtual void RestartLevel()
+        {
+            Debug.Log("[Game] Restart level...");
+
+            GameUnReady();
+
+            RestartLevelEvent?.Invoke(this, EventArgs.Empty);
+        }
+
         // TODO: this isn't handled by networking *at all*
         public virtual void TransitionScene(string nextScene, Action onComplete)
         {
+            Debug.Log("[Game] Transition scene...");
+
             PartyParrotManager.Instance.LoadingManager.ShowTransitionScreen(true);
 
             // TODO: do we need an event here to tell the level to cleanup?

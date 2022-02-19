@@ -6,6 +6,8 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Util;
 
+using Cinemachine;
+
 #if USE_SPINE
 using Spine.Unity;
 #endif
@@ -54,7 +56,11 @@ namespace pdxpartyparrot.Core.Editor
             typeof(NavMeshObstacle),
 
             // ui
+            typeof(UnityEngine.UI.GraphicRaycaster),
             typeof(TextMeshProUGUI),
+
+            // cinemachine
+            typeof(CinemachineImpulseSource),
 
             // spine
 #if USE_SPINE

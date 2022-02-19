@@ -57,7 +57,11 @@ namespace pdxpartyparrot.Core.Actors.Components
         private Animator _animator;
 
         [CanBeNull]
-        public Animator Animator => _animator;
+        public Animator Animator
+        {
+            get => _animator;
+            set => _animator = value;
+        }
 
         [SerializeField]
         private bool _pauseAnimationOnPause = true;
@@ -160,8 +164,11 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         #region Events
 
+        // NOTE: overriding this should always return false
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
+            Owner.TriggerScriptEvent("OnSpawn");
+		
             if(null != _spawnEffect) {
                 _spawnEffect.Trigger(OnSpawnComplete);
             } else {
@@ -174,10 +181,15 @@ namespace pdxpartyparrot.Core.Actors.Components
         protected virtual void OnSpawnComplete()
         {
             _isAlive = true;
+
+            Owner.TriggerScriptEvent("OnSpawnComplete");
         }
 
+        // NOTE: overriding this should always return false
         public override bool OnReSpawn(SpawnPoint spawnpoint)
         {
+            Owner.TriggerScriptEvent("OnReSpawn");
+
             if(null != _respawnEffect) {
                 _respawnEffect.Trigger(OnReSpawnComplete);
             } else {
@@ -190,11 +202,16 @@ namespace pdxpartyparrot.Core.Actors.Components
         protected virtual void OnReSpawnComplete()
         {
             _isAlive = true;
+
+            Owner.TriggerScriptEvent("OnReSpawnComplete");
         }
 
+        // NOTE: overriding this should always return false
         public override bool OnDeSpawn()
         {
             _isAlive = false;
+
+            Owner.TriggerScriptEvent("OnDeSpawn");
 
             if(null != _despawnEffect) {
                 _despawnEffect.Trigger(OnDeSpawnComplete);
@@ -207,8 +224,10 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         protected virtual void OnDeSpawnComplete()
         {
+            Owner.TriggerScriptEvent("OnDeSpawnComplete");
         }
 
+        // NOTE: overriding this should always return false
         public override bool OnSetFacing(Vector3 direction)
         {
 #if USE_SPINE
@@ -224,6 +243,7 @@ namespace pdxpartyparrot.Core.Actors.Components
             // TODO: the facing of 3D actors being tied to the AnimateModel
             // flag is really confusing and awkward
             if(null != Owner && null != Owner.Model && BehaviorData.AnimateModel) {
+                // TODO: actor models should cache their transform to use here
                 Owner.Model.transform.forward = direction;
             }
 

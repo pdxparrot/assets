@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 
@@ -63,6 +62,11 @@ namespace pdxpartyparrot.Core.Effects
 
         #region Components
 
+        public bool HasEffectTriggerComponent<T>() where T : EffectTriggerComponent
+        {
+            return null != GetEffectTriggerComponent<T>();
+        }
+
         [CanBeNull]
         public T GetEffectTriggerComponent<T>() where T : EffectTriggerComponent
         {
@@ -99,7 +103,7 @@ namespace pdxpartyparrot.Core.Effects
 
         public int GetInt(string name)
         {
-            return Convert.ToInt32(_context.GetOrDefault(name));
+            return Convert.ToInt32(_context.GetValueOrDefault(name));
         }
 
         public void SetInt(string name, int value)
@@ -109,7 +113,7 @@ namespace pdxpartyparrot.Core.Effects
 
         public float GetFloat(string name)
         {
-            return Convert.ToSingle(_context.GetOrDefault(name));
+            return Convert.ToSingle(_context.GetValueOrDefault(name));
         }
 
         public void SetFloat(string name, float value)
@@ -119,7 +123,7 @@ namespace pdxpartyparrot.Core.Effects
 
         public string GetString(string name)
         {
-            return _context.GetOrDefault(name)?.ToString() ?? string.Empty;
+            return _context.GetValueOrDefault(name)?.ToString() ?? string.Empty;
         }
 
         public void SetString(string name, string value)
@@ -222,11 +226,6 @@ namespace pdxpartyparrot.Core.Effects
                 yield return wait;
             }
 
-            // invoke our callback
-            // (don't wait for further effects)
-            _effectWaiter = null;
-            callback?.Invoke();
-
             if(EffectsManager.Instance.EnableDebug) {
                 Debug.Log($"Trigger {_triggerOnComplete.Length} more effects from {name}");
             }
@@ -258,6 +257,10 @@ namespace pdxpartyparrot.Core.Effects
 
                 yield return wait;
             }
+
+            // invoke our callback
+            _effectWaiter = null;
+            callback?.Invoke();
 
             _isRunning = false;
         }
