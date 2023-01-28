@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+#if USE_NAVMESH
 using Unity.AI.Navigation;
+#endif
 
 namespace pdxpartyparrot.Game.World
 {
+#if USE_NAVMESH
     [RequireComponent(typeof(NavMeshModifier))]
+#endif
     public abstract class WorldBoundary : MonoBehaviour
     {
         protected void HandleCollisionEnter(GameObject go)
