@@ -91,13 +91,13 @@ namespace pdxpartyparrot.Core.Editor
             }
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
-            audioImporter.preloadAudioData = true;
             audioImporter.loadInBackground = false;
 
             AudioImporterSampleSettings sampleSettings = audioImporter.defaultSampleSettings;
             sampleSettings.compressionFormat = AudioCompressionFormat.Vorbis;
             sampleSettings.loadType = AudioClipLoadType.Streaming;
             sampleSettings.quality = 1.0f;
+            sampleSettings.preloadAudioData = true;
             audioImporter.defaultSampleSettings = sampleSettings;
 
             audioImporter.SaveAndReimport();
@@ -112,13 +112,13 @@ namespace pdxpartyparrot.Core.Editor
             }
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
-            audioImporter.preloadAudioData = true;
             audioImporter.loadInBackground = false;
 
             AudioImporterSampleSettings sampleSettings = audioImporter.defaultSampleSettings;
             sampleSettings.compressionFormat = AudioCompressionFormat.Vorbis;
             sampleSettings.loadType = AudioClipLoadType.DecompressOnLoad;
             sampleSettings.quality = 1.0f;
+            sampleSettings.preloadAudioData = true;
             audioImporter.defaultSampleSettings = sampleSettings;
 
             audioImporter.SaveAndReimport();
@@ -133,13 +133,13 @@ namespace pdxpartyparrot.Core.Editor
             }
 
             AudioImporter audioImporter = (AudioImporter)AssetImporter.GetAtPath(path);
-            audioImporter.preloadAudioData = true;
             audioImporter.loadInBackground = false;
 
             AudioImporterSampleSettings sampleSettings = audioImporter.defaultSampleSettings;
             sampleSettings.compressionFormat = AudioCompressionFormat.PCM;
             sampleSettings.loadType = AudioClipLoadType.DecompressOnLoad;
             sampleSettings.quality = 1.0f;
+            sampleSettings.preloadAudioData = true;
             audioImporter.defaultSampleSettings = sampleSettings;
 
             audioImporter.SaveAndReimport();
