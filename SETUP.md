@@ -183,7 +183,7 @@
 
 * Copy engine game scripts
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Game
-  * **TODO:** simplify this
+  * **TODO:** simplify / script this
 * Create the Assembly Definitions
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro, Unity.VisualScripting.Core, Unity.VisualScripting.Flow
@@ -201,14 +201,16 @@
 
 * Copy example game scripts
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Example
-  * **TODO:** simplify this
+  * **TODO:** simplify / script this
   * **TODO:** remove any steps later on that require creation of the files this brings in
-  * Use the right Player / PlayerInputHandler types
+* Update namespaces (`pdxpartyparrot.Example`) in code to match project name (`pdxpartyparrot.{project}`)
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
     * Reference Unity.InputSystem, Unity.TextMeshPro, etc as required
     * Uncheck Auto Referenced
+* Update to use the right GameViewer base
+* Update to use the desired Player / PlayerInputHandler types
 
 ## Initial Project Scripts
 
