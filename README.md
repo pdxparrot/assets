@@ -1,7 +1,7 @@
 # Assets
 
 Minimum Unity Version: **2021.2**
-Last Sync: **7/3/2021** from **ssjjune2021**
+Last Sync: **2/19/2022** from **ggj2022**
 
 * Commonly Used Game Jam Assets
 * Core engine scripts
@@ -9,18 +9,19 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 
 # Important Notes
 
-* OnDestroy() is not called for disabled objects and isn't reliable for cleanup
-  * OnEnable() / OnDisable() are safer
+* `OnDestroy()` is not called for disabled objects and isn't reliable for cleanup
+  * `OnEnable()` / `OnDisable()` are safer
 
 # VSCode on Linux
 
 * Install .net Core SDK - https://docs.microsoft.com/en-us/dotnet/core/install/linux
   * Run all of the apt instructions, don't use snap
+  * `dotnet [--list-sdks | --list-runtimes]`
 * Install Mono - https://www.mono-project.com/download/stable/
 * Need the C# extension installed
-  * "omnisharp.enableRoslynAnalyzers": true
-  * "omnisharp.enableEditorConfigSupport": true
-  * "omnisharp.useGlobalMono": "always"
+  * `"omnisharp.enableRoslynAnalyzers": true`
+  * `"omnisharp.enableEditorConfigSupport": true`
+  * `"omnisharp.useGlobalMono": "always"`
 
 # Game Jam Notes
 
@@ -60,11 +61,11 @@ Last Sync: **7/3/2021** from **ssjjune2021**
   * DXT compression
 * Build
 * Create build zip
-  * $ cd Build/
-  * $ zip -r {filename}.zip *
+  * `$ cd Build/`
+  * `$ zip -r {filename}.zip *`
 * Set itch.io project type to HTML
   * Other platform builds can still be uploaded for direct download
-* Upload zip to itch.io and check "This file will be played in the browser"
+* Upload zip to itch.io and check `This file will be played in the browser`
   * Set whatever Embed options make sense
 
 # Scene Tester
@@ -77,7 +78,7 @@ Last Sync: **7/3/2021** from **ssjjune2021**
 * Create an empty GameObject (Level) in the scene and add the TestSceneHelper component to it
   * This script can be extended for more advanced functionality
 * Test levels may be loaded through the debug menu
-  * Game.GameStateManager.TestScenes
+  * `Game.GameStateManager.TestScenes`
 * **TODO:** finish this
 * **TODO:** Test Levels require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn if using a player
 
