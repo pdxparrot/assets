@@ -5,9 +5,9 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Example.Players
 {
-    public sealed class PlayerInputHandler : SideScollerPlayerInputHandler
+    public sealed class PlayerInputHandler_2D : SideScollerPlayerInputHandler
     {
-        private Player GamePlayer => (Player)Player;
+        private Player_2D GamePlayer => (Player_2D)Player;
 
         #region Unity Lifecycle
 
@@ -16,7 +16,7 @@ namespace pdxpartyparrot.Example.Players
             base.Awake();
 
             Assert.IsTrue(PlayerInputData is PlayerInputData);
-            Assert.IsTrue(Player is Player);
+            Assert.IsTrue(Player is Player_2D);
         }
 
         #endregion

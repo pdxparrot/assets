@@ -21,7 +21,7 @@ namespace pdxpartyparrot.Example.Players
         {
             base.Awake();
 
-            Assert.IsTrue(PlayerInputHandler is PlayerInputHandler);
+            Assert.IsTrue(PlayerInputHandler is PlayerInputHandler_3D);
 
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
