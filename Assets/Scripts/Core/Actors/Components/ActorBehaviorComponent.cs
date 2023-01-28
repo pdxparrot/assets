@@ -168,7 +168,7 @@ namespace pdxpartyparrot.Core.Actors.Components
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
             Owner.TriggerScriptEvent("OnSpawn");
-		
+
             if(null != _spawnEffect) {
                 _spawnEffect.Trigger(OnSpawnComplete);
             } else {
