@@ -204,12 +204,13 @@
   * **TODO:** simplify / script this
   * **TODO:** remove any steps later on that require creation of the files this brings in
 * Update namespaces (`pdxpartyparrot.Example`) in code to match project name (`pdxpartyparrot.{project}`)
+* Update paths (`pdxpartyparrot/Example/`) in code to match project name (`pdxpartyparrot/{project}/`)
 * Create the Assembly Definitions
   * Scripts/{project}/com.pdxpartyparrot.{project}.asmdef
     * References: com.pdxpartyparrot.Core.asmdef, com.pdxpartyparrot.Game.asmdef
     * Reference Unity.InputSystem, Unity.TextMeshPro, etc as required
     * Uncheck Auto Referenced
-* Update to use the right GameViewer base
+* Update to use the desired GameViewer type
 * Update to use the desired Player / PlayerInputHandler types
 
 ## Initial Project Scripts
