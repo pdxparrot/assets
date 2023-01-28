@@ -1,8 +1,11 @@
 # TODO
 
-* Discord integration - https://discord.com/developers/docs/game-sdk/sdk-starter-guide
-* For creating prefabs through code - https://docs.unity3d.com/ScriptReference/PrefabUtility.html
-* UI Builder - https://docs.unity3d.com/Packages/com.unity.ui.builder@1.0/manual/index.html
+* Discord integration
+  * https://discord.com/developers/docs/game-sdk/sdk-starter-guide
+* Create prefabs through code
+  * https://docs.unity3d.com/ScriptReference/PrefabUtility.html
+* UI Builder
+  * https://docs.unity3d.com/Packages/com.unity.ui.builder@1.0/manual/index.html
 * Tear these apart for ideas
   * https://www.youtube.com/watch?v=qsU4nM0L_n0
     * https://learn.unity.com/project/3d-game-kit
