@@ -58,15 +58,16 @@
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Window/
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/Util.cs
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core/Editor/ScriptingDefineSymbols.cs
-  * **TODO:** simplify this
+  * **TODO:** simplify / script this
 * Copy engine editor resources from common GitHubu repo
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Editor
-  * **TODO:** simplify this
+  * **TODO:** simplify / script this
 * Open and close the project once for the build process to setup
   * **TODO:** this shouldn't be necessary but even when it isn't it still is to avoid something going weird
 * Open the new Unity Project and the project should automatically initialize
   * This process can take a while and currently is not very responsive
   * Say **No** to enabling the new Input System backend (initializing will set this up instead)
+    * This seems to have gone away in 2022
 * ~~Add Keijiro Kino~~ **TODO:** this required the HDRP so we probably don't want to always use it
   * https://github.com/keijiro/Kino
     * Add registry to scopedRegistries in Packages/manifest.json
@@ -75,7 +76,7 @@
 * Copy the rest of the core engine scripts
   * https://raw.githubusercontent.com/pdxparrot/assets/master/Assets/Scripts/Core
   * Do **not** copy the core game scripts yet
-  * **TODO:** simplify this
+  * **TODO:** simplify / script this
 * Create the Assembly Definitions
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
     * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Unity.VisualScripting.Core, Unity.VisualScripting.Flow, ~~Kino.Postprocessing~~
@@ -98,9 +99,12 @@
 * Input System Package
   * Create the Input System Settings asset if not already done
     * Process events in Fixed Update
+* Netcode for GameObjects
+  * Check Auto-Add Network Objects
 * Package Manager
   * Enable Pre-release Packages
   * Show Dependencies
+    * This seems to be gone in 2022
 * Tags and Layers
   * Add the following layers if they don't exist:
     * PostProcessing
@@ -132,6 +136,7 @@
   * Set any desired Splash Images/Logos
   * Color Space: Linear (or Gamma if targeting old mobile/console platforms)
     * Fix up any Grahics API issues that this might cause (generally this means disabling Auto Graphics APIs on certain platforms)
+      * This seems to be unnecessary in 2022
   * Enable Static and Dynamic Batching if they aren't already
   * Set Dedicated Server to use IL2CPP if desired
   * Verify that the Bundle Identifer is set correctly
@@ -142,6 +147,8 @@
 * TextMesh Pro
   * Import TMP Essentials if not already done
   * Optionally import TMP Examples & Extras if desired
+* Visual Scripting
+  * Generate Custom Inspector Properties
 
 # Packages
 
@@ -166,6 +173,7 @@
 * **TODO:** If using NavMesh, ...
   * Add com.unity.ai.navigation package
     * Project should add this but if it fails it needs to be added by name until it stops being hidden
+      * This seems to be fixed in 2022
   * Add Unity.AI.Navigation to asmdefs
   * Enable NavMesh in the PDX Party Parrot Project Settings
 
