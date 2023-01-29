@@ -590,10 +590,10 @@ At this point, the main scene should be runnable but will error out until the ma
     * Preferred Height: 50
   * Add a Button child - TextMeshPro (Button)
     * Remove the Canvas and EventSystem that get added
-    * Reset the Rect Transform
-    * Disable Raycast Target on the Text
     * Stretch the container (Button)
+    * Reset the Rect Transform
     * Center the text
+    * Disable Raycast Target on the Text
   * Normal Color: (255, 0, 255, 255)
   * Highlight Color: (0, 255, 0, 255)
   * Select Color: (0, 255, 0, 255)
@@ -601,7 +601,6 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Main Menu
 
-* Create a new Menu/MainMenu script that overrides the Game MainMenu and implement the required interface
 * Create a MainMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
   * Add a Canvas under the prefab
@@ -613,7 +612,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
   * Add a Panel under the Canvas (Main)
     * Remove the Image component
-    * Add the MainMenu script to the panel
+    * Add the project MainMenu script to the panel
       * Set Owner to the Menu object
       * Set the Main Panel on the Menu object to the Main panel
     * Optionally, add credits text
@@ -767,8 +766,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 # Game UI
 
-* Create a new UI/GameUI script that overrides the Game GameUI and implement the required interface
-* Create a GameUI Prefab in Prefabs/UI and add the GameUI component to it
+* Create a GameUI Prefab in Prefabs/UI and add the project GameUI component to it
   * Layer: UI
   * Add a Canvas under the prefab
     * Render Mode: Screen Space - Overlay
@@ -785,10 +783,9 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Simple Player HUD (optional)
 
-* Create a new UI/PlayerHUD script that overrides the Game HUD
 * Add a Panel (HUD) under the GameUI Canvas
   * Remove the Image component
-  * Add the PlayerHUD component to it
+  * Add the project PlayerHUD component to it
   * Set the UIObject Id to "hud"
 * Create a new prefab from the PlayerHUD object
 * Add a connection to the PlayerHUD to the project GameUI and expose it as a field
@@ -842,10 +839,9 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Settings (optional)
 
-* Create a new Menu/SettingsMenu script that overrides the Game SettingsMenu and implement the required interface
 * Add a Panel under the Canvas (Settings)
   * Remove the Image component
-  * Add the Settings Menu component to the panel
+  * Add the project SettingsMenu component to the panel
     * Set Owner to the Menu object
     * Set the Settings Panel on the Pause Menu
   * Add an empty GameObject under the Panel (Container)
@@ -877,8 +873,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Game Over UI (optional)
 
-* Create a new UI/GameOverUI script that overrides the Game GameOverUI and implement the required interface
-* Create a GameOverUI Prefab in Prefabs/UI and add the GameOverUI component to it
+* Create a GameOverUI Prefab in Prefabs/UI and add the project GameOverUI component to it
   * Layer: UI
   * Add a Canvas under the prefab
     * Render Mode: Screen Space - Overlay
@@ -909,9 +904,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## MainGameState
 
-* Create a new State/MainGameState script that overrides the Game MainGameState
-  * Implement the required interface
-* Create an empty Prefab and add the MainGameState component to it
+* Create an empty Prefab and add the project MainGameState component to it
 * **TODO:** setup the initial level and set the intial scene name
   * Remove the camera
   * Add to build settings
@@ -921,9 +914,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## GameOverState (optional)
 
-* Create a new State/GameOverState script that overrides the Game GameOverState
-  * Implement the required interface
-* Create an empty Prefab and add the GameOverState component to it
+* Create an empty Prefab and add the project GameOverState component to it
 * Attach the Game Over UI or Game Over Menu prefabs as desired
 * Attach to the MainGameState
 * Attach to the SceneTester
@@ -1046,10 +1037,11 @@ At this point, the main scene should be runnable but will error out until the ma
   * Remove the camera from the scene
 * Attach the desired lighting settings
 * Add the scene to the Build Settings
-* Create a new level helper script that overrides the Game LevelHelper
+* Create any new level helper scripts that override the Game LevelHelper
   * Implement the required interface
   * Levels can share a single helper or it can be per-level as needed
-* Create an empty Prefab and add the new level helper component to it
+  * The example project contains a Level level helper script as an example
+* Create an empty Prefab and add the desired level helper component to it
 * Add a level helper prefab to each level as they're created
 * If using players, create new empty GameObjects and attach Spawnpoint components to them
   * Set the tag to 'Player' on these
