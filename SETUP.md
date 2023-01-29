@@ -277,6 +277,7 @@
 
 ## Server Spectator (Multiplayer Only)
 
+* **TODO:** can any of this be automated?
 * Enable Server Spectator in the project settings
 * Duplicate the Player input actions asset as ServerSpectator.inputactions
   * Rename the asset to ServerSpectator.inputactions
@@ -311,6 +312,7 @@
 
 ## Engine Managers
 
+* **TODO:** can any of this be automated? maybe creating the directory structure at least?
 * Managers go in Data/Prefabs/Managers
 * LoadingManager
   * Create an empty Prefab and add the project LoadingManager component to it
@@ -358,7 +360,7 @@
   * Create an empty Prefab and add the LocalizationManager component to it
   * Create a LocalizationData in Data/Data and attach it to the manager
 * NetworkManager
-  * Create an empty Prefab and add the (not Unity / MLAPI) NetworkManager component to it
+  * Create an empty Prefab and add the Core NetworkManager component to it
   * Configure Netcode for GameObjects settings if networking is enabled
     * Uncheck Don't Destroy
     * Run In Background should be checked
@@ -400,17 +402,24 @@
 
 ## GameManager
 
-* Create a new GameData script that overrides the Game GameData and implement the required interface
-  * Add the CreateAssetMenu and Serializable attributes
-* Create a new GameManager script that overrides the Game GameManager and implement the required interface
-* Add a connection to the project GameManager in the project LoadingManager
-  * Override CreateManagers() in the loading manager to create the GameManager prefab
-* Create an empty Prefab and add the GameManager component to it
-* Create a GameData in Data/Data and attach it to the manager
+* Create an empty Prefab and add the project GameManager component to it
+* Create a project GameData in Data/Data and attach it to the manager
   * Set the World Layer to World
   * Configure as necessary
     * Checking "Gamepads Are Players" is often a good idea
 * Create a CreditsData in Data/Data and attach it to the GameManager
+
+## Project Managers
+
+* GameUIManager
+  * Create an empty Prefab and add the project GameUIManager component to it
+* PlayerManager
+  * Create an empty Prefab and add the project PlayerManager component to it
+  * Create a PlayerData in Data/Data/Players and attach it to the PlayerManager component
+  * Create a PlayerBehaviorData in Data/Data/Players and attach it to the PlayerManager component
+    * Set the Actor Layer to Player
+* NPCManager
+  * Create an empty Prefab and add the project NPCManager component to it
 
 # Initial Scene Setup
 
@@ -771,12 +780,7 @@ At this point, the main scene should be runnable but will error out until the ma
 * Set the Canvas on the GameUI object
 * **TODO:** Port the ggj2020 "IntroUI" concept to something more generic
   * This is essentially a set of timed slides shown before the game starts to explain how to play
-* Create a new UI/GameUIManager script that overrides the Game GameUIManager
-  * Implement the required interface
-* Add a connection to the project GameUIManager in the project LoadingManager
-  * Create the GameUIManager prefab in the overloaded CreateManagers() in the project LoadingManager
-* Create an empty Prefab and add the GameUIManager component to it
-* Attach the GameUI prefab to the manager
+* Attach the GameUI prefab to the GameUIManager Prefab
 * The game should now load to the main menu
 
 ## Simple Player HUD (optional)
@@ -926,7 +930,6 @@ At this point, the main scene should be runnable but will error out until the ma
 
 # Viewer
 
-* Create a new Camera/{Player / GameViewer} script that overrides one of the Game Viewers that implements the IPlayerViewer interface
 * Create an empty Prefab and add the project Viewer script to it
   * Layer: Viewer
   * Add a camera under the prefab (Camera)
@@ -970,23 +973,8 @@ At this point, the main scene should be runnable but will error out until the ma
 
 # Player
 
-## Player
-
-* Create a new Data/Players/PlayerData script that overrides the Game PlayerData
-* Create a new Players/Player script that overrides one of the Game Players
-  * Implement the required interface
-
-## PlayerBehavior
-
-* Create a new Data/Players/PlayerBehaviorData script that overrides one of the Game PlayerBehaviorData
-* Create a new Players/PlayerBehavior script that overrides one of the Game PlayerBehavior
-  * Implement the required interface
-
 ## PlayerInput
 
-* Create a new Data/Players/PlayerInputData script that overrides the Game PlayerInputData
-* Create a new Players/PlayerInputHandler script that overrides one of the Game PlayerInputHandlers
-  * Implement the required interface
 * Gamepads Are Players can be set on GameData to automatically assign players to gamepads
 
 ## PlayerControls
@@ -1038,16 +1026,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## PlayerManager
 
-* Create a new PlayerManager script that overrides the Game PlayerManager
-  * Implement the required interface
-* Add a connection to the project PlayerManager in the project LoadingManager
-  * Create the PlayerManager prefab in the overloaded CreateManagers() in the project LoadingManager
-* Create an empty Prefab and add the PlayerManager component to it
-* Attach the Player prefab to the Player Actor Prefab on the PlayerManager
-* Create a PlayerData in Data/Data and attach it to the PlayerManager component
-* Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
-  * Set the Actor Layer to Player
-* Attach the manager to the LoadingManager prefab
+* Attach the Player prefab to the Player Actor Prefab on the PlayerManager Prefab
 
 # Levels
 
