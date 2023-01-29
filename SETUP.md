@@ -585,11 +585,13 @@ At this point, the main scene should be runnable but will error out until the ma
 
 * Create an empty Prefab at Prefabs/UI/MenuButton
   * Layer: UI
+  * Width: 200
+  * Height: 50
   * Add a Layout Element
     * Preferred Width: 200
     * Preferred Height: 50
   * Add a Button child - TextMeshPro (Button)
-    * Remove the Canvas and EventSystem that get added
+    * Remove any Canvas and EventSystems that get added, including any under the MenuButton container
     * Stretch the container (Button)
     * Reset the Rect Transform
     * Center the text
@@ -683,6 +685,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * Set the Credits Panel on the Menu object to the Main panel
   * Add an empty GameObject under the Panel (Container)
     * Stretch the container
+    * **TODO:** is this supposed to have a layout group?
     * Add a Text - Text Mesh Pro under the container
       * Text: "Credits"
         * Center the text
