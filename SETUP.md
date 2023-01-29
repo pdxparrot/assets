@@ -781,6 +781,7 @@ At this point, the main scene should be runnable but will error out until the ma
 * Set the Canvas on the GameUI object
 * **TODO:** Port the ggj2020 "IntroUI" concept to something more generic
   * This is essentially a set of timed slides shown before the game starts to explain how to play
+* **TODO:** Optionally setup the fade overlay
 * Attach the GameUI prefab to the GameUIManager Prefab
 * The game should now load to the main menu
 
@@ -923,14 +924,14 @@ At this point, the main scene should be runnable but will error out until the ma
 
 # Viewer
 
-* Create an empty Prefab and add the project Viewer script to it
+* Create a Viewer Prefab in Prefabs/Viewers add the project GameViewer component to it
   * Layer: Viewer
   * Add a camera under the prefab (Camera)
     * Clear Flags: Solid Color (or Skybox for a skybox)
     * Background: Opaque Black (or Default for a skybox)
     * Remove the Audio Listener
     * Add CinemachineBrain to Camera
-    * Add a Post Process Layer component to the Camera object
+    * Add a Post-process Layer component to the Camera object
       * Set the Layer to PostProcessing
       * Make sure Directly to Camera Target is unchecked
   * Attach the Camera to the Viewer component
@@ -941,8 +942,8 @@ At this point, the main scene should be runnable but will error out until the ma
     * Add the UICameraAspectRatio component to the UI Camera
   * Attach the UI Camera to the Viewer component
   * Add an empty GameObject under the prefab (PostProcessingVolume) and add a Post Process Volume to it
-  * Attach the Post Process Volume to the Viewer component
-  * Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)
+  * Attach the Post-process Volume to the Viewer component
+  * Create the Post-process Layer (one per-viewer, 0-based, Viewer{N}_PostProcess)
   * **TODO:** wtf is this stuff:
     * Create a new layer for each potential viewer
     * **TODO:** Need to make sure we put each viewer on its own layer
@@ -955,14 +956,6 @@ At this point, the main scene should be runnable but will error out until the ma
   * Configure any additional settings as required
 * Attach the Viewer prefab to the GameData
 * Vieweport Size (2D) and FoV (3D) can be adjusted on the GameData
-
-## Viewer Initialization
-
-* It can be useful to have the project GameManager and GameData expose the project viewer prefab
-* The MainGameState's InitializeServer() method should call GameManager.Instance.StartGameServer();
-* The MainGameState's InitializeClient() method should call GameManager.Instance.StartGameClient();
-  * This is also a good place to Allocate(), Acquire(), and Initialize() the viewer in a simple game
-  * This is also a good place to initialize the game UI
 
 # Player
 
@@ -980,7 +973,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Player Prefab
 
-* Create an empty Prefab and add the Player component to it
+* Create a Player Prefab in Prefabs/Players add the project Player component to it
   * This will require a collider to be added first
     * Adjust the size and position of the collider
   * Layer: Player
@@ -999,9 +992,9 @@ At this point, the main scene should be runnable but will error out until the ma
   * The actual model for the player should go under this container
     * Placeholder models should have their collider removed
   * It can be useful to create a script for this to handle model-related behavior
-* Add a new empty GameObject under the Player prefab (Behavior) and add the PlayerBehavior component to it
+* Add a new empty GameObject under the Player prefab (Behavior) and add the project PlayerBehavior component to it
   * Attach the Player Behavior to the Actor Components of the Player component
-* Add a new empty GameObject under the Player prefab (Movement) and add one of the PlayerMovement components to it
+* Add a new empty GameObject under the Player prefab (Movement) and add one of the Game PlayerMovement components to it
   * Attach the Rigidbody on the Player to the Movement Rigidbody
   * Attach the Player Movement to the Actor Components of the Player component
   * **TODO:** Animator on the Player Behavior ???
@@ -1014,8 +1007,9 @@ At this point, the main scene should be runnable but will error out until the ma
       * **TODO:** where are these event handlers?? ggj2021 had them?
     * Hook up any events as necessary to the input handler
       * For example OnMoveAction is necessary to move, OnPauseAction is necessary to pause, etc
+      * **TODO:** hook these up where??
   * Attach the Player to the Owner on the PlayerInputHandler component
-  * Create a PlayerInputData in Data/Data/Players and attach it to the PlayerInput component
+  * Create a project PlayerInputData in Data/Data/Players and attach it to the PlayerInput component
 
 ## PlayerManager
 
