@@ -1005,9 +1005,8 @@ At this point, the main scene should be runnable but will error out until the ma
     * Change Behavior to Invoke Unity Events
     * Hook up the main device events (lost, regained, changed)
       * **TODO:** where are these event handlers?? ggj2021 had them?
-    * Hook up any events as necessary to the input handler
+    * Hook up any Player events as necessary to the input handler
       * For example OnMoveAction is necessary to move, OnPauseAction is necessary to pause, etc
-      * **TODO:** hook these up where??
   * Attach the Player to the Owner on the PlayerInputHandler component
   * Create a project PlayerInputData in Data/Data/Players and attach it to the PlayerInput component
 
