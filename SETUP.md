@@ -97,7 +97,7 @@
 # Project Settings
 
 * Graphics Settings
-  * Set the Render Pipeline Asset if desired (not usually needed)
+  * Optionally set the Render Pipeline Asset (not usually needed)
     * This will require creating the asset first, which itself may be configured as desired
 * Input System Package
   * Create the Input System Settings asset if not already done
@@ -141,7 +141,7 @@
     * Fix up any Grahics API issues that this might cause (generally this means disabling Auto Graphics APIs on certain platforms)
       * This seems to be unnecessary in 2022
   * Enable Static and Dynamic Batching if they aren't already
-  * Set Dedicated Server to use IL2CPP if desired
+  * Optionally set Dedicated Server to use IL2CPP
   * Verify that the Bundle Identifer is set correctly
     * com.pdxpartyparrot.{project}
   * Ensure that Graphics Jobs are enabled
@@ -149,15 +149,15 @@
   * WebGL builds should be Gzip compressed
 * TextMesh Pro
   * Import TMP Essentials if not already done
-  * Optionally import TMP Examples & Extras if desired
+  * Optionally import TMP Examples & Extras
 * Visual Scripting
   * Generate Custom Inspector Properties
 
 # Packages
 
-* Add preview packages
-  * Android Logcat if desired
-  * HD Render Pipeline if desired
+* Add optional preview packages
+  * Android Logcat
+  * HD Render Pipeline
   * Burst/Jobs (if using ECS)
     * Unity Netcode if doing multiplayer
 
@@ -640,10 +640,10 @@ At this point, the main scene should be runnable but will error out until the ma
         * Add an On Click handler that calls the MainMenu OnStart method
       * Set the Main Menu Initial Selection to the Start Button
       * **TODO:** Multiplayer if networking
-      * Add the MenuButton under the container (High Scores) if desired
+      * Optionally add the MenuButton under the container (High Scores)
         * Text: "High Scores"
         * Add an On Click handler that calls the MainMenu OnHighScores method
-      * Add the MenuButton under the container (Credits) if desired
+      * Optionally add the MenuButton under the container (Credits)
         * Text: "Credits"
         * Add an On Click handler that calls the MainMenu OnCredits method
       * Add the MenuButton under the container (Quit)
@@ -786,7 +786,7 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## Simple Player HUD (optional)
 
-* Add a Panel (HUD) under the GameUI Canvas
+* Add a Panel (PlayerHUD) under the GameUI Canvas
   * Remove the Image component
   * Add the project PlayerHUD component to it
   * Set the UIObject Id to "hud"
@@ -823,12 +823,13 @@ At this point, the main scene should be runnable but will error out until the ma
         * No Child Force Expand
       * Add a UIObject component to the container
         * Id: pause_menu_buttons
-      * Add the MenuButton under the container (Settings) if desired
+      * Optionally add the MenuButton under the container (Settings)
         * Text: "Settings"
         * Add an On Click handler that calls the PauseMenu OnSettings method
       * Add the MenuButton under the container (Resume)
         * Text: "Resume"
         * Add an On Click handler that calls the PauseMenu OnResume method
+        * Check Is Back Button
       * Add the MenuButton under the container (Main Menu)
         * Text: "Main Menu"
         * Add an On Click handler that calls the PauseMenu OnExitMainMenu method
@@ -907,17 +908,15 @@ At this point, the main scene should be runnable but will error out until the ma
 
 ## MainGameState
 
-* Create an empty Prefab and add the project MainGameState component to it
-* **TODO:** setup the initial level and set the intial scene name
-  * Remove the camera
-  * Add to build settings
+* Create a MainGameState Prefab in Prefabs/State add the project MainGameState component to it
+* Setup the initial level using the Level instructions below
+  * Set the intial scene name
   * Check Make Initial Scene Active
 * Attach to the GameData
-* For a simple local game, adding ```GameStateManager.Instance.StartLocal(GameManager.Instance.GameData.MainGameStatePrefab);``` to the MainMenu override OnStart() will start the game in the main game state
 
 ## GameOverState (optional)
 
-* Create an empty Prefab and add the project GameOverState component to it
+* Create a GameOverState Prefab in Prefabs/State add the project GameOverState component to it
 * Attach the Game Over UI or Game Over Menu prefabs as desired
 * Attach to the MainGameState
 * Attach to the SceneTester
