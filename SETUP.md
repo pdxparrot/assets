@@ -237,6 +237,7 @@
 
 # Engine Asset Setup
 
+* **TODO:** can any of this be automated? maybe creating the directory structure at least?
 * Create Data/Animation/empty.controller Animator Controller
 * Create Data/Audio/main.mixer Mixer
   * 3 Master child groups
@@ -254,7 +255,7 @@
         * Rename it to AmbientVolume
   * Expose the Master Volume parameter and set it to 0db
     * Rename it to MasterVolume
-  * Add a Lowpass filter to the Master group
+  * Add a Lowpass effect to the Master group, after the Attenuation effect
   * Rename the default Snapshot to Unpaused
   * Create a new Snapshot and name it to Paused
     * Set the Lowpass filter cutoff to 350Hz
