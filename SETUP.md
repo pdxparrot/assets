@@ -951,6 +951,7 @@ At this point, the main scene should be runnable but will error out until the ma
     * The Body is probably the most useful setting to adjust
       * 3rd Person Follow is good for follow cameras (Transposer is a lesser version of this)
         * Collision filters can be setup here
+        * Camera Distance 15 and Vertical Arm Length 4 is a decent starting setup
       * Framing Transposer is good for keeping multiple objects in a fixed view
   * If necessary, add a CinemachineTargetGroup to a subobject for group targeting (ggj2020)
   * Configure any additional settings as required
