@@ -953,7 +953,9 @@ At this point, the main scene should be runnable but will error out until the ma
         * Collision filters can be setup here
         * Camera Distance 15 and Vertical Arm Length 4 is a decent starting setup
       * Framing Transposer is good for keeping multiple objects in a fixed view
+        * This is also good for 2D cameras
   * If necessary, add a CinemachineTargetGroup to a subobject for group targeting (ggj2020)
+    * The 2D cameras require this
   * Configure any additional settings as required
 * Attach the Viewer prefab to the GameData
 * Vieweport Size (2D) and FoV (3D) can be adjusted on the GameData
