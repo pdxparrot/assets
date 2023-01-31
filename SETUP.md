@@ -167,10 +167,10 @@
   * Make sure to run Setup DOTween
   * Make sure to run Create ASMDEF
   * Make sure to enable DOTween in the PDX Party Parrot Project Settings
-* If using Spine, download the latest Spine-Unity package (currently 3.8+) and import it
+* If using Spine, download the latest Spine-Unity package (currently 4.1+) and import it
   * Assets/Spine* must be added to the .gitignore to prevent committing this
     * **TODO:** this should already be done in the common .gitignore
-  * The Assembly Definition will need to be force added to source control
+  * The Assembly Definition and it's meta file will need to be force added to source control
     * If the Assembly Definition does not exist, your version is too old!
   * Make sure to enable Spine in the PDX Party Parrot Project Settings
 * **TODO:** If using NavMesh, ...
