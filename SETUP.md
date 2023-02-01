@@ -43,7 +43,7 @@
   * Close the project and do not save it
 * Create the GitHub repo for the project
 * Copy gitignore.project from common GitHub repo to .gitignore
-  * https://raw.githubusercontent.com/pdxparrot/assets/master/.gitignore
+  * https://raw.githubusercontent.com/pdxparrot/assets/master/gitignore.project
 * Copy LICENSE from common GitHub repo
   * https://raw.githubusercontent.com/pdxparrot/assets/master/LICENSE
 * Copy .editorconfig from common GitHub repo
@@ -170,9 +170,9 @@
 * If using Spine, download the latest Spine-Unity package (currently 4.1+) and import it
   * Assets/Spine* must be added to the .gitignore to prevent committing this
     * **TODO:** this should already be done in the common .gitignore
-  * The Assembly Definition and it's meta file will need to be force added to source control
-    * If the Assembly Definition does not exist, your version is too old!
-  * Make sure to enable Spine in the PDX Party Parrot Project Settings
+  * All of the Assembly Definitions and their meta files will need to be force added to source control
+    * If the Assembly Definitions do not exist, your version is too old!
+  * Make sure to enable Spine in the PDX Party Parrot Project Settings and add the assembly definitions to the Core asmdef
 * **TODO:** If using NavMesh, ...
   * Add com.unity.ai.navigation package
     * Project should add this but if it fails it needs to be added by name until it stops being hidden
