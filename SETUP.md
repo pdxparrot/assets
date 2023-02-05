@@ -954,6 +954,7 @@ At this point, the main scene should be runnable but will error out until the ma
         * Camera Distance 15 and Vertical Arm Length 4 is a decent starting setup
       * Framing Transposer is good for keeping multiple objects in a fixed view
         * This is also good for 2D cameras
+      * A CinemachineConfiner can be used to confine the camera to an area
   * If necessary, add a CinemachineTargetGroup to a subobject for group targeting (ggj2020)
     * The 2D cameras require this
   * Configure any additional settings as required
